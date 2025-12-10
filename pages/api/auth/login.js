@@ -9,6 +9,9 @@ console.log("DEBUG: NODE_ENV =", process.env.NODE_ENV);
 console.log("DEBUG: DATABASE_URL present =", !!process.env.DATABASE_URL);
 
 export default async function handler(req, res) {
+  // Prevent caching of auth responses
+  res.setHeader('Cache-Control', 'no-store');
+  
   console.log("DEBUG: handler invoked - method:", req.method);
 
   if (req.method !== "POST") {

@@ -1,6 +1,9 @@
 import { serialize } from 'cookie';
 
 export default async function handler(req, res) {
+  // Prevent caching of auth responses
+  res.setHeader('Cache-Control', 'no-store');
+  
   if (req.method !== 'POST') {
     return res.status(405).json({ success: false, message: 'Method not allowed' });
   }

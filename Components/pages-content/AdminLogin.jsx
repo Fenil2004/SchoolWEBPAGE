@@ -28,6 +28,7 @@ export default function AdminLogin() {
         headers: {
           'Content-Type': 'application/json',
         },
+        cache: 'no-store', // Prevent browser caching
         credentials: 'include', // Include cookies in request
         body: JSON.stringify({
           email,

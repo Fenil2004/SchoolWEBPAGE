@@ -1,0 +1,9 @@
+# Prevent caching for API endpoints and admin pages
+/api/*
+  Cache-Control: no-store
+
+/admin-login
+  Cache-Control: no-store
+
+/admin/*
+  Cache-Control: no-store
