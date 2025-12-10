@@ -1,0 +1,199 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Admin Users
+model Admin {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String   // Hashed with bcrypt
+  name      String
+  role      String   @default("admin")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("admins")
+}
+
+// Student Users
+model Student {
+  id          String       @id @default(cuid())
+  email       String       @unique
+  password    String       // Hashed with bcrypt
+  name        String
+  phone       String?
+  rollNo      String       @unique
+  role        String       @default("student")
+  enrollments Enrollment[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@map("students")
+}
+
+// Courses
+model Course {
+  id           String       @id @default(cuid())
+  name         String
+  slug         String       @unique
+  description  String       @db.Text
+  category     String       // NEET, JEE, GUJCET, Foundation, GPSC, UPSC
+  price        Float
+  duration     String
+  features     String[]     // Array of features
+  syllabus     String?      @db.Text
+  image        String?
+  isActive     Boolean      @default(true)
+  enrollments  Enrollment[]
+  branchCourses BranchCourse[]
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  @@map("courses")
+}
+
+// Branches
+model Branch {
+  id            String         @id @default(cuid())
+  name          String
+  slug          String         @unique
+  address       String         @db.Text
+  city          String
+  phone         String
+  email         String
+  mapUrl        String?
+  isHeadquarter Boolean        @default(false)
+  facilities    String[]       // Array of facilities
+  image         String?
+  isActive      Boolean        @default(true)
+  enrollments   Enrollment[]
+  branchCourses BranchCourse[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  @@map("branches")
+}
+
+// Many-to-Many relationship between Branch and Course
+model BranchCourse {
+  id        String   @id @default(cuid())
+  branchId  String
+  courseId  String
+  branch    Branch   @relation(fields: [branchId], references: [id], onDelete: Cascade)
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([branchId, courseId])
+  @@map("branch_courses")
+}
+
+// Enrollments
+model Enrollment {
+  id         String   @id @default(cuid())
+  studentId  String
+  courseId   String
+  branchId   String
+  student    Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  course     Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  branch     Branch   @relation(fields: [branchId], references: [id], onDelete: Cascade)
+  status     String   @default("active") // active, completed, dropped
+  enrolledAt DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([studentId, courseId])
+  @@map("enrollments")
+}
+
+// Gallery Images
+model GalleryImage {
+  id          String   @id @default(cuid())
+  title       String
+  description String?  @db.Text
+  imageUrl    String
+  category    String   // events, facilities, achievements, students
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("gallery_images")
+}
+
+// Testimonials
+model Testimonial {
+  id        String   @id @default(cuid())
+  name      String
+  role      String   // Student, Parent, Alumni
+  course    String?
+  rating    Int      @default(5)
+  message   String   @db.Text
+  image     String?
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("testimonials")
+}
+
+// Hero Section Content
+model HeroContent {
+  id          String   @id @default(cuid())
+  title       String
+  subtitle    String   @db.Text
+  ctaText     String
+  ctaLink     String
+  imageUrl    String?
+  isActive    Boolean  @default(true)
+  displayOrder Int     @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("hero_content")
+}
+
+// Site Settings
+model SiteSettings {
+  id              String   @id @default(cuid())
+  siteName        String   @default("Angels School")
+  tagline         String?
+  phone           String?
+  email           String?
+  address         String?  @db.Text
+  facebookUrl     String?
+  instagramUrl    String?
+  twitterUrl      String?
+  youtubeUrl      String?
+  metaTitle       String?
+  metaDescription String?  @db.Text
+  metaKeywords    String?
+  logo            String?
+  favicon         String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("site_settings")
+}
+
+// Contact Form Inquiries
+model Inquiry {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  branch    String?
+  subject   String
+  message   String   @db.Text
+  status    String   @default("new") // new, contacted, resolved
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status, createdAt])
+  @@map("inquiries")
+}
