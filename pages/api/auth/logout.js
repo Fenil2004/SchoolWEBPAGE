@@ -1,15 +1,21 @@
+import { serialize } from 'cookie';
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ success: false, message: 'Method not allowed' });
   }
 
   try {
-    // In a real implementation, you might want to:
-    // 1. Blacklist the token in Redis
-    // 2. Clear session data
-    // 3. Log the logout event
+    // Clear the HttpOnly cookie by setting maxAge to 0
+    const cookie = serialize('token', '', {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: '/',
+      maxAge: 0, // Expire immediately
+    });
+    res.setHeader('Set-Cookie', cookie);
     
-    // For now, logout is handled client-side by removing the token
     return res.status(200).json({
       success: true,
       message: 'Logged out successfully',

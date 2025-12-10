@@ -1,4 +1,5 @@
 import bcrypt from "bcryptjs";
+import { serialize } from 'cookie';
 // import prisma from your lib file that uses the global pattern
 import { prisma } from "@/lib/prisma"; // <- ensure this path exists
 import { generateToken } from "@/lib/auth";
@@ -74,6 +75,16 @@ export default async function handler(req, res) {
       role: user.role,
       ...(userType === "student" && { rollNo: user.rollNo }),
     });
+
+    // Set HttpOnly cookie for secure authentication
+    const cookie = serialize('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: '/',
+      maxAge: 60 * 60 * 24 * 7, // 7 days
+    });
+    res.setHeader('Set-Cookie', cookie);
 
     // Remove password from response
     const { password: _, ...userWithoutPassword } = user;

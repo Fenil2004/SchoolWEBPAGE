@@ -28,6 +28,7 @@ export default function AdminLogin() {
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include', // Include cookies in request
         body: JSON.stringify({
           email,
           password,
@@ -35,15 +36,25 @@ export default function AdminLogin() {
         }),
       });
 
-      const data = await response.json();
+      // Handle non-JSON responses (e.g., HTML error pages)
+      const text = await response.text();
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch (parseErr) {
+        console.error('Non-JSON response received:', text);
+        setError('Server returned an invalid response. Please try again.');
+        setIsLoading(false);
+        return;
+      }
 
       if (data.success) {
-        // Store token in localStorage
-        localStorage.setItem('authToken', data.token);
+        // Cookie is set automatically by the server (HttpOnly)
+        // Store user info in localStorage (not sensitive data)
         localStorage.setItem('user', JSON.stringify(data.user));
         
         // Redirect to admin dashboard
-        router.push('/admin/dashboard');
+        await router.push('/admin/dashboard');
       } else {
         setError(data.message || 'Invalid email or password. Please try again.');
       }

@@ -50,7 +50,9 @@ export default function AdminDashboard() {
 
   const fetchStats = async () => {
     try {
-      const response = await fetch('/api/admin/stats');
+      const response = await fetch('/api/admin/stats', {
+        credentials: 'include' // Include HttpOnly cookie
+      });
       if (response.ok) {
         const data = await response.json();
         setStats(data);
@@ -62,28 +64,37 @@ export default function AdminDashboard() {
 
   const checkAuth = async () => {
     try {
-      // Check for auth token from new authentication system
-      const authToken = localStorage.getItem('authToken');
-      const userData = localStorage.getItem('user');
+      // Verify authentication with server using HttpOnly cookie
+      const response = await fetch('/api/auth/me', {
+        credentials: 'include' // Include HttpOnly cookie
+      });
       
-      if (!authToken || !userData) {
+      if (!response.ok) {
         alert('Access denied. Please login first.');
         router.push('/admin-login');
         return;
       }
       
-      // Parse user data
-      const parsedUser = JSON.parse(userData);
+      const data = await response.json();
+      
+      if (!data.success || !data.user) {
+        alert('Access denied. Please login first.');
+        router.push('/admin-login');
+        return;
+      }
       
       // Verify user is admin
-      if (parsedUser.role !== 'admin') {
+      if (data.user.role !== 'admin') {
         alert('Access denied. Admin privileges required.');
         router.push('/admin-login');
         return;
       }
       
-      setUser(parsedUser);
+      setUser(data.user);
+      // Optionally store user info in localStorage for UI display (not for auth)
+      localStorage.setItem('user', JSON.stringify(data.user));
     } catch (error) {
+      console.error('Auth check error:', error);
       router.push('/admin-login');
     } finally {
       setIsLoading(false);
@@ -91,10 +102,19 @@ export default function AdminDashboard() {
   };
 
   const handleLogout = async () => {
-    // Clear both auth token and user data
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('user');
-    router.push('/');
+    try {
+      // Call logout API to clear HttpOnly cookie
+      await fetch('/api/auth/logout', {
+        method: 'POST',
+        credentials: 'include'
+      });
+    } catch (error) {
+      console.error('Logout error:', error);
+    } finally {
+      // Clear user data from localStorage
+      localStorage.removeItem('user');
+      router.push('/');
+    }
   };
 
   if (isLoading) {
