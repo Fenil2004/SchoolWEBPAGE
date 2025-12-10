@@ -89,15 +89,17 @@ const fetchHeroContent = async () => {
 
 #### Pattern 2: Direct API Calls (Form Submissions)
 
-**Example: Admin Login**
+**Example: Admin Login (with HttpOnly Cookies)**
 ```javascript
 // Components/pages-content/AdminLogin.jsx
 const handleSubmit = async (e) => {
-  e.preventDefault();
+  e.preventDefault(); // CRITICAL: Prevent form reload
   
   const response = await fetch('/api/auth/login', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
+    cache: 'no-store', // Prevent browser caching
+    credentials: 'include', // Include HttpOnly cookies
     body: JSON.stringify({ email, password, userType: 'admin' }),
   });
   

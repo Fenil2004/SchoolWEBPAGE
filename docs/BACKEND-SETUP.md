@@ -9,9 +9,10 @@ This document explains how the backend was created for the Angels School Career 
 - **Framework:** Next.js 14 (API Routes)
 - **ORM:** Prisma
 - **Database:** PostgreSQL (Neon)
-- **Authentication:** JWT + bcrypt
+- **Authentication:** JWT + bcrypt + HttpOnly Cookies
 - **File Storage:** Cloudinary
 - **Validation:** Built-in JavaScript validation
+- **Security:** CSRF protection via SameSite cookies, XSS protection via HttpOnly
 
 ## Step-by-Step Backend Creation
 
