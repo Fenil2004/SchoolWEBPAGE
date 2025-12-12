@@ -38,35 +38,35 @@ export default function About() {
     {
       name: 'Girish Patel',
       role: 'Founder & Chairman',
-      image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&auto=format&fit=crop&q=80',
+      image: 'https://res.cloudinary.com/dneccresv/image/upload/v1765566950/school/team/admin1.jpg',
     },
     {
       name: 'Satish Patel',
       role: 'Academic Director',
-      image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&auto=format&fit=crop&q=80',
+      image: 'https://res.cloudinary.com/dneccresv/image/upload/v1765566951/school/team/admin2.jpg',
     },
     {
       name: 'Mahesh Patel',
       role: 'Head of Physics',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&auto=format&fit=crop&q=80',
+      image: 'https://res.cloudinary.com/dneccresv/image/upload/v1765566952/school/team/admin3.jpg',
     },
     {
       name: 'Mina Patel',
       role: 'Head of Chemistry',
-      image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&auto=format&fit=crop&q=80',
+      image: 'https://res.cloudinary.com/dneccresv/image/upload/v1765566953/school/team/admin4.jpg',
     },
   ];
 
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-[#0A94B8] to-[#056C8C] overflow-hidden">
+      <section className="relative py-12 md:py-20 bg-gradient-to-br from-[#0A94B8] to-[#056C8C] overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0" style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
           }} />
         </div>
-        
+
         <div className="max-w-7xl mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -93,11 +93,14 @@ export default function About() {
               className="relative"
             >
               <img
-                src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&auto=format&fit=crop&q=80"
+                src="https://res.cloudinary.com/dneccresv/image/upload/v1765566943/school/gallery/gallery1.jpg"
                 alt="GCI Campus"
-                className="rounded-2xl shadow-xl w-full h-[500px] object-cover"
+                className="rounded-2xl shadow-xl w-full h-[250px] md:h-[400px] lg:h-[500px] object-cover"
+                onError={(e) => {
+                  e.currentTarget.src = 'https://res.cloudinary.com/dneccresv/image/upload/v1765566941/school/gallery/gall6.jpg';
+                }}
               />
-              <div className="absolute -bottom-6 -right-6 w-full h-full border-4 border-[#0A94B8] rounded-2xl -z-10" />
+              <div className="absolute -bottom-6 -right-6 w-full h-full border-4 border-[#0A94B8] rounded-2xl -z-10 hidden md:block" />
             </motion.div>
 
             {/* Content */}
@@ -113,13 +116,13 @@ export default function About() {
                 Welcome to <span className="text-[#0A94B8]">Angels School Career Institute</span>
               </h2>
               <p className="text-gray-600 leading-relaxed mb-6">
-                Angels School Career Institute is a well-known science education institute in Gujarat, 
-                with a focus on preparing students for 11-12 science and competitive exams like JEE and NEET. 
+                Angels School Career Institute is a well-known science education institute in Gujarat,
+                with a focus on preparing students for 11-12 science and competitive exams like JEE and NEET.
                 Founded in 1998, we have grown to become one of the most trusted names in education.
               </p>
               <p className="text-gray-600 leading-relaxed mb-8">
-                Our mission is to provide quality education to every student and bring out the best in them. 
-                We achieve this through innovative teaching methods, interactive classroom sessions, 
+                Our mission is to provide quality education to every student and bring out the best in them.
+                We achieve this through innovative teaching methods, interactive classroom sessions,
                 video lectures, and personalized attention.
               </p>
 

@@ -1,0 +1,113 @@
+{
+  "success": [
+    {
+      "file": "admin1.avif",
+      "url": "https://res.cloudinary.com/dneccresv/image/upload/v1765566926/school/about/admin1.jpg",
+      "publicId": "school/about/admin1",
+      "category": "about"
+    },
+    {
+      "file": "admin2.avif",
+      "url": "https://res.cloudinary.com/dneccresv/image/upload/v1765566927/school/about/admin2.jpg",
+      "publicId": "school/about/admin2",
+      "category": "about"
+    },
+    {
+      "file": "admin3.avif",
+      "url": "https://res.cloudinary.com/dneccresv/image/upload/v1765566928/school/about/admin3.jpg",
+      "publicId": "school/about/admin3",
+      "category": "about"
+    },
+    {
+      "file": "admin4.avif",
+      "url": "https://res.cloudinary.com/dneccresv/image/upload/v1765566929/school/about/admin4.jpg",
+      "publicId": "school/about/admin4",
+      "category": "about"
+    },
+    {
+      "file": "as.avif",
+      "url": "https://res.cloudinary.com/dneccresv/image/upload/v1765566930/school/about/as.jpg",
+      "publicId": "school/about/as",
+      "category": "about"
+    },
+    {
+      "file": "bio.avif",
+      "url": "https://res.cloudinary.com/dneccresv/image/upload/v1765566932/school/publications/bio.jpg",
+      "publicId": "school/publications/bio",
+      "category": "publications"
+    },
+    {
+      "file": "chem.avif",
+      "url": "https://res.cloudinary.com/dneccresv/image/upload/v1765566932/school/publications/chem.jpg",
+      "publicId": "school/publications/chem",
+      "category": "publications"
+    },
+    {
+      "file": "course1.avif",
+      "url": "https://res.cloudinary.com/dneccresv/image/upload/v1765566933/school/courses/course1.jpg",
+      "publicId": "school/courses/course1",
+      "category": "courses"
+    },
+    {
+      "file": "course2.avif",
+      "url": "https://res.cloudinary.com/dneccresv/image/upload/v1765566934/school/courses/course2.jpg",
+      "publicId": "school/courses/course2",
+      "category": "courses"
+    },
+    {
+      "file": "gall1.avif",
+      "url": "https://res.cloudinary.com/dneccresv/image/upload/v1765566935/school/gallery/gall1.jpg",
+      "publicId": "school/gallery/gall1",
+      "category": "gallery"
+    },
+    {
+      "file": "gall2.avif",
+      "url": "https://res.cloudinary.com/dneccresv/image/upload/v1765566936/school/gallery/gall2.jpg",
+      "publicId": "school/gallery/gall2",
+      "category": "gallery"
+    },
+    {
+      "file": "gall3.avif",
+      "url": "https://res.cloudinary.com/dneccresv/image/upload/v1765566937/school/gallery/gall3.jpg",
+      "publicId": "school/gallery/gall3",
+      "category": "gallery"
+    },
+    {
+      "file": "gall4.avif",
+      "url": "https://res.cloudinary.com/dneccresv/image/upload/v1765566939/school/gallery/gall4.jpg",
+      "publicId": "school/gallery/gall4",
+      "category": "gallery"
+    },
+    {
+      "file": "gall5.avif",
+      "url": "https://res.cloudinary.com/dneccresv/image/upload/v1765566940/school/gallery/gall5.jpg",
+      "publicId": "school/gallery/gall5",
+      "category": "gallery"
+    },
+    {
+      "file": "gall6.avif",
+      "url": "https://res.cloudinary.com/dneccresv/image/upload/v1765566941/school/gallery/gall6.jpg",
+      "publicId": "school/gallery/gall6",
+      "category": "gallery"
+    },
+    {
+      "file": "gallery1.avif",
+      "url": "https://res.cloudinary.com/dneccresv/image/upload/v1765566943/school/gallery/gallery1.jpg",
+      "publicId": "school/gallery/gallery1",
+      "category": "gallery"
+    },
+    {
+      "file": "gallery2.avif",
+      "url": "https://res.cloudinary.com/dneccresv/image/upload/v1765566944/school/gallery/gallery2.jpg",
+      "publicId": "school/gallery/gallery2",
+      "category": "gallery"
+    },
+    {
+      "file": "phy.avif",
+      "url": "https://res.cloudinary.com/dneccresv/image/upload/v1765566945/school/publications/phy.jpg",
+      "publicId": "school/publications/phy",
+      "category": "publications"
+    }
+  ],
+  "failed": []
+}

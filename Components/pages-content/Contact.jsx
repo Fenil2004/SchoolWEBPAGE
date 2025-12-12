@@ -45,7 +45,7 @@ export default function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
@@ -109,21 +109,21 @@ export default function Contact() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-[#0A94B8] to-[#056C8C] overflow-hidden">
+      <section className="relative py-12 md:py-20 bg-gradient-to-br from-[#0A94B8] to-[#056C8C] overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0" style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
           }} />
         </div>
-        
+
         <div className="max-w-7xl mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-center"
           >
-            <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6">Contact Us</h1>
-            <p className="text-white/90 text-lg max-w-2xl mx-auto">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 md:mb-6">Contact Us</h1>
+            <p className="text-white/90 text-base md:text-lg max-w-2xl mx-auto">
               Have questions? We're here to help. Reach out to us anytime.
             </p>
           </motion.div>
@@ -159,7 +159,7 @@ export default function Contact() {
       </section>
 
       {/* Contact Form & Map */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-12 md:py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Form */}
@@ -185,7 +185,7 @@ export default function Contact() {
                         <Input
                           id="name"
                           value={formData.name}
-                          onChange={(e) => setFormData({...formData, name: e.target.value})}
+                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                           placeholder="Your name"
                           required
                         />
@@ -196,7 +196,7 @@ export default function Contact() {
                           id="email"
                           type="email"
                           value={formData.email}
-                          onChange={(e) => setFormData({...formData, email: e.target.value})}
+                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                           placeholder="your@email.com"
                           required
                         />
@@ -209,7 +209,7 @@ export default function Contact() {
                         <Input
                           id="phone"
                           value={formData.phone}
-                          onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                           placeholder="+91 98765 43210"
                           required
                         />
@@ -218,7 +218,7 @@ export default function Contact() {
                         <Label htmlFor="branch">Select Branch</Label>
                         <Select
                           value={formData.branch}
-                          onValueChange={(value) => setFormData({...formData, branch: value})}
+                          onValueChange={(value) => setFormData({ ...formData, branch: value })}
                         >
                           <SelectTrigger>
                             <SelectValue placeholder="Select branch" />
@@ -238,7 +238,7 @@ export default function Contact() {
                       <Label htmlFor="subject">Subject *</Label>
                       <Select
                         value={formData.subject}
-                        onValueChange={(value) => setFormData({...formData, subject: value})}
+                        onValueChange={(value) => setFormData({ ...formData, subject: value })}
                       >
                         <SelectTrigger>
                           <SelectValue placeholder="Select subject" />
@@ -258,7 +258,7 @@ export default function Contact() {
                       <Textarea
                         id="message"
                         value={formData.message}
-                        onChange={(e) => setFormData({...formData, message: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                         placeholder="Your message..."
                         rows={5}
                         required
@@ -288,7 +288,7 @@ export default function Contact() {
               className="space-y-8"
             >
               {/* Map */}
-              <div className="rounded-2xl overflow-hidden shadow-xl h-[400px]">
+              <div className="rounded-2xl overflow-hidden shadow-xl h-[250px] md:h-[400px]">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3705.458788!2d72.1519!3d21.7645!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjHCsDQ1JzUyLjIiTiA3MsKwMDknMDYuOCJF!5e0!3m2!1sen!2sin!4v1234567890"
                   width="100%"
@@ -305,9 +305,9 @@ export default function Contact() {
               <Card>
                 <CardContent className="p-6">
                   <h3 className="text-xl font-bold text-[#056C8C] mb-4">Quick Contact</h3>
-                  
+
                   <div className="space-y-4">
-                    <a 
+                    <a
                       href="tel:+919081044496"
                       className="flex items-center gap-4 p-4 bg-green-50 rounded-xl hover:bg-green-100 transition-colors"
                     >
@@ -320,7 +320,7 @@ export default function Contact() {
                       </div>
                     </a>
 
-                    <a 
+                    <a
                       href="https://wa.me/919081044496"
                       target="_blank"
                       rel="noopener noreferrer"

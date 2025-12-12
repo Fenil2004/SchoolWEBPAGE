@@ -7,9 +7,9 @@ export default function Layout({ children, currentPageName }) {
   const fullWidthPages = [];
 
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="min-h-screen flex flex-col bg-white overflow-x-hidden max-w-full w-full">
       <Header />
-      <main className="flex-1">
+      <main className="flex-1 overflow-x-hidden max-w-full">
         {children}
       </main>
       <Footer />

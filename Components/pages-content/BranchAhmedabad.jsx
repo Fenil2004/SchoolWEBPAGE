@@ -32,12 +32,12 @@ export default function BranchAhmedabad() {
   ];
 
   const gallery = [
-    'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1577896851231-70ef18881754?w=800&auto=format&fit=crop&q=80',
+    'https://res.cloudinary.com/dneccresv/image/upload/v1765566935/school/gallery/gall1.jpg',
+    'https://res.cloudinary.com/dneccresv/image/upload/v1765566936/school/gallery/gall2.jpg',
+    'https://res.cloudinary.com/dneccresv/image/upload/v1765566937/school/gallery/gall3.jpg',
+    'https://res.cloudinary.com/dneccresv/image/upload/v1765566939/school/gallery/gall4.jpg',
+    'https://res.cloudinary.com/dneccresv/image/upload/v1765566940/school/gallery/gall5.jpg',
+    'https://res.cloudinary.com/dneccresv/image/upload/v1765566941/school/gallery/gall6.jpg',
   ];
 
   const achievements = [
@@ -75,9 +75,12 @@ export default function BranchAhmedabad() {
             <div className="lg:col-span-3 space-y-8">
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
                 <img
-                  src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=1200&auto=format&fit=crop&q=80"
+                  src="https://res.cloudinary.com/dneccresv/image/upload/v1765566935/school/gallery/gall1.jpg"
                   alt="Ahmedabad Campus"
-                  className="w-full h-96 object-cover rounded-2xl shadow-xl"
+                  className="w-full h-48 md:h-96 object-cover rounded-2xl shadow-xl"
+                  onError={(e) => {
+                    e.currentTarget.src = '/images/branch-fallback.jpg';
+                  }}
                 />
               </motion.div>
 
@@ -109,16 +112,16 @@ export default function BranchAhmedabad() {
                 <CardContent className="p-8">
                   <h2 className="text-2xl font-bold text-gray-900 mb-4">About This Branch</h2>
                   <p className="text-gray-600 leading-relaxed mb-6">
-                    Located in the heart of Ahmedabad near Gujarat University and Science City, our Ahmedabad branch 
-                    has been serving students since 2005. It is one of our largest and most successful branches, 
+                    Located in the heart of Ahmedabad near Gujarat University and Science City, our Ahmedabad branch
+                    has been serving students since 2005. It is one of our largest and most successful branches,
                     consistently producing excellent results in JEE and NEET examinations.
                   </p>
                   <p className="text-gray-600 leading-relaxed mb-6">
-                    The branch features modern classrooms, well-equipped laboratories, and a comprehensive library. 
-                    With over 3000 students and 35+ experienced faculty members, we maintain a perfect balance of 
+                    The branch features modern classrooms, well-equipped laboratories, and a comprehensive library.
+                    With over 3000 students and 35+ experienced faculty members, we maintain a perfect balance of
                     quality education and individual attention.
                   </p>
-                  
+
                   <h3 className="text-xl font-bold text-gray-900 mb-4 mt-8">Key Achievements</h3>
                   <div className="grid sm:grid-cols-2 gap-4">
                     {achievements.map((achievement) => (
@@ -204,6 +207,9 @@ export default function BranchAhmedabad() {
                           src={image}
                           alt={`Gallery ${index + 1}`}
                           className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                          onError={(e) => {
+                            e.currentTarget.src = '/images/gallery-fallback.jpg';
+                          }}
                         />
                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
                       </div>
@@ -215,7 +221,7 @@ export default function BranchAhmedabad() {
               <Card>
                 <CardContent className="p-8">
                   <h2 className="text-2xl font-bold text-gray-900 mb-6">Location Map</h2>
-                  <div className="rounded-xl overflow-hidden h-96">
+                  <div className="rounded-xl overflow-hidden h-64 md:h-96">
                     <iframe
                       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.5!2d72.5714!3d23.0225!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjPCsDAyJzE1LjIiTiA3MsKwMzQnMTcuOCJF!5e0!3m2!1sen!2sin!4v1234567890"
                       width="100%"

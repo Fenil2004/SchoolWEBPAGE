@@ -68,7 +68,10 @@ export default function BranchesSection() {
         </motion.div>
 
         {/* Branches Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div 
+          className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
+          style={{ maxWidth: '100%', width: '100%' }}
+        >
           {branches.map((branch, index) => (
             <motion.div
               key={branch.name}
@@ -76,37 +79,51 @@ export default function BranchesSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
+              style={{ maxWidth: 'calc(100vw - 2rem)' }}
             >
-              <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 h-full group">
-                {/* Image */}
-                <div className="relative h-40 overflow-hidden">
+              <Card 
+                className="overflow-hidden hover:shadow-xl transition-all duration-300 h-full group"
+                style={{ maxWidth: '100%', width: '100%' }}
+              >
+                {/* Image - Fixed height container with inline styles */}
+                <div
+                  className="relative w-full overflow-hidden bg-gray-200"
+                  style={{ height: '160px', maxHeight: '160px' }}
+                >
                   <img
-                    src={branch.image || 'https://images.unsplash.com/photo-1562774053-701939374585?w=400&auto=format&fit=crop&q=80'}
+                    src={branch.image || 'https://res.cloudinary.com/dneccresv/image/upload/v1765566941/school/gallery/gall6.jpg'}
                     alt={branch.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="group-hover:scale-110 transition-transform duration-500"
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover'
+                    }}
+                    loading="lazy"
+                    onError={(e) => {
+                      e.currentTarget.src = 'https://res.cloudinary.com/dneccresv/image/upload/v1765566941/school/gallery/gall6.jpg';
+                    }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  <h3 className="absolute bottom-4 left-4 text-white font-bold text-lg">
+                  <h3 className="absolute bottom-4 left-4 text-white font-bold text-lg z-10">
                     {branch.name}
                   </h3>
                 </div>
 
-                <CardContent className="p-4 space-y-3">
+                <CardContent className="p-4 space-y-3 min-h-[7rem]">
                   <div className="flex items-start gap-2 text-sm">
                     <MapPin className="w-4 h-4 text-[#0A94B8] mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-600">{branch.address}, {branch.city}</span>
+                    <span className="text-gray-600 line-clamp-2">{branch.address}, {branch.city}</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm">
                     <Phone className="w-4 h-4 text-[#0A94B8] flex-shrink-0" />
-                    <a href={`tel:${branch.phone}`} className="text-gray-600 hover:text-[#0A94B8]">
+                    <a href={`tel:${branch.phone}`} className="text-gray-600 hover:text-[#0A94B8] truncate">
                       {branch.phone}
                     </a>
                   </div>
-                  {branch.email && (
-                    <div className="flex items-center gap-2 text-sm">
-                      <span className="text-gray-600">{branch.email}</span>
-                    </div>
-                  )}
                 </CardContent>
               </Card>
             </motion.div>

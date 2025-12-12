@@ -37,21 +37,21 @@ export default function Branches() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-[#0A94B8] to-[#056C8C] overflow-hidden">
+      <section className="relative py-12 md:py-20 bg-gradient-to-br from-[#0A94B8] to-[#056C8C] overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0" style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
           }} />
         </div>
-        
+
         <div className="max-w-7xl mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-center"
           >
-            <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6">Our Branches</h1>
-            <p className="text-white/90 text-lg max-w-2xl mx-auto">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 md:mb-6">Our Branches</h1>
+            <p className="text-white/90 text-base md:text-lg max-w-2xl mx-auto">
               With 10+ branches across Gujarat, quality education is always within your reach
             </p>
           </motion.div>
@@ -98,72 +98,86 @@ export default function Branches() {
                 >
                   <Card className={`overflow-hidden hover:shadow-xl transition-all duration-300 ${branch.isHeadquarter ? 'ring-2 ring-[#0A94B8]' : ''}`}>
                     <div className="grid md:grid-cols-2">
-                      {/* Image */}
-                      <div className="relative h-48 md:h-full">
+                      {/* Image - Fixed height container with inline styles */}
+                      <div
+                        className="relative w-full overflow-hidden bg-gray-200"
+                        style={{ height: '192px', maxHeight: '192px' }}
+                      >
                         <img
-                          src={branch.image || 'https://images.unsplash.com/photo-1562774053-701939374585?w=600&auto=format&fit=crop&q=80'}
+                          src={branch.image || 'https://res.cloudinary.com/dneccresv/image/upload/v1765566941/school/gallery/gall6.jpg'}
                           alt={branch.name}
-                          className="w-full h-full object-cover"
+                          style={{
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover'
+                          }}
+                          loading="lazy"
+                          onError={(e) => {
+                            e.currentTarget.src = 'https://res.cloudinary.com/dneccresv/image/upload/v1765566941/school/gallery/gall6.jpg';
+                          }}
                         />
                         {branch.isHeadquarter && (
-                          <Badge className="absolute top-4 left-4 bg-[#76A440]">
+                          <Badge className="absolute top-4 left-4 bg-[#76A440] z-10">
                             Head Office
                           </Badge>
                         )}
                       </div>
 
-                    {/* Content */}
-                    <CardContent className="p-6">
-                      <div className="flex items-start justify-between mb-4">
-                        <div>
-                          <h3 className="text-xl font-bold text-[#056C8C]">{branch.name}</h3>
-                          <p className="text-sm text-[#0A94B8]">{branch.city}</p>
+                      {/* Content */}
+                      <CardContent className="p-6 md:text-left text-center">
+                        <div className="flex md:flex-row flex-col items-center md:items-start justify-between mb-4">
+                          <div>
+                            <h3 className="text-xl font-bold text-[#056C8C]">{branch.name}</h3>
+                            <p className="text-sm text-[#0A94B8]">{branch.city}</p>
+                          </div>
                         </div>
-                      </div>
 
-                      <div className="space-y-3 mb-4">
-                        <div className="flex items-start gap-3 text-sm">
-                          <MapPin className="w-4 h-4 text-[#0A94B8] mt-1 flex-shrink-0" />
-                          <span className="text-gray-600">{branch.address}</span>
+                        <div className="space-y-3 mb-4">
+                          <div className="flex md:items-start items-center justify-center md:justify-start gap-3 text-sm">
+                            <MapPin className="w-4 h-4 text-[#0A94B8] mt-1 flex-shrink-0" />
+                            <span className="text-gray-600 line-clamp-2 break-all">{branch.address}</span>
+                          </div>
+                          <div className="flex items-center justify-center md:justify-start gap-3 text-sm">
+                            <Phone className="w-4 h-4 text-[#0A94B8] flex-shrink-0" />
+                            <a href={`tel:${branch.phone}`} className="text-gray-600 hover:text-[#0A94B8]">
+                              {branch.phone}
+                            </a>
+                          </div>
+                          <div className="flex items-center justify-center md:justify-start gap-3 text-sm">
+                            <Mail className="w-4 h-4 text-[#0A94B8] flex-shrink-0" />
+                            <a href={`mailto:${branch.email}`} className="text-gray-600 hover:text-[#0A94B8]">
+                              {branch.email}
+                            </a>
+                          </div>
                         </div>
-                        <div className="flex items-center gap-3 text-sm">
-                          <Phone className="w-4 h-4 text-[#0A94B8] flex-shrink-0" />
-                          <a href={`tel:${branch.phone}`} className="text-gray-600 hover:text-[#0A94B8]">
-                            {branch.phone}
-                          </a>
-                        </div>
-                        <div className="flex items-center gap-3 text-sm">
-                          <Mail className="w-4 h-4 text-[#0A94B8] flex-shrink-0" />
-                          <a href={`mailto:${branch.email}`} className="text-gray-600 hover:text-[#0A94B8]">
-                            {branch.email}
-                          </a>
-                        </div>
-                      </div>
 
-                      {/* Facilities */}
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        {branch.facilities && Array.isArray(branch.facilities) && branch.facilities.map((facility) => (
-                          <Badge key={facility} variant="secondary" className="bg-gray-100 text-gray-700">
-                            {facility}
-                          </Badge>
-                        ))}
-                      </div>
+                        {/* Facilities */}
+                        <div className="flex flex-wrap justify-center md:justify-start gap-2 mb-4">
+                          {branch.facilities && Array.isArray(branch.facilities) && branch.facilities.map((facility) => (
+                            <Badge key={facility} variant="secondary" className="bg-gray-100 text-gray-700">
+                              {facility}
+                            </Badge>
+                          ))}
+                        </div>
 
-                      <div className="grid grid-cols-2 gap-2">
-                        <Button variant="outline" className="border-[#0A94B8] text-[#0A94B8] hover:bg-[#E8F1F4]">
-                          <ExternalLink className="w-4 h-4 mr-2" />
-                          Directions
-                        </Button>
-                        <Link href={`/branches/${branch.slug || branch.name.toLowerCase().replace(/\s+/g, '-')}`}>
-                          <Button className="w-full bg-[#76A440] hover:bg-[#8FC85C] text-white">
-                            View Details
+                        <div className="grid grid-cols-2 gap-2">
+                          <Button variant="outline" className="border-[#0A94B8] text-[#0A94B8] hover:bg-[#E8F1F4]">
+                            <ExternalLink className="w-4 h-4 mr-2" />
+                            Directions
                           </Button>
-                        </Link>
-                      </div>
-                    </CardContent>
-                  </div>
-                </Card>
-              </motion.div>
+                          <Link href={`/branches/${branch.slug || branch.name.toLowerCase().replace(/\s+/g, '-')}`}>
+                            <Button className="w-full bg-[#76A440] hover:bg-[#8FC85C] text-white">
+                              View Details
+                            </Button>
+                          </Link>
+                        </div>
+                      </CardContent>
+                    </div>
+                  </Card>
+                </motion.div>
               ))
             )}
           </div>

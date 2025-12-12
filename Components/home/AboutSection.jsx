@@ -32,14 +32,17 @@ export default function AboutSection() {
           >
             <div className="relative">
               <img
-                src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=800&auto=format&fit=crop&q=80"
+                src="https://res.cloudinary.com/dneccresv/image/upload/v1765566945/school/about/about1.jpg"
                 alt="Students learning"
-                className="rounded-2xl shadow-xl w-full h-[400px] lg:h-[500px] object-cover"
+                className="rounded-2xl shadow-xl w-full h-[250px] md:h-[400px] lg:h-[500px] object-cover"
+                onError={(e) => {
+                  e.currentTarget.src = 'https://res.cloudinary.com/dneccresv/image/upload/v1765566943/school/gallery/gallery1.jpg';
+                }}
               />
-              
+
               {/* Accent decoration */}
               <div className="absolute -bottom-6 -right-6 w-full h-full border-4 border-[#0A94B8] rounded-2xl -z-10" />
-              
+
               {/* Stats Card */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -64,21 +67,21 @@ export default function AboutSection() {
             <span className="inline-block px-4 py-2 bg-[#E8F1F4] text-[#0A94B8] rounded-full text-sm font-medium mb-4">
               About Us
             </span>
-            
+
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
               Welcome to <span className="text-[#0A94B8]">GCI</span>
             </h2>
-            
+
             <p className="text-gray-600 leading-relaxed mb-6">
-              Angels School Career Institute is a well-known science education institute in Gujarat, 
-              with a focus on preparing students for 11-12 science and competitive exams like JEE and NEET. 
+              Angels School Career Institute is a well-known science education institute in Gujarat,
+              with a focus on preparing students for 11-12 science and competitive exams like JEE and NEET.
               Our mission is to provide quality education to every student and bring out the best in them.
             </p>
-            
+
             <p className="text-gray-600 leading-relaxed mb-8">
-              We achieve this through innovative teaching methods, interactive classroom sessions, 
-              video lectures, and personalized attention. With 10 branches across Gujarat, 
-              we can reach a large number of students and provide them with state-of-the-art facilities, 
+              We achieve this through innovative teaching methods, interactive classroom sessions,
+              video lectures, and personalized attention. With 10 branches across Gujarat,
+              we can reach a large number of students and provide them with state-of-the-art facilities,
               including libraries, computer labs, and audio-visual aids.
             </p>
 

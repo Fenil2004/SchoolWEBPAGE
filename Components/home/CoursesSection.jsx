@@ -79,7 +79,10 @@ export default function CoursesSection() {
         </motion.div>
 
         {/* Courses Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div
+          className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
+          style={{ maxWidth: '100%', width: '100%' }}
+        >
           {courses.map((course, index) => (
             <motion.div
               key={course.id}
@@ -87,28 +90,47 @@ export default function CoursesSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
+              style={{ maxWidth: 'calc(100vw - 2rem)' }}
             >
-              <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 h-full group border border-[#D9EEF4]">
-                {/* Image */}
-                <div className="relative h-48 overflow-hidden">
+              <Card
+                className="overflow-hidden hover:shadow-xl transition-all duration-300 h-full group border border-[#D9EEF4]"
+                style={{ maxWidth: '100%', width: '100%' }}
+              >
+                {/* Image - Fixed height container with inline styles */}
+                <div
+                  className="relative w-full overflow-hidden bg-gray-200"
+                  style={{ height: '160px', maxHeight: '160px' }}
+                >
                   <img
-                    src={course.image || 'https://images.unsplash.com/photo-1532012197267-da84d127e765?w=400&auto=format&fit=crop&q=80'}
+                    src={course.image || 'https://res.cloudinary.com/dneccresv/image/upload/v1765566933/school/courses/course1.jpg'}
                     alt={course.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="group-hover:scale-110 transition-transform duration-500"
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover'
+                    }}
+                    loading="lazy"
+                    onError={(e) => {
+                      e.currentTarget.src = 'https://res.cloudinary.com/dneccresv/image/upload/v1765566933/school/courses/course1.jpg';
+                    }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  <Badge className={`absolute top-4 left-4 ${getCategoryColor(course.category)}`}>
+                  <Badge className={`absolute top-4 left-4 ${getCategoryColor(course.category)} z-10`}>
                     {course.category}
                   </Badge>
                 </div>
 
-                <CardContent className="p-5">
-                  <h3 className="text-xl font-bold text-[#056C8C] mb-1">{course.name}</h3>
+                <CardContent className="p-5 flex flex-col flex-grow">
+                  <h3 className="text-xl font-bold text-[#056C8C] mb-1 truncate">{course.name}</h3>
                   <p className="text-sm text-[#0A94B8] font-medium mb-3">₹{course.price?.toLocaleString()}</p>
-                  <p className="text-gray-600 text-sm leading-relaxed mb-4">{course.description}</p>
-                  
+                  <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-2 min-h-[2.5rem]">{course.description}</p>
+
                   {/* Meta */}
-                  <div className="flex items-center gap-4 text-sm text-gray-500">
+                  <div className="flex items-center gap-4 text-sm text-gray-500 mt-auto">
                     <span className="flex items-center gap-1">
                       <Clock className="w-4 h-4" />
                       {course.duration}

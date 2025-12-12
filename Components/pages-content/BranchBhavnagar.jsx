@@ -35,12 +35,12 @@ export default function BranchBhavnagar() {
   ];
 
   const gallery = [
-    'https://images.unsplash.com/photo-1562774053-701939374585?w=800&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&auto=format&fit=crop&q=80',
+    'https://res.cloudinary.com/dneccresv/image/upload/v1765566941/school/gallery/gall6.jpg',
+    'https://res.cloudinary.com/dneccresv/image/upload/v1765566935/school/gallery/gall1.jpg',
+    'https://res.cloudinary.com/dneccresv/image/upload/v1765566936/school/gallery/gall2.jpg',
+    'https://res.cloudinary.com/dneccresv/image/upload/v1765566937/school/gallery/gall3.jpg',
+    'https://res.cloudinary.com/dneccresv/image/upload/v1765566939/school/gallery/gall4.jpg',
+    'https://res.cloudinary.com/dneccresv/image/upload/v1765566940/school/gallery/gall5.jpg',
   ];
 
   const achievements = [
@@ -90,9 +90,12 @@ export default function BranchBhavnagar() {
                 animate={{ opacity: 1, y: 0 }}
               >
                 <img
-                  src="https://images.unsplash.com/photo-1562774053-701939374585?w=1200&auto=format&fit=crop&q=80"
+                  src="https://res.cloudinary.com/dneccresv/image/upload/v1765566941/school/gallery/gall6.jpg"
                   alt="Bhavnagar Campus"
-                  className="w-full h-96 object-cover rounded-2xl shadow-xl"
+                  className="w-full h-48 md:h-96 object-cover rounded-2xl shadow-xl"
+                  onError={(e) => {
+                    e.currentTarget.src = '/images/branch-fallback.jpg';
+                  }}
                 />
               </motion.div>
 
@@ -126,17 +129,17 @@ export default function BranchBhavnagar() {
                 <CardContent className="p-8">
                   <h2 className="text-2xl font-bold text-gray-900 mb-4">About This Branch</h2>
                   <p className="text-gray-600 leading-relaxed mb-6">
-                    The Bhavnagar Main Campus is the flagship branch of Angels School Career Institute, established in 1998. 
-                    As our head office, it houses state-of-the-art facilities and serves as a model for all our other branches. 
-                    Located at the prestigious Angels School Vidyapith Campus, this branch has been instrumental in shaping 
+                    The Bhavnagar Main Campus is the flagship branch of Angels School Career Institute, established in 1998.
+                    As our head office, it houses state-of-the-art facilities and serves as a model for all our other branches.
+                    Located at the prestigious Angels School Vidyapith Campus, this branch has been instrumental in shaping
                     the careers of thousands of students over the past 25 years.
                   </p>
                   <p className="text-gray-600 leading-relaxed mb-6">
-                    The campus features modern infrastructure including air-conditioned classrooms, well-equipped laboratories, 
-                    a comprehensive digital library, and hostel facilities for outstation students. Our experienced faculty 
+                    The campus features modern infrastructure including air-conditioned classrooms, well-equipped laboratories,
+                    a comprehensive digital library, and hostel facilities for outstation students. Our experienced faculty
                     members are dedicated to providing quality education and personalized attention to each student.
                   </p>
-                  
+
                   <h3 className="text-xl font-bold text-gray-900 mb-4 mt-8">Key Achievements</h3>
                   <div className="grid sm:grid-cols-2 gap-4">
                     {achievements.map((achievement) => (
@@ -237,7 +240,7 @@ export default function BranchBhavnagar() {
               <Card>
                 <CardContent className="p-8">
                   <h2 className="text-2xl font-bold text-gray-900 mb-6">Location Map</h2>
-                  <div className="rounded-xl overflow-hidden h-96">
+                  <div className="rounded-xl overflow-hidden h-64 md:h-96">
                     <iframe
                       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3705.458788!2d72.1519!3d21.7645!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjHCsDQ1JzUyLjIiTiA3MsKwMDknMDYuOCJF!5e0!3m2!1sen!2sin!4v1234567890"
                       width="100%"
