@@ -1,5 +1,3 @@
-'use client';
-
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { GraduationCap, BookOpen, Users, Clock, Award, CheckCircle2, ArrowRight } from 'lucide-react';

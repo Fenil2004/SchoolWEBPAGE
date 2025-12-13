@@ -1,5 +1,3 @@
-'use client';
-
 import React, { useState } from 'react';
 import { Upload, X, Image as ImageIcon } from 'lucide-react';
 import { Button } from '@/Components/ui/button';

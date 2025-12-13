@@ -1,5 +1,3 @@
-'use client';
-
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Phone, Mail, Clock, Send, CheckCircle2, Building2, MessageCircle, Facebook, Twitter, Instagram, Linkedin, Youtube, Users, Award, BookOpen } from 'lucide-react';
