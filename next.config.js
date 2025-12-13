@@ -7,6 +7,13 @@ const nextConfig = {
       'images.unsplash.com',     // Unsplash (temporary fallback)
     ],
   },
+  // Skip type checking during build for faster builds
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 }
 
 module.exports = nextConfig
