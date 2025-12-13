@@ -1,5 +1,10 @@
 import React from 'react';
-import StudentLogin from '@/Components/pages-content/StudentLogin';
+import dynamic from 'next/dynamic';
+
+const StudentLogin = dynamic(
+  () => import('@/Components/pages-content/StudentLogin'),
+  { ssr: false }
+);
 
 export default function StudentLoginPage() {
   return <StudentLogin />;

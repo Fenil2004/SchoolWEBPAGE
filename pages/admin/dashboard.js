@@ -1,7 +1,11 @@
 import React from 'react';
-import AdminDashboard from '@/Components/pages-content/AdminDashboard';
+import dynamic from 'next/dynamic';
+
+const AdminDashboard = dynamic(
+  () => import('@/Components/pages-content/AdminDashboard'),
+  { ssr: false }
+);
 
 export default function AdminDashboardPage() {
   return <AdminDashboard />;
 }
-

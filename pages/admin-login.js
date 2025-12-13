@@ -1,5 +1,10 @@
 import React from 'react';
-import AdminLogin from '@/Components/pages-content/AdminLogin';
+import dynamic from 'next/dynamic';
+
+const AdminLogin = dynamic(
+  () => import('@/Components/pages-content/AdminLogin'),
+  { ssr: false }
+);
 
 export default function AdminLoginPage() {
   return <AdminLogin />;
