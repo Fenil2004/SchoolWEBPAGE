@@ -50,8 +50,9 @@ export default function AdminLogin() {
       if (data.success) {
         // Cookie is set automatically by the server (HttpOnly)
         // Store user info in localStorage (not sensitive data)
+        localStorage.setItem('authToken', data.token);
         localStorage.setItem('user', JSON.stringify(data.user));
-        
+
         // Redirect to admin dashboard
         await router.push('/admin/dashboard');
       } else {

@@ -58,3 +58,6 @@ Thumbs.db
 !/public/uploads/README.md
 
 /lib/generated/prisma
+
+.vercel
+.env*.local
