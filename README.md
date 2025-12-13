@@ -109,6 +109,7 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
+## School Website Project | Deployment Status: Fixing CSS
 ## 📁 Project Structure
 
 ```
