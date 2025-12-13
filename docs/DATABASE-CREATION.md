@@ -816,15 +816,16 @@ const prisma = new PrismaClient();
 async function main() {
   console.log('🌱 Starting database seed...');
 
-  // 1. Create Admin User
+  // 1. Create Admin User (credentials from environment variables)
   console.log('Creating admin user...');
-  const adminPassword = await bcrypt.hash('admin123', 12);
+  const adminEmail = process.env.ADMIN_EMAIL || 'admin@example.com';
+  const adminPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD || 'defaultpass', 12);
   
   const admin = await prisma.admin.upsert({
-    where: { email: 'admin@angelsschool.co.in' },
+    where: { email: adminEmail },
     update: {},
     create: {
-      email: 'admin@angelsschool.co.in',
+      email: adminEmail,
       password: adminPassword,
       name: 'System Administrator',
       role: 'admin'
@@ -1027,7 +1028,7 @@ npx prisma db seed
 # Output:
 # 🌱 Starting database seed...
 # Creating admin user...
-# ✓ Admin created: admin@angelsschool.co.in
+# ✓ Admin created: (email from ADMIN_EMAIL env var)
 # Creating branches...
 # ✓ Created 2 branches
 # Creating courses...

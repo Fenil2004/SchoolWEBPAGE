@@ -26,6 +26,15 @@ yarn-error.log*
 .env*.local
 .env
 
+# Admin credentials and secrets
+*.credentials
+*credentials*
+admin.config.json
+secrets.json
+*.secret
+*.key
+!package-lock.json
+
 # vercel
 .vercel
 

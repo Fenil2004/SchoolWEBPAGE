@@ -91,9 +91,9 @@ DATABASE_URL="postgresql://user:password@localhost:5432/angels_school"
 JWT_SECRET="your-super-secret-jwt-key-change-this-in-production"
 JWT_EXPIRES_IN="7d"
 
-# Admin Credentials (for initial setup)
-ADMIN_EMAIL="admin@angelsschool.co.in"
-ADMIN_PASSWORD="Admin@123"  # Change this!
+# Admin Credentials (for initial setup) - CHANGE THESE!
+ADMIN_EMAIL="your-admin-email@example.com"
+ADMIN_PASSWORD="your-secure-password"
 
 # API Configuration
 API_URL="http://localhost:3000"
@@ -473,7 +473,7 @@ export const apiClient = new APIClient();
 ```bash
 curl -X POST http://localhost:3000/api/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"email":"admin@angelsschool.co.in","password":"Admin@123","role":"admin"}'
+  -d '{"email":"your-admin-email@example.com","password":"your-password","role":"admin"}'
 ```
 
 2. **Test protected endpoint:**

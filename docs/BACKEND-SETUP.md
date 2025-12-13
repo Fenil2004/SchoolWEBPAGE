@@ -574,14 +574,15 @@ const prisma = new PrismaClient();
 async function main() {
   console.log('Starting database seed...');
 
-  // Create admin user
-  const hashedPassword = await bcrypt.hash('admin123', 12);
+  // Create admin user (credentials from environment variables)
+  const adminEmail = process.env.ADMIN_EMAIL || 'admin@example.com';
+  const hashedPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD || 'defaultpass', 12);
   
   const admin = await prisma.admin.upsert({
-    where: { email: 'admin@angelsschool.co.in' },
+    where: { email: adminEmail },
     update: {},
     create: {
-      email: 'admin@angelsschool.co.in',
+      email: adminEmail,
       password: hashedPassword,
       name: 'Admin User',
       role: 'admin'
@@ -731,8 +732,8 @@ POST http://localhost:3000/api/auth/login
 Content-Type: application/json
 
 {
-  "email": "admin@angelsschool.co.in",
-  "password": "admin123",
+  "email": "your-admin-email@example.com",
+  "password": "your-password",
   "userType": "admin"
 }
 ```

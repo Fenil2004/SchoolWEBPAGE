@@ -75,9 +75,9 @@ DATABASE_URL="postgresql://user:password@localhost:5432/angels_school"
 JWT_SECRET="your-super-secret-jwt-key"
 JWT_EXPIRES_IN="7d"
 
-# Admin Credentials (Initial Setup)
-ADMIN_EMAIL="admin@angelsschool.co.in"
-ADMIN_PASSWORD="Admin@123"
+# Admin Credentials (Initial Setup) - CHANGE THESE!
+ADMIN_EMAIL="your-admin-email@example.com"
+ADMIN_PASSWORD="your-secure-password"
 
 # Site Configuration
 NEXT_PUBLIC_SITE_URL="http://localhost:3000"
@@ -213,8 +213,8 @@ Customize colors, fonts, and design tokens in `tailwind.config.js`.
 ## 📖 Usage
 
 ### Default Admin Login
-- **Email:** admin@angelsschool.co.in
-- **Password:** Admin@123 (Change this immediately!)
+- **Email:** Set via `ADMIN_EMAIL` in `.env.local`
+- **Password:** Set via `ADMIN_PASSWORD` in `.env.local`
 
 ### Adding New Pages
 

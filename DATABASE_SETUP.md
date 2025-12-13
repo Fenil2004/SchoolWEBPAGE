@@ -330,13 +330,22 @@ const prisma = new PrismaClient();
 async function main() {
   console.log('Start seeding...');
 
+  // Get admin credentials from environment variables
+  const adminEmail = process.env.ADMIN_EMAIL;
+  const adminPassword = process.env.ADMIN_PASSWORD;
+
+  if (!adminEmail || !adminPassword) {
+    console.error('ERROR: ADMIN_EMAIL and ADMIN_PASSWORD must be set in .env.local');
+    process.exit(1);
+  }
+
   // Create Admin User
-  const hashedPassword = await bcrypt.hash('Admin@123', 10);
+  const hashedPassword = await bcrypt.hash(adminPassword, 10);
   const admin = await prisma.user.upsert({
-    where: { email: 'admin@angelsschool.co.in' },
+    where: { email: adminEmail },
     update: {},
     create: {
-      email: 'admin@angelsschool.co.in',
+      email: adminEmail,
       password: hashedPassword,
       name: 'System Admin',
       role: 'ADMIN',
