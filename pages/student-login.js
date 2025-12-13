@@ -2,7 +2,7 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 
 const StudentLogin = dynamic(
-  () => import('@/Components/pages-content/StudentLogin'),
+  () => import('@/components/pages-content/StudentLogin'),
   { ssr: false }
 );
 

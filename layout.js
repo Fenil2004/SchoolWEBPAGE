@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from '@/Components/layout/Header';
-import Footer from '@/Components/layout/Footer';
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
 
 export default function Layout({ children, currentPageName }) {
   // Pages that don't need the standard layout

@@ -1,5 +1,5 @@
 import React from 'react';
-import BranchAhmedabad from '@/Components/pages-content/BranchAhmedabad';
+import BranchAhmedabad from '@/components/pages-content/BranchAhmedabad';
 
 export default function AhmedabadBranchPage() {
   return <BranchAhmedabad />;
