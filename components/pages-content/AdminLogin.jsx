@@ -99,7 +99,7 @@ export default function AdminLogin() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="admin@Angels School.co.in"
+                    placeholder="Enter your email"
                     className="pl-10"
                     required
                   />
