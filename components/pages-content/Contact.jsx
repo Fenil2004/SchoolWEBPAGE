@@ -81,25 +81,25 @@ export default function Contact() {
     {
       icon: MapPin,
       title: 'Head Office',
-      details: settings?.address ? [settings.address] : ['Angels School Vidyapith Campus', 'Ghogha Circle, Bhavnagar - 364001', 'Gujarat, India'],
+      detail: settings?.address || 'Bhavnagar, Gujarat, India',
       color: 'bg-[#0A94B8]',
     },
     {
       icon: Phone,
       title: 'Phone',
-      details: settings?.phone ? [settings.phone] : ['+91 90810 44496', '+91 90810 44497'],
+      detail: settings?.phone || '+91 8401278780',
       color: 'bg-[#76A440]',
     },
     {
       icon: Mail,
       title: 'Email',
-      details: settings?.email ? [settings.email] : ['info@Angels School.co.in', 'admission@Angels School.co.in'],
+      detail: settings?.email || 'angelsschoolno1@gmail.com',
       color: 'bg-[#0A94B8]',
     },
     {
       icon: Clock,
       title: 'Working Hours',
-      details: ['Monday - Saturday', '7:00 AM - 7:00 PM'],
+      detail: 'Mon-Sat: 7AM - 7PM',
       color: 'bg-[#76A440]',
     },
   ];
@@ -107,13 +107,7 @@ export default function Contact() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative py-12 md:py-20 bg-gradient-to-br from-[#0A94B8] to-[#056C8C] overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          }} />
-        </div>
-
+      <section className="relative py-16 md:py-24 bg-gradient-to-br from-[#0A94B8] to-[#056C8C] overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -128,10 +122,10 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* Contact Info Cards */}
-      <section className="py-12 bg-white">
+      {/* Contact Info Cards - Consistent Design */}
+      <section className="py-12 bg-gray-100">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 -mt-20 relative z-10">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             {contactInfo.map((info, index) => (
               <motion.div
                 key={info.title}
@@ -139,15 +133,16 @@ export default function Contact() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
               >
-                <Card className="h-full hover:shadow-xl transition-shadow">
-                  <CardContent className="p-6 text-center">
-                    <div className={`w-14 h-14 ${info.color} rounded-xl flex items-center justify-center mx-auto mb-4`}>
-                      <info.icon className="w-7 h-7 text-white" />
+                <Card className="h-full hover:shadow-lg transition-all duration-300 border-0 shadow-md bg-white">
+                  <CardContent className="p-5 md:p-6 text-center flex flex-col items-center">
+                    {/* Consistent icon container */}
+                    <div className={`w-12 h-12 md:w-14 md:h-14 ${info.color} rounded-xl flex items-center justify-center mb-4`}>
+                      <info.icon className="w-6 h-6 md:w-7 md:h-7 text-white" />
                     </div>
-                    <h3 className="text-lg font-bold text-gray-900 mb-2">{info.title}</h3>
-                    {info.details.map((detail, i) => (
-                      <p key={i} className="text-gray-600 text-sm">{detail}</p>
-                    ))}
+                    {/* Consistent title */}
+                    <h3 className="text-base md:text-lg font-bold text-gray-900 mb-2">{info.title}</h3>
+                    {/* Single line detail - normalized height */}
+                    <p className="text-gray-600 text-sm leading-relaxed">{info.detail}</p>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -306,7 +301,7 @@ export default function Contact() {
 
                   <div className="space-y-4">
                     <a
-                      href="tel:+919081044496"
+                      href="tel:+918401278780"
                       className="flex items-center gap-4 p-4 bg-green-50 rounded-xl hover:bg-green-100 transition-colors"
                     >
                       <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center">
@@ -314,12 +309,12 @@ export default function Contact() {
                       </div>
                       <div>
                         <p className="font-semibold text-gray-900">Call Us</p>
-                        <p className="text-gray-600">+91 90810 44496</p>
+                        <p className="text-gray-600">+91 8401278780</p>
                       </div>
                     </a>
 
                     <a
-                      href="https://wa.me/919081044496"
+                      href="https://wa.me/918401278780"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-4 p-4 bg-green-50 rounded-xl hover:bg-green-100 transition-colors"

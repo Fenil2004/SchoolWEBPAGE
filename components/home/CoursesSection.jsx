@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Clock, Users, BookOpen } from 'lucide-react';
+import { ArrowRight, BookOpen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -125,16 +125,11 @@ export default function CoursesSection() {
                 </div>
 
                 <CardContent className="p-5 flex flex-col flex-grow">
-                  <h3 className="text-xl font-bold text-[#056C8C] mb-1 truncate">{course.name}</h3>
-                  <p className="text-sm text-[#0A94B8] font-medium mb-3">₹{course.price?.toLocaleString()}</p>
+                  <h3 className="text-xl font-bold text-[#056C8C] mb-3 truncate">{course.name}</h3>
                   <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-2 min-h-[2.5rem]">{course.description}</p>
 
                   {/* Meta */}
                   <div className="flex items-center gap-4 text-sm text-gray-500 mt-auto">
-                    <span className="flex items-center gap-1">
-                      <Clock className="w-4 h-4" />
-                      {course.duration}
-                    </span>
                     {course.features && course.features.length > 0 && (
                       <span className="flex items-center gap-1">
                         <BookOpen className="w-4 h-4" />

@@ -18,8 +18,6 @@ export default function CourseManagement() {
     slug: '',
     description: '',
     category: '',
-    price: '',
-    duration: '',
     image: '',
     features: '',
     syllabus: '',
@@ -45,11 +43,11 @@ export default function CourseManagement() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
       const token = localStorage.getItem('authToken');
       const features = formData.features.split(',').map(f => f.trim()).filter(f => f);
-      
+
       let imageUrl = formData.image;
 
       // If uploading a file, validate and convert to base64
@@ -75,7 +73,7 @@ export default function CourseManagement() {
           reader.readAsDataURL(imageFile);
         });
       }
-      
+
       const response = await fetch(
         editingId ? `/api/courses/${editingId}` : '/api/courses',
         {
@@ -88,13 +86,14 @@ export default function CourseManagement() {
             ...formData,
             image: imageUrl,
             features,
-            price: parseFloat(formData.price),
+            price: 0,
+            duration: 'N/A',
           }),
         }
       );
 
       const data = await response.json();
-      
+
       if (response.ok && data.success) {
         alert(data.message || 'Course saved successfully!');
         fetchCourses();
@@ -120,8 +119,6 @@ export default function CourseManagement() {
       slug: course.slug,
       description: course.description,
       category: course.category,
-      price: course.price.toString(),
-      duration: course.duration,
       image: course.image || '',
       features: course.features.join(', '),
       syllabus: course.syllabus || '',
@@ -143,7 +140,7 @@ export default function CourseManagement() {
       });
 
       const data = await response.json();
-      
+
       if (data.success) {
         alert(data.message);
         fetchCourses();
@@ -162,8 +159,6 @@ export default function CourseManagement() {
       slug: '',
       description: '',
       category: '',
-      price: '',
-      duration: '',
       image: '',
       features: '',
       syllabus: '',
@@ -173,6 +168,7 @@ export default function CourseManagement() {
     setIsAdding(false);
     setEditingId(null);
   };
+
 
   if (isLoading) {
     return (
@@ -248,7 +244,7 @@ export default function CourseManagement() {
                     <span>Upload Image</span>
                   </label>
                 </div>
-                
+
                 {imageSource === 'url' ? (
                   <div>
                     <Input
@@ -294,38 +290,15 @@ export default function CourseManagement() {
                 />
               </div>
 
-              <div className="grid grid-cols-3 gap-4">
-                <div>
-                  <Label htmlFor="category">Category *</Label>
-                  <Input
-                    id="category"
-                    value={formData.category}
-                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                    placeholder="e.g., NEET, JEE"
-                    required
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="price">Price (₹) *</Label>
-                  <Input
-                    id="price"
-                    type="number"
-                    value={formData.price}
-                    onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                    placeholder="e.g., 50000"
-                    required
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="duration">Duration *</Label>
-                  <Input
-                    id="duration"
-                    value={formData.duration}
-                    onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
-                    placeholder="e.g., 1 Year"
-                    required
-                  />
-                </div>
+              <div>
+                <Label htmlFor="category">Category *</Label>
+                <Input
+                  id="category"
+                  value={formData.category}
+                  onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                  placeholder="e.g., NEET, JEE"
+                  required
+                />
               </div>
 
               <div>
@@ -380,8 +353,6 @@ export default function CourseManagement() {
                       <p className="text-gray-600 text-sm mb-2">{course.description}</p>
                       <div className="flex gap-4 text-sm text-gray-500">
                         <span>Category: {course.category}</span>
-                        <span>Duration: {course.duration}</span>
-                        <span>Price: ₹{course.price.toLocaleString()}</span>
                       </div>
                       {course.features && course.features.length > 0 && (
                         <div className="mt-2 flex flex-wrap gap-2">

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { GraduationCap, BookOpen, Users, Clock, Award, CheckCircle2, ArrowRight } from 'lucide-react';
+import { GraduationCap, BookOpen, Users, Award, CheckCircle2, ArrowRight } from 'lucide-react';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -153,7 +153,6 @@ export default function Courses() {
                     </Badge>
                     <div className="absolute bottom-4 left-4 right-4 z-10">
                       <h3 className="text-xl font-bold text-white">{course.name || course.title}</h3>
-                      <p className="text-white/80 text-sm">₹{course.price?.toLocaleString()}</p>
                     </div>
                   </div>
 
@@ -172,10 +171,6 @@ export default function Courses() {
 
                     {/* Meta */}
                     <div className="flex items-center justify-between text-sm text-gray-500 pb-4 border-b">
-                      <span className="flex items-center gap-1">
-                        <Clock className="w-4 h-4" />
-                        {course.duration}
-                      </span>
                       {course.features && (
                         <span className="flex items-center gap-1">
                           <BookOpen className="w-4 h-4" />
@@ -186,7 +181,6 @@ export default function Courses() {
                   </CardContent>
 
                   <CardFooter className="p-4 flex flex-col items-center gap-3 border-t w-full">
-                    <span className="text-xl font-bold text-[#0A94B8] text-center">₹{course.price?.toLocaleString()}</span>
                     <Button className="w-full bg-[#76A440] hover:bg-[#8FC85C] text-white flex items-center justify-center">
                       <span>Enroll Now</span>
                       <ArrowRight className="w-4 h-4 ml-2" />

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { 
-  LayoutDashboard, 
-  Image as ImageIcon, 
-  MessageSquare, 
-  BookOpen, 
-  MapPin, 
-  Settings, 
+import {
+  LayoutDashboard,
+  Image as ImageIcon,
+  MessageSquare,
+  BookOpen,
+  MapPin,
+  Settings,
   LogOut,
   Users,
   FileText,
@@ -23,6 +23,7 @@ import TestimonialManagement from '@/components/admin/TestimonialManagement';
 import CourseManagement from '@/components/admin/CourseManagement';
 import BranchManagement from '@/components/admin/BranchManagement';
 import SettingsManagement from '@/components/admin/SettingsManagement';
+import TeamManagement from '@/components/admin/TeamManagement';
 
 export default function AdminDashboard() {
   const [user, setUser] = useState(null);
@@ -66,28 +67,28 @@ export default function AdminDashboard() {
       const response = await fetch('/api/auth/me', {
         credentials: 'include' // Include HttpOnly cookie
       });
-      
+
       if (!response.ok) {
         alert('Access denied. Please login first.');
         router.push('/admin-login');
         return;
       }
-      
+
       const data = await response.json();
-      
+
       if (!data.success || !data.user) {
         alert('Access denied. Please login first.');
         router.push('/admin-login');
         return;
       }
-      
+
       // Verify user is admin
       if (data.user.role !== 'admin') {
         alert('Access denied. Admin privileges required.');
         router.push('/admin-login');
         return;
       }
-      
+
       setUser(data.user);
       // Optionally store user info in localStorage for UI display (not for auth)
       localStorage.setItem('user', JSON.stringify(data.user));
@@ -177,6 +178,10 @@ export default function AdminDashboard() {
               <MapPin className="w-4 h-4" />
               Branches
             </TabsTrigger>
+            <TabsTrigger value="team" className="gap-2">
+              <Users className="w-4 h-4" />
+              Team
+            </TabsTrigger>
             <TabsTrigger value="settings" className="gap-2">
               <Settings className="w-4 h-4" />
               Settings
@@ -241,24 +246,24 @@ export default function AdminDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="grid md:grid-cols-3 gap-4">
-                  <Button 
-                    className="h-24 flex flex-col gap-2" 
+                  <Button
+                    className="h-24 flex flex-col gap-2"
                     variant="outline"
                     onClick={() => setActiveTab('gallery')}
                   >
                     <ImageIcon className="w-6 h-6" />
                     <span>Add Gallery Image</span>
                   </Button>
-                  <Button 
-                    className="h-24 flex flex-col gap-2" 
+                  <Button
+                    className="h-24 flex flex-col gap-2"
                     variant="outline"
                     onClick={() => setActiveTab('courses')}
                   >
                     <BookOpen className="w-6 h-6" />
                     <span>Add New Course</span>
                   </Button>
-                  <Button 
-                    className="h-24 flex flex-col gap-2" 
+                  <Button
+                    className="h-24 flex flex-col gap-2"
                     variant="outline"
                     onClick={() => setActiveTab('testimonials')}
                   >
@@ -293,6 +298,11 @@ export default function AdminDashboard() {
           {/* Branches Tab */}
           <TabsContent value="branches">
             <BranchManagement />
+          </TabsContent>
+
+          {/* Team Tab */}
+          <TabsContent value="team">
+            <TeamManagement />
           </TabsContent>
 
           {/* Settings Tab */}

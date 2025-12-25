@@ -1,9 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle2, Users, Award, BookOpen, Target, Eye, Heart, GraduationCap, Building2, Trophy } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 
 export default function About() {
+  const [principals, setPrincipals] = useState([]);
+  const [trustees, setTrustees] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchTeamMembers();
+  }, []);
+
+  const fetchTeamMembers = async () => {
+    try {
+      const response = await fetch('/api/team');
+      if (response.ok) {
+        const data = await response.json();
+        const activeMembers = Array.isArray(data) ? data.filter(m => m.isActive) : [];
+        setPrincipals(activeMembers.filter(m => m.type === 'principal'));
+        setTrustees(activeMembers.filter(m => m.type === 'trustee'));
+      }
+    } catch (error) {
+      console.error('Error fetching team:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const values = [
     {
       icon: Target,
@@ -34,28 +58,22 @@ export default function About() {
     { value: '95%', label: 'Success Rate' },
   ];
 
-  const team = [
-    {
-      name: 'Girish Patel',
-      role: 'Founder & Chairman',
-      image: 'https://res.cloudinary.com/dneccresv/image/upload/v1765566950/school/team/admin1.jpg',
-    },
-    {
-      name: 'Satish Patel',
-      role: 'Academic Director',
-      image: 'https://res.cloudinary.com/dneccresv/image/upload/v1765566951/school/team/admin2.jpg',
-    },
-    {
-      name: 'Mahesh Patel',
-      role: 'Head of Physics',
-      image: 'https://res.cloudinary.com/dneccresv/image/upload/v1765566952/school/team/admin3.jpg',
-    },
-    {
-      name: 'Mina Patel',
-      role: 'Head of Chemistry',
-      image: 'https://res.cloudinary.com/dneccresv/image/upload/v1765566953/school/team/admin4.jpg',
-    },
+  // Fallback data if no team members in database
+  const defaultPrincipals = [
+    { id: '1', name: 'Girish Patel', role: 'Principal', subtitle: 'Academics', image: 'https://res.cloudinary.com/dneccresv/image/upload/v1765566950/school/team/admin1.jpg' },
+    { id: '2', name: 'Satish Patel', role: 'Principal', subtitle: 'Administration', image: 'https://res.cloudinary.com/dneccresv/image/upload/v1765566951/school/team/admin2.jpg' },
+    { id: '3', name: 'Mahesh Patel', role: 'Principal', subtitle: 'Operations', image: 'https://res.cloudinary.com/dneccresv/image/upload/v1765566952/school/team/admin3.jpg' },
   ];
+
+  const defaultTrustees = [
+    { id: '1', name: 'Rajesh Shah', role: 'Trustee', image: 'https://res.cloudinary.com/dneccresv/image/upload/v1765566950/school/team/admin1.jpg' },
+    { id: '2', name: 'Mina Patel', role: 'Trustee', image: 'https://res.cloudinary.com/dneccresv/image/upload/v1765566953/school/team/admin4.jpg' },
+    { id: '3', name: 'Amit Sharma', role: 'Trustee', image: 'https://res.cloudinary.com/dneccresv/image/upload/v1765566951/school/team/admin2.jpg' },
+    { id: '4', name: 'Priya Joshi', role: 'Trustee', image: 'https://res.cloudinary.com/dneccresv/image/upload/v1765566952/school/team/admin3.jpg' },
+  ];
+
+  const displayPrincipals = principals.length > 0 ? principals : defaultPrincipals;
+  const displayTrustees = trustees.length > 0 ? trustees : defaultTrustees;
 
   return (
     <div>
@@ -223,7 +241,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* Leadership Team */}
+      {/* Leadership Team - 3 Principals */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
@@ -232,21 +250,18 @@ export default function About() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <span className="inline-block px-4 py-2 bg-[#E8F1F4] text-[#0A94B8] rounded-full text-sm font-medium mb-4">
-              Our Team
-            </span>
             <h2 className="text-3xl lg:text-4xl font-bold text-[#056C8C] mb-4">
               Leadership Team
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Meet the dedicated professionals who drive our mission forward
+              Our dedicated principals driving academic excellence
             </p>
           </motion.div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {team.map((member, index) => (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-4xl mx-auto">
+            {displayPrincipals.slice(0, 3).map((member, index) => (
               <motion.div
-                key={member.name}
+                key={member.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -254,15 +269,69 @@ export default function About() {
                 className="text-center group"
               >
                 <div className="relative mb-6 inline-block">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-40 h-40 rounded-full object-cover mx-auto border-4 border-[#D9EEF4] group-hover:border-[#0A94B8] transition-colors"
-                  />
-                  <div className="absolute inset-0 rounded-full bg-[#0A94B8]/0 group-hover:bg-[#0A94B8]/20 transition-colors" />
+                  <div className="w-[220px] h-[220px] mx-auto overflow-hidden rounded-xl shadow-lg">
+                    <img
+                      src={member.image || 'https://res.cloudinary.com/dneccresv/image/upload/v1765566950/school/team/admin1.jpg'}
+                      alt={member.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      onError={(e) => {
+                        e.currentTarget.src = 'https://res.cloudinary.com/dneccresv/image/upload/v1765566950/school/team/admin1.jpg';
+                      }}
+                    />
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold text-[#056C8C]">{member.name}</h3>
-                <p className="text-[#0A94B8]">{member.role}</p>
+                <h3 className="text-lg font-bold text-[#056C8C] mb-1">{member.role}</h3>
+                <p className="text-gray-700 font-medium">{member.name}</p>
+                {member.subtitle && (
+                  <p className="text-gray-500 text-sm mt-1">{member.subtitle}</p>
+                )}
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Trustees - 4 in grid */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl lg:text-4xl font-bold text-[#056C8C] mb-4">
+              Trustees
+            </h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Our governing board ensuring institutional excellence
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 max-w-5xl mx-auto">
+            {displayTrustees.slice(0, 4).map((member, index) => (
+              <motion.div
+                key={member.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="text-center group"
+              >
+                <div className="relative mb-4 inline-block">
+                  <div className="w-[180px] h-[180px] mx-auto overflow-hidden rounded-xl shadow-lg">
+                    <img
+                      src={member.image || 'https://res.cloudinary.com/dneccresv/image/upload/v1765566950/school/team/admin1.jpg'}
+                      alt={member.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      onError={(e) => {
+                        e.currentTarget.src = 'https://res.cloudinary.com/dneccresv/image/upload/v1765566950/school/team/admin1.jpg';
+                      }}
+                    />
+                  </div>
+                </div>
+                <h3 className="text-base font-bold text-[#056C8C]">{member.name}</h3>
+                <p className="text-gray-500 text-sm">{member.role}</p>
               </motion.div>
             ))}
           </div>

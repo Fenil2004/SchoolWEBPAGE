@@ -1,6 +1,15 @@
 import { prisma } from '@/lib/db';
 import { authMiddleware, requireRole } from '@/lib/auth';
 
+// Increase body size limit for image uploads (base64 encoded)
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '10mb',
+    },
+  },
+};
+
 // GET, PUT, or DELETE a specific branch
 async function handler(req, res) {
   const { id } = req.query;
@@ -54,10 +63,19 @@ async function handler(req, res) {
         phone,
         email,
         mapUrl,
-        isHeadquarter,
+        isHeadquarters,
         facilities,
         image,
         isActive,
+        // New detail page fields
+        mainImage,
+        about,
+        established,
+        studentsCount,
+        facultyCount,
+        achievements,
+        gallery,
+        timing,
       } = req.body;
 
       // Check if branch exists
@@ -96,10 +114,19 @@ async function handler(req, res) {
           ...(phone && { phone }),
           ...(email && { email }),
           ...(mapUrl !== undefined && { mapUrl }),
-          ...(isHeadquarter !== undefined && { isHeadquarter }),
+          ...(isHeadquarters !== undefined && { isHeadquarter: isHeadquarters }),
           ...(facilities && { facilities: Array.isArray(facilities) ? facilities : [] }),
           ...(image !== undefined && { image }),
           ...(isActive !== undefined && { isActive }),
+          // New detail page fields
+          ...(mainImage !== undefined && { mainImage }),
+          ...(about !== undefined && { about }),
+          ...(established !== undefined && { established }),
+          ...(studentsCount !== undefined && { studentsCount }),
+          ...(facultyCount !== undefined && { facultyCount }),
+          ...(achievements !== undefined && { achievements: Array.isArray(achievements) ? achievements : [] }),
+          ...(gallery !== undefined && { gallery: Array.isArray(gallery) ? gallery : [] }),
+          ...(timing !== undefined && { timing }),
         },
       });
 

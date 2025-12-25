@@ -20,7 +20,7 @@ export default function Gallery() {
 
   const fetchGalleryImages = async () => {
     try {
-      const response = await fetch('/api/gallery', {
+      const response = await fetch('/api/gallery?full=true', {
         cache: 'no-store',
         headers: {
           'Cache-Control': 'no-cache'

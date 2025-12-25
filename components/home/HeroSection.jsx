@@ -130,7 +130,7 @@ export default function HeroSection() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-2 border-white text-white hover:bg-white/10 font-semibold px-8"
+                  className="border-2 border-white bg-transparent text-white hover:bg-white/10 font-semibold px-8"
                 >
                   Scholarship Exam
                 </Button>

@@ -5,16 +5,45 @@ import { authMiddleware, requireRole } from '@/lib/auth';
 async function handler(req, res) {
   if (req.method === 'GET') {
     try {
-      const { category } = req.query;
-      
-      const where = category ? { category } : {};
-      
+      const { category, full, limit } = req.query;
+
+      const where = {
+        ...(category ? { category } : {}),
+        // Only get active images when limit is specified (for public pages)
+        ...(limit ? { isActive: true } : {}),
+      };
+
+      // Parse limit if provided
+      const take = limit ? parseInt(limit, 10) : undefined;
+
+      // For admin listing (no limit), don't return full imageUrl to reduce response size
+      // For public pages (with limit), always return full imageUrl
+      const includeImageUrl = full === 'true' || !!limit;
+
       const images = await prisma.galleryImage.findMany({
         where,
         orderBy: { createdAt: 'desc' },
+        ...(take ? { take } : {}),
+        select: {
+          id: true,
+          title: true,
+          description: true,
+          category: true,
+          isActive: true,
+          createdAt: true,
+          updatedAt: true,
+          ...(includeImageUrl ? { imageUrl: true } : {}),
+        },
       });
 
-      return res.status(200).json(images);
+      // If not including imageUrl, add a placeholder
+      const processedImages = includeImageUrl ? images : images.map(img => ({
+        ...img,
+        imageUrl: '/placeholder-image.jpg',
+        hasImage: true,
+      }));
+
+      return res.status(200).json(processedImages);
     } catch (error) {
       console.error('Get gallery error:', error);
       return res.status(500).json({ error: 'Failed to fetch gallery images' });
@@ -64,7 +93,7 @@ async function handler(req, res) {
 }
 
 // Protect with admin authentication for POST, allow GET for public
-export default function(req, res) {
+export default function (req, res) {
   if (req.method === 'GET') {
     return handler(req, res);
   }

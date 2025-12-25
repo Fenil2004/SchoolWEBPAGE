@@ -13,6 +13,8 @@ export default function BranchManagement() {
   const [editingId, setEditingId] = useState(null);
   const [imageSource, setImageSource] = useState('url');
   const [imageFile, setImageFile] = useState(null);
+  const [mainImageSource, setMainImageSource] = useState('url');
+  const [mainImageFile, setMainImageFile] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
     slug: '',
@@ -26,7 +28,16 @@ export default function BranchManagement() {
     longitude: '',
     mapUrl: '',
     facilities: '',
-    isHeadquarters: false
+    isHeadquarters: false,
+    // Detail page fields
+    mainImage: '',
+    about: '',
+    established: '',
+    studentsCount: '',
+    facultyCount: '',
+    achievements: '',
+    gallery: '',
+    timing: '',
   });
 
   useEffect(() => {
@@ -49,7 +60,7 @@ export default function BranchManagement() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const authToken = localStorage.getItem('authToken');
     if (!authToken) {
       alert('Please login to continue');
@@ -82,6 +93,29 @@ export default function BranchManagement() {
       });
     }
 
+    // Handle main image upload for detail page
+    let mainImageUrl = formData.mainImage;
+    if (mainImageSource === 'upload' && mainImageFile) {
+      const maxSize = 2 * 1024 * 1024;
+      if (mainImageFile.size > maxSize) {
+        alert(`Main image is too large (${(mainImageFile.size / (1024 * 1024)).toFixed(2)}MB). Maximum size is 2MB.`);
+        return;
+      }
+
+      const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+      if (!validTypes.includes(mainImageFile.type)) {
+        alert(`Invalid file type: ${mainImageFile.type}. Please use JPG, PNG, or WebP format.`);
+        return;
+      }
+
+      const mainReader = new FileReader();
+      mainImageUrl = await new Promise((resolve, reject) => {
+        mainReader.onload = () => resolve(mainReader.result);
+        mainReader.onerror = () => reject(new Error('Failed to read main image file'));
+        mainReader.readAsDataURL(mainImageFile);
+      });
+    }
+
     const branchData = {
       name: formData.name,
       slug: formData.slug,
@@ -94,13 +128,22 @@ export default function BranchManagement() {
       longitude: formData.locationType === 'coordinates' && formData.longitude ? parseFloat(formData.longitude) : null,
       mapUrl: formData.locationType === 'mapUrl' ? formData.mapUrl : null,
       facilities: formData.facilities ? formData.facilities.split(',').map(f => f.trim()) : [],
-      isHeadquarters: formData.isHeadquarters
+      isHeadquarters: formData.isHeadquarters,
+      // Detail page fields
+      mainImage: mainImageUrl || null,
+      about: formData.about || null,
+      established: formData.established || null,
+      studentsCount: formData.studentsCount || null,
+      facultyCount: formData.facultyCount || null,
+      achievements: formData.achievements ? formData.achievements.split(',').map(a => a.trim()).filter(a => a) : [],
+      gallery: formData.gallery ? formData.gallery.split(',').map(g => g.trim()).filter(g => g) : [],
+      timing: formData.timing || null,
     };
 
     try {
       const url = editingId ? `/api/branches/${editingId}` : '/api/branches';
       const method = editingId ? 'PUT' : 'POST';
-      
+
       const response = await fetch(url, {
         method,
         headers: {
@@ -144,7 +187,16 @@ export default function BranchManagement() {
       longitude: branch.longitude?.toString() || '',
       mapUrl: branch.mapUrl || '',
       facilities: branch.facilities?.join(', ') || '',
-      isHeadquarters: branch.isHeadquarters || false
+      isHeadquarters: branch.isHeadquarter || false,
+      // Detail page fields
+      mainImage: branch.mainImage || '',
+      about: branch.about || '',
+      established: branch.established || '',
+      studentsCount: branch.studentsCount || '',
+      facultyCount: branch.facultyCount || '',
+      achievements: branch.achievements?.join(', ') || '',
+      gallery: branch.gallery?.join(', ') || '',
+      timing: branch.timing || '',
     });
     setEditingId(branch.id);
     setIsAdding(true);
@@ -194,10 +246,21 @@ export default function BranchManagement() {
       longitude: '',
       mapUrl: '',
       facilities: '',
-      isHeadquarters: false
+      isHeadquarters: false,
+      // Detail page fields
+      mainImage: '',
+      about: '',
+      established: '',
+      studentsCount: '',
+      facultyCount: '',
+      achievements: '',
+      gallery: '',
+      timing: '',
     });
     setImageSource('url');
     setImageFile(null);
+    setMainImageSource('url');
+    setMainImageFile(null);
     setEditingId(null);
     setIsAdding(false);
   };
@@ -276,7 +339,7 @@ export default function BranchManagement() {
                     <span>Upload Image</span>
                   </label>
                 </div>
-                
+
                 {imageSource === 'url' ? (
                   <div>
                     <Input
@@ -383,7 +446,7 @@ export default function BranchManagement() {
                     <span>Google Maps URL</span>
                   </label>
                 </div>
-                
+
                 {formData.locationType === 'coordinates' ? (
                   <div className="grid grid-cols-2 gap-4">
                     <div>
@@ -444,6 +507,134 @@ export default function BranchManagement() {
                   className="w-4 h-4"
                 />
                 <Label htmlFor="isHeadquarters">Mark as Headquarters</Label>
+              </div>
+
+              {/* Detail Page Settings Section */}
+              <div className="border-t pt-6 mt-6">
+                <h3 className="text-lg font-semibold mb-4 text-gray-800">📄 Detail Page Settings</h3>
+                <p className="text-sm text-gray-500 mb-4">These fields are shown on the individual branch detail page.</p>
+
+                <div className="space-y-4">
+                  <div>
+                    <Label>Main Hero Image</Label>
+                    <div className="flex gap-4 mt-2 mb-2">
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="radio"
+                          value="url"
+                          checked={mainImageSource === 'url'}
+                          onChange={(e) => setMainImageSource(e.target.value)}
+                          className="w-4 h-4"
+                        />
+                        <LinkIcon className="w-4 h-4" />
+                        <span>Image URL</span>
+                      </label>
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="radio"
+                          value="upload"
+                          checked={mainImageSource === 'upload'}
+                          onChange={(e) => setMainImageSource(e.target.value)}
+                          className="w-4 h-4"
+                        />
+                        <Upload className="w-4 h-4" />
+                        <span>Upload Image</span>
+                      </label>
+                    </div>
+
+                    {mainImageSource === 'url' ? (
+                      <div>
+                        <Input
+                          id="mainImage"
+                          value={formData.mainImage}
+                          onChange={(e) => setFormData({ ...formData, mainImage: e.target.value })}
+                          placeholder="https://example.com/branch-hero.jpg"
+                        />
+                        <p className="text-xs text-gray-500 mt-1">Enter full image URL</p>
+                      </div>
+                    ) : (
+                      <div>
+                        <Input
+                          id="mainImageFile"
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => setMainImageFile(e.target.files?.[0] || null)}
+                          className="cursor-pointer"
+                        />
+                        <p className="text-xs text-gray-500 mt-1">Max size: 2MB (JPG, PNG, WebP)</p>
+                        {mainImageFile && (
+                          <p className="text-xs text-green-600 mt-1">Selected: {mainImageFile.name}</p>
+                        )}
+                      </div>
+                    )}
+                  </div>
+
+                  <div>
+                    <Label htmlFor="about">About Branch</Label>
+                    <Textarea
+                      id="about"
+                      value={formData.about}
+                      onChange={(e) => setFormData({ ...formData, about: e.target.value })}
+                      placeholder="Write a detailed description about this branch..."
+                      rows={4}
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="established">Established Year</Label>
+                      <Input
+                        id="established"
+                        value={formData.established}
+                        onChange={(e) => setFormData({ ...formData, established: e.target.value })}
+                        placeholder="e.g., 1998"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="timing">Working Hours</Label>
+                      <Input
+                        id="timing"
+                        value={formData.timing}
+                        onChange={(e) => setFormData({ ...formData, timing: e.target.value })}
+                        placeholder="e.g., 7:00 AM - 7:00 PM"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="studentsCount">Students Count</Label>
+                      <Input
+                        id="studentsCount"
+                        value={formData.studentsCount}
+                        onChange={(e) => setFormData({ ...formData, studentsCount: e.target.value })}
+                        placeholder="e.g., 5000+"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="facultyCount">Faculty Count</Label>
+                      <Input
+                        id="facultyCount"
+                        value={formData.facultyCount}
+                        onChange={(e) => setFormData({ ...formData, facultyCount: e.target.value })}
+                        placeholder="e.g., 50+"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <Label htmlFor="achievements">Key Achievements (comma-separated)</Label>
+                    <Textarea
+                      id="achievements"
+                      value={formData.achievements}
+                      onChange={(e) => setFormData({ ...formData, achievements: e.target.value })}
+                      placeholder="500+ NEET/JEE selections, State-of-the-art infrastructure, Hostel facility available..."
+                      rows={2}
+                    />
+                  </div>
+
+
+                </div>
               </div>
 
               <div className="flex gap-2">

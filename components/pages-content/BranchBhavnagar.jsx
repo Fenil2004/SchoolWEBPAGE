@@ -11,7 +11,7 @@ export default function BranchBhavnagar() {
     name: 'Bhavnagar Main Campus',
     type: 'Head Office',
     address: 'Angels School Vidyapith Campus, Ghogha Circle, Bhavnagar - 364001',
-    phone: '+91 90810 44496',
+    phone: '+91 8401278780',
     email: 'bhavnagar@Angels School.co.in',
     timing: '7:00 AM - 7:00 PM',
     established: '1998',

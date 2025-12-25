@@ -38,7 +38,7 @@ export default function GalleryManagement() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const authToken = localStorage.getItem('authToken');
     if (!authToken) {
       alert('Please login to continue');
@@ -181,7 +181,7 @@ export default function GalleryManagement() {
                   required
                 />
               </div>
-              
+
               <div>
                 <Label htmlFor="category">Category *</Label>
                 <select
@@ -199,7 +199,7 @@ export default function GalleryManagement() {
                   <option value="other">Other</option>
                 </select>
               </div>
-              
+
               <div>
                 <Label>Image Source</Label>
                 <div className="flex gap-4 mt-2">
@@ -227,7 +227,7 @@ export default function GalleryManagement() {
                   </label>
                 </div>
               </div>
-              
+
               {imageSource === 'url' ? (
                 <div>
                   <Label htmlFor="imageUrl">Image URL *</Label>
@@ -274,7 +274,7 @@ export default function GalleryManagement() {
                 />
                 <Label htmlFor="isActive">Active (visible on website)</Label>
               </div>
-              
+
               <div className="flex gap-2">
                 <Button type="submit">Save Image</Button>
                 <Button type="button" variant="outline" onClick={resetForm}>Cancel</Button>

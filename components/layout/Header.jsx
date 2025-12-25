@@ -83,14 +83,14 @@ export default function Header() {
       <div className="bg-[#0A94B8] text-white py-2 px-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center text-sm">
           <div className="flex items-center gap-4">
-            <a href="tel:+919081044496" className="flex items-center gap-1 hover:text-white/80 transition-colors">
-              <Phone className="w-3 h-3" />
-              <span>+91 90810 44496</span>
+            <a href="tel:+918401278780" className="flex items-center gap-1 hover:text-white/80 transition-colors">
+              <Phone className="w-4 h-4" />
+              <span>+91 8401278780</span>
             </a>
             <span className="hidden sm:inline text-white/50">|</span>
-            <a href="mailto:info@Angels School.co.in" className="hidden sm:flex items-center gap-1 hover:text-white/80 transition-colors">
-              <Mail className="w-3 h-3" />
-              <span>info@Angels School.co.in</span>
+            <a href="mailto:angelsschoolno1@gmail.com" className="hidden sm:flex items-center gap-1 hover:text-white/80 transition-colors">
+              <Mail className="w-4 h-4" />
+              <span>angelsschoolno1@gmail.com</span>
             </a>
           </div>
           <div className="flex items-center gap-3">

@@ -12,8 +12,8 @@ export default async function handler(req, res) {
           data: {
             siteName: 'Angels School',
             tagline: 'Excellence in Education',
-            phone: '+91 90810 44496',
-            email: 'info@angelsschool.co.in',
+            phone: '+91 8401278780',
+            email: 'angelsschoolno1@gmail.com',
             address: 'Angels School Vidyapith Campus, Ghogha Circle, Bhavnagar - 364001, Gujarat, India',
             facebookUrl: '',
             instagramUrl: '',

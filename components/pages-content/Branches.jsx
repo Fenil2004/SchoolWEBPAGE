@@ -164,7 +164,14 @@ export default function Branches() {
                         </div>
 
                         <div className="grid grid-cols-2 gap-2">
-                          <Button variant="outline" className="border-[#0A94B8] text-[#0A94B8] hover:bg-[#E8F1F4]">
+                          <Button
+                            variant="outline"
+                            className="border-[#0A94B8] text-[#0A94B8] hover:bg-[#E8F1F4]"
+                            onClick={() => {
+                              const url = branch.mapUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(branch.address + ', ' + branch.city)}`;
+                              window.open(url, '_blank');
+                            }}
+                          >
                             <ExternalLink className="w-4 h-4 mr-2" />
                             Directions
                           </Button>
@@ -199,7 +206,7 @@ export default function Branches() {
 
           <div className="rounded-2xl overflow-hidden shadow-xl h-[400px] bg-gray-200">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3705.458788!2d72.1519!3d21.7645!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjHCsDQ1JzUyLjIiTiA3MsKwMDknMDYuOCJF!5e0!3m2!1sen!2sin!4v1234567890"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3634.123456!2d72.1919!3d24.2567!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395cd8e80e76e72b%3A0x7e7b4a4ecdca4cf2!2sAngels%20School%20Deesa!5e0!3m2!1sen!2sin!4v1703506392000"
               width="100%"
               height="100%"
               style={{ border: 0 }}

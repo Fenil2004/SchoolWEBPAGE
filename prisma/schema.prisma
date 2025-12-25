@@ -74,6 +74,17 @@ model Branch {
   facilities    String[]       // Array of facilities
   image         String?
   isActive      Boolean        @default(true)
+  
+  // Detail page fields
+  mainImage     String?        // Main hero image for branch page
+  about         String?        @db.Text    // About section text
+  established   String?        // e.g., "1998"
+  studentsCount String?        // e.g., "5000+"
+  facultyCount  String?        // e.g., "50+"
+  achievements  String[]       // Array of achievement strings
+  gallery       String[]       // Array of image URLs
+  timing        String?        // e.g., "7:00 AM - 7:00 PM"
+  
   enrollments   Enrollment[]
   branchCourses BranchCourse[]
   createdAt     DateTime       @default(now())
@@ -196,4 +207,20 @@ model Inquiry {
 
   @@index([status, createdAt])
   @@map("inquiries")
+}
+
+// Team Members (Principals & Trustees)
+model TeamMember {
+  id           String   @id @default(cuid())
+  name         String
+  role         String      // e.g., "Principal - Academics", "Trustee"
+  subtitle     String?     // e.g., "M.Sc Chemistry", qualification
+  image        String?
+  type         String      // "principal" or "trustee"
+  displayOrder Int         @default(0)
+  isActive     Boolean     @default(true)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  @@map("team_members")
 }

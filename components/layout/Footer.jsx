@@ -38,7 +38,7 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed mb-6">
-              Angels School Career Institute is a well-known science education institute in Gujarat, 
+              Angels School Career Institute is a well-known science education institute in Gujarat,
               with a focus on preparing students for 11-12 science and competitive exams like JEE and NEET.
             </p>
             <div className="flex gap-3">
@@ -66,7 +66,7 @@ export default function Footer() {
             <ul className="space-y-3 mt-4">
               {quickLinks.map((link) => (
                 <li key={link.name}>
-                  <Link 
+                  <Link
                     href={createPageUrl(link.href)}
                     className="flex items-center gap-2 text-[#A9DCE8] hover:text-[#76A440] transition-colors"
                   >
@@ -87,7 +87,7 @@ export default function Footer() {
             <ul className="space-y-3 mt-4">
               {courses.map((course) => (
                 <li key={course}>
-                  <Link 
+                  <Link
                     href={createPageUrl('Courses')}
                     className="flex items-center gap-2 text-[#A9DCE8] hover:text-[#76A440] transition-colors"
                   >
@@ -114,14 +114,14 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-[#76A440] flex-shrink-0" />
-                <a href="tel:+919081044496" className="text-[#A9DCE8] hover:text-[#76A440] transition-colors">
-                  +91 90810 44496
+                <a href="tel:+918401278780" className="text-[#A9DCE8] hover:text-[#76A440] transition-colors">
+                  +91 8401278780
                 </a>
               </li>
               <li className="flex items-center gap-3">
-                <Mail className="w-5 h-5 text-[#76A440] flex-shrink-0" />
-                <a href="mailto:info@Angels School.co.in" className="text-[#A9DCE8] hover:text-[#76A440] transition-colors">
-                  info@Angels School.co.in
+                <Mail className="w-5 h-5 text-[#76A440]" />
+                <a href="mailto:angelsschoolno1@gmail.com" className="text-[#A9DCE8] hover:text-[#76A440] transition-colors">
+                  angelsschoolno1@gmail.com
                 </a>
               </li>
             </ul>
