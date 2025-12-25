@@ -81,7 +81,7 @@ export default function Contact() {
     {
       icon: MapPin,
       title: 'Head Office',
-      detail: settings?.address || 'Bhavnagar, Gujarat, India',
+      detail: settings?.address || 'Deesa, Gujarat, India',
       color: 'bg-[#0A94B8]',
     },
     {
@@ -203,7 +203,7 @@ export default function Contact() {
                           id="phone"
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          placeholder="+91 98765 43210"
+                          placeholder="+91 1234567890"
                           required
                         />
                       </div>
@@ -217,11 +217,8 @@ export default function Contact() {
                             <SelectValue placeholder="Select branch" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="bhavnagar">Bhavnagar</SelectItem>
-                            <SelectItem value="ahmedabad">Ahmedabad</SelectItem>
-                            <SelectItem value="rajkot">Rajkot</SelectItem>
-                            <SelectItem value="surat">Surat</SelectItem>
-                            <SelectItem value="vadodara">Vadodara</SelectItem>
+                            <SelectItem value="deesa">Deesa</SelectItem>
+                            <SelectItem value="bhulka">Bhulka</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
