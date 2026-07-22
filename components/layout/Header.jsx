@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
-import { Menu, X, Phone, Mail, Facebook, Twitter, Instagram, Youtube, ChevronDown, User, Sparkles, Award } from 'lucide-react';
+import { Menu, X, Phone, Mail, Facebook, Twitter, Instagram, Youtube, ChevronDown, User, Sparkles, Award, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -9,9 +9,13 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useLanguage } from '@/context/LanguageContext';
+import AdmissionsModal from '@/components/layout/AdmissionsModal';
 
 export default function Header() {
+  const { language, toggleLanguage, t } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [admissionsOpen, setAdmissionsOpen] = useState(false);
   const [courses, setCourses] = useState([]);
   const [branches, setBranches] = useState([]);
 
@@ -49,16 +53,20 @@ export default function Header() {
   }, []);
 
   const navItems = useMemo(() => [
-    { name: 'Home', href: '/' },
-    { name: 'About Us', href: '/about' },
-    { name: 'Courses', href: '/courses', hasDropdown: true, dropdownItems: courses },
-    { name: 'Our Branches', href: '/branches', hasDropdown: true, dropdownItems: branches },
-    { name: 'Gallery', href: '/gallery' },
-    { name: 'Contact Us', href: '/contact' },
-  ], [courses, branches]);
+    { name: t('home'), href: '/' },
+    { name: t('about'), href: '/about' },
+    { name: t('courses'), href: '/courses', hasDropdown: true, dropdownItems: courses },
+    { name: t('branches'), href: '/branches', hasDropdown: true, dropdownItems: branches },
+    { name: t('facilities'), href: '/facilities' },
+    { name: t('admissions'), href: '/admissions' },
+    { name: t('gallery'), href: '/gallery' },
+    { name: t('contact'), href: '/contact' },
+  ], [courses, branches, language]);
 
   return (
     <header className="w-full relative z-50">
+      <AdmissionsModal isOpen={admissionsOpen} onClose={() => setAdmissionsOpen(false)} />
+
       {/* Top Bar - Brand Primary Teal */}
       <div className="bg-[#0082AD] text-white py-2 px-4 shadow-inner">
         <div className="max-w-7xl mx-auto flex justify-between items-center text-xs md:text-sm font-medium">
@@ -75,17 +83,21 @@ export default function Header() {
             <span className="hidden lg:inline text-white/30">|</span>
             <span className="hidden lg:flex items-center gap-1 text-cyan-100 italic">
               <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-              <span>शिक्षा से स्वस्थ मानसिकता का निर्माण</span>
+              <span>{t('motto')}</span>
             </span>
           </div>
 
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2.5">
-              <a href="#" className="hover:text-cyan-200 transition-colors"><Facebook className="w-3.5 h-3.5" /></a>
-              <a href="#" className="hover:text-cyan-200 transition-colors"><Twitter className="w-3.5 h-3.5" /></a>
-              <a href="#" className="hover:text-cyan-200 transition-colors"><Instagram className="w-3.5 h-3.5" /></a>
-              <a href="#" className="hover:text-cyan-200 transition-colors"><Youtube className="w-3.5 h-3.5" /></a>
-            </div>
+          <div className="flex items-center gap-3 sm:gap-4">
+            {/* Language Switcher */}
+            <button
+              onClick={toggleLanguage}
+              className="flex items-center gap-1 px-2.5 py-1 bg-white/10 hover:bg-white/20 rounded-full text-xs font-bold text-cyan-100 hover:text-white transition-all border border-white/20"
+              title="Toggle Language (English / Gujarati)"
+            >
+              <Globe className="w-3.5 h-3.5 text-[#7AA13B]" />
+              <span>{language === 'en' ? 'ગુજરાતી' : 'English'}</span>
+            </button>
+
             <span className="bg-[#7AA13B] text-white px-2 py-0.5 rounded text-[11px] font-bold tracking-wide uppercase shadow-sm">
               SINCE 2002
             </span>
@@ -120,14 +132,14 @@ export default function Header() {
             </Link>
 
             {/* Desktop Navigation Menu */}
-            <div className="hidden lg:flex items-center gap-1">
+            <div className="hidden lg:flex items-center gap-0.5">
               {navItems.map((item) => {
                 return item.hasDropdown ? (
                   <DropdownMenu key={`${item.name}-${item.dropdownItems?.length || 0}`}>
                     <DropdownMenuTrigger asChild>
-                      <button className="px-4 py-2 text-slate-700 hover:text-[#0082AD] font-semibold text-sm flex items-center gap-1.5 transition-colors rounded-lg hover:bg-[#E6F4F8]">
+                      <button className="px-3.5 py-2 text-slate-700 hover:text-[#0082AD] font-semibold text-xs xl:text-sm flex items-center gap-1 transition-colors rounded-lg hover:bg-[#E6F4F8]">
                         {item.name}
-                        <ChevronDown className="w-4 h-4 text-[#0082AD]" />
+                        <ChevronDown className="w-3.5 h-3.5 text-[#0082AD]" />
                       </button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-56 p-2 rounded-xl shadow-lg border border-slate-100 bg-white">
@@ -152,7 +164,7 @@ export default function Header() {
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="px-4 py-2 text-slate-700 hover:text-[#0082AD] font-semibold text-sm transition-colors rounded-lg hover:bg-[#E6F4F8]"
+                    className="px-3.5 py-2 text-slate-700 hover:text-[#0082AD] font-semibold text-xs xl:text-sm transition-colors rounded-lg hover:bg-[#E6F4F8]"
                   >
                     {item.name}
                   </Link>
@@ -161,22 +173,26 @@ export default function Header() {
             </div>
 
             {/* Action Buttons */}
-            <div className="hidden md:flex items-center gap-2.5">
+            <div className="hidden md:flex items-center gap-2">
+              <Button
+                onClick={() => setAdmissionsOpen(true)}
+                variant="secondary"
+                size="sm"
+                className="bg-[#7AA13B] hover:bg-[#8DB843] text-white shadow-sm font-bold text-xs"
+              >
+                {t('startAdmissions')}
+              </Button>
+
               <Link href="/admin-login">
-                <Button variant="outline" size="sm" className="border-[#0082AD] text-[#0082AD] hover:bg-[#E6F4F8]">
-                  <User className="w-3.5 h-3.5 mr-1.5" />
+                <Button variant="outline" size="sm" className="border-[#0082AD] text-[#0082AD] hover:bg-[#E6F4F8] text-xs">
+                  <User className="w-3.5 h-3.5 mr-1" />
                   Admin
                 </Button>
               </Link>
               <Link href="/student-login">
-                <Button variant="outline" size="sm" className="border-[#0082AD] text-[#0082AD] hover:bg-[#E6F4F8]">
-                  <User className="w-3.5 h-3.5 mr-1.5" />
+                <Button variant="outline" size="sm" className="border-[#0082AD] text-[#0082AD] hover:bg-[#E6F4F8] text-xs">
+                  <User className="w-3.5 h-3.5 mr-1" />
                   Student
-                </Button>
-              </Link>
-              <Link href="/contact">
-                <Button variant="secondary" size="sm" className="bg-[#7AA13B] hover:bg-[#8DB843] text-white shadow-sm font-bold">
-                  11th Admission
                 </Button>
               </Link>
             </div>
@@ -200,7 +216,7 @@ export default function Header() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="block px-4 py-2.5 text-slate-700 hover:text-[#0082AD] hover:bg-[#E6F4F8] rounded-lg font-semibold transition-colors"
+                  className="block px-4 py-2.5 text-slate-700 hover:text-[#0082AD] hover:bg-[#E6F4F8] rounded-lg font-semibold transition-colors text-sm"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {item.name}
@@ -209,23 +225,28 @@ export default function Header() {
             </div>
 
             <div className="pt-4 space-y-2 border-t border-slate-100">
+              <Button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  setAdmissionsOpen(true);
+                }}
+                className="w-full bg-[#7AA13B] hover:bg-[#8DB843] text-white font-bold text-xs"
+              >
+                {t('startAdmissions')}
+              </Button>
+
               <div className="grid grid-cols-2 gap-2">
                 <Link href="/admin-login" onClick={() => setMobileMenuOpen(false)}>
-                  <Button variant="outline" className="w-full border-[#0082AD] text-[#0082AD]">
+                  <Button variant="outline" className="w-full border-[#0082AD] text-[#0082AD] text-xs">
                     Admin Login
                   </Button>
                 </Link>
                 <Link href="/student-login" onClick={() => setMobileMenuOpen(false)}>
-                  <Button variant="outline" className="w-full border-[#0082AD] text-[#0082AD]">
+                  <Button variant="outline" className="w-full border-[#0082AD] text-[#0082AD] text-xs">
                     Student Login
                   </Button>
                 </Link>
               </div>
-              <Link href="/contact" className="block" onClick={() => setMobileMenuOpen(false)}>
-                <Button variant="secondary" className="w-full bg-[#7AA13B] hover:bg-[#8DB843] text-white font-bold">
-                  11th Registration / Admission
-                </Button>
-              </Link>
             </div>
           </div>
         )}

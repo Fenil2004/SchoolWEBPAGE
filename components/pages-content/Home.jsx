@@ -1,5 +1,6 @@
 import React from 'react';
 import HeroSection from '@/components/home/HeroSection';
+import PathFinder from '@/components/home/PathFinder';
 import AboutSection from '@/components/home/AboutSection';
 import WorkingSystemSection from '@/components/home/WorkingSystemSection';
 import CoursesSection from '@/components/home/CoursesSection';
@@ -12,6 +13,7 @@ export default function Home() {
   return (
     <>
       <HeroSection />
+      <PathFinder />
       <AboutSection />
       <WorkingSystemSection />
       <CoursesSection />
@@ -22,3 +24,4 @@ export default function Home() {
     </>
   );
 }
+
