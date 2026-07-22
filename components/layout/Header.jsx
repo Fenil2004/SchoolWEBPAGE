@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
-import { Menu, X, Phone, Mail, Facebook, Twitter, Instagram, Youtube, ChevronDown, User, GraduationCap } from 'lucide-react';
+import { Menu, X, Phone, Mail, Facebook, Twitter, Instagram, Youtube, ChevronDown, User, Sparkles, Award } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -16,12 +16,9 @@ export default function Header() {
   const [branches, setBranches] = useState([]);
 
   useEffect(() => {
-    // Fetch courses from API
     fetch('/api/courses')
       .then(res => res.json())
       .then(data => {
-        console.log('Courses API response:', data);
-        // API returns array directly, not wrapped in object
         if (Array.isArray(data)) {
           const courseLinks = data
             .filter(course => course.isActive)
@@ -30,21 +27,14 @@ export default function Header() {
               name: course.name,
               href: `/courses#${course.slug}`
             }));
-          console.log('Course links:', courseLinks);
-          console.log('Setting courses state with', courseLinks.length, 'items');
           setCourses(courseLinks);
-        } else {
-          console.error('Invalid courses data structure:', data);
         }
       })
       .catch(error => console.error('Error fetching courses:', error));
 
-    // Fetch branches from API
     fetch('/api/branches')
       .then(res => res.json())
       .then(data => {
-        console.log('Branches API response:', data);
-        // API returns array directly, not wrapped in object
         if (Array.isArray(data)) {
           const branchLinks = data
             .filter(branch => branch.isActive)
@@ -52,96 +42,108 @@ export default function Header() {
               name: branch.name + (branch.isHeadquarter ? ' (HQ)' : ''),
               href: `/branches/${branch.slug}`
             }));
-          console.log('Branch links:', branchLinks);
-          console.log('Setting branches state with', branchLinks.length, 'items');
           setBranches(branchLinks);
-        } else {
-          console.error('Invalid branches data structure:', data);
         }
       })
       .catch(error => console.error('Error fetching branches:', error));
   }, []);
 
-  // Debug log whenever courses or branches change
-  useEffect(() => {
-    console.log('Courses state updated:', courses.length, 'courses');
-    console.log('Branches state updated:', branches.length, 'branches');
-  }, [courses, branches]);
-
   const navItems = useMemo(() => [
     { name: 'Home', href: '/' },
-    { name: 'About', href: '/about' },
+    { name: 'About Us', href: '/about' },
     { name: 'Courses', href: '/courses', hasDropdown: true, dropdownItems: courses },
     { name: 'Our Branches', href: '/branches', hasDropdown: true, dropdownItems: branches },
     { name: 'Gallery', href: '/gallery' },
-    { name: 'Contact', href: '/contact' },
+    { name: 'Contact Us', href: '/contact' },
   ], [courses, branches]);
 
   return (
-    <header className="w-full">
-      {/* Top Bar */}
-      <div className="bg-[#0A94B8] text-white py-2 px-4">
-        <div className="max-w-7xl mx-auto flex justify-between items-center text-sm">
-          <div className="flex items-center gap-4">
-            <a href="tel:+918401278780" className="flex items-center gap-1 hover:text-white/80 transition-colors">
-              <Phone className="w-4 h-4" />
+    <header className="w-full relative z-50">
+      {/* Top Bar - Brand Primary Teal */}
+      <div className="bg-[#0082AD] text-white py-2 px-4 shadow-inner">
+        <div className="max-w-7xl mx-auto flex justify-between items-center text-xs md:text-sm font-medium">
+          <div className="flex items-center gap-4 sm:gap-6">
+            <a href="tel:+918401278780" className="flex items-center gap-1.5 hover:text-cyan-200 transition-colors">
+              <Phone className="w-3.5 h-3.5 text-[#7AA13B]" />
               <span>+91 8401278780</span>
             </a>
-            <span className="hidden sm:inline text-white/50">|</span>
-            <a href="mailto:angelsschoolno1@gmail.com" className="hidden sm:flex items-center gap-1 hover:text-white/80 transition-colors">
-              <Mail className="w-4 h-4" />
+            <span className="hidden sm:inline text-white/30">|</span>
+            <a href="mailto:angelsschoolno1@gmail.com" className="hidden sm:flex items-center gap-1.5 hover:text-cyan-200 transition-colors">
+              <Mail className="w-3.5 h-3.5 text-[#7AA13B]" />
               <span>angelsschoolno1@gmail.com</span>
             </a>
+            <span className="hidden lg:inline text-white/30">|</span>
+            <span className="hidden lg:flex items-center gap-1 text-cyan-100 italic">
+              <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+              <span>शिक्षा से स्वस्थ मानसिकता का निर्माण</span>
+            </span>
           </div>
-          <div className="flex items-center gap-3">
-            <a href="#" className="hover:text-white/80 transition-colors"><Facebook className="w-4 h-4" /></a>
-            <a href="#" className="hover:text-white/80 transition-colors"><Twitter className="w-4 h-4" /></a>
-            <a href="#" className="hover:text-white/80 transition-colors"><Instagram className="w-4 h-4" /></a>
-            <a href="#" className="hover:text-white/80 transition-colors"><Youtube className="w-4 h-4" /></a>
+
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2.5">
+              <a href="#" className="hover:text-cyan-200 transition-colors"><Facebook className="w-3.5 h-3.5" /></a>
+              <a href="#" className="hover:text-cyan-200 transition-colors"><Twitter className="w-3.5 h-3.5" /></a>
+              <a href="#" className="hover:text-cyan-200 transition-colors"><Instagram className="w-3.5 h-3.5" /></a>
+              <a href="#" className="hover:text-cyan-200 transition-colors"><Youtube className="w-3.5 h-3.5" /></a>
+            </div>
+            <span className="bg-[#7AA13B] text-white px-2 py-0.5 rounded text-[11px] font-bold tracking-wide uppercase shadow-sm">
+              SINCE 2002
+            </span>
           </div>
         </div>
       </div>
 
-      {/* Main Navigation */}
-      <nav className="bg-white shadow-md sticky top-0 z-50">
+      {/* Main Navigation Bar */}
+      <nav className="bg-white border-b border-slate-100 shadow-sm sticky top-0 z-50 backdrop-blur-md bg-white/95">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="flex justify-between items-center h-16 md:h-20">
-            {/* Logo */}
-            <Link href="/" className="flex items-center gap-2">
-              <div className="w-12 h-12 bg-gradient-to-br from-[#0A94B8] to-[#056C8C] rounded-full flex items-center justify-center">
-                <GraduationCap className="w-7 h-7 text-white" />
+          <div className="flex justify-between items-center h-20">
+            
+            {/* Brand Logo & Tagline */}
+            <Link href="/" className="flex items-center gap-3 group">
+              <div className="relative">
+                <div className="w-12 h-12 bg-gradient-to-br from-[#0082AD] to-[#005F80] rounded-xl flex items-center justify-center shadow-md transform group-hover:scale-105 transition-transform duration-200">
+                  <span className="text-white font-extrabold text-2xl tracking-tighter">A</span>
+                  <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-[#7AA13B] rounded-full border-2 border-white flex items-center justify-center">
+                    <Award className="w-2.5 h-2.5 text-white" />
+                  </div>
+                </div>
               </div>
-              <div className="hidden sm:block">
-                <h1 className="text-xl font-bold text-[#0A94B8] leading-tight">Angels School</h1>
-                <p className="text-[10px] text-gray-500 italic">Where Dreams To Be Realities</p>
+              <div className="flex flex-col">
+                <div className="flex items-baseline gap-1">
+                  <span className="text-2xl font-extrabold text-[#0082AD] tracking-tight">Angels</span>
+                  <span className="text-2xl font-extrabold text-[#7AA13B] tracking-tight">School</span>
+                </div>
+                <p className="text-[11px] font-semibold text-slate-500 tracking-wide uppercase -mt-1">
+                  Where Dreams Turn To Realities
+                </p>
               </div>
             </Link>
 
-            {/* Desktop Navigation */}
+            {/* Desktop Navigation Menu */}
             <div className="hidden lg:flex items-center gap-1">
               {navItems.map((item) => {
-                console.log('Rendering nav item:', item.name, 'with', item.dropdownItems?.length || 0, 'dropdown items');
                 return item.hasDropdown ? (
                   <DropdownMenu key={`${item.name}-${item.dropdownItems?.length || 0}`}>
                     <DropdownMenuTrigger asChild>
-                      <button className="px-4 py-2 text-[#056C8C] hover:text-[#0A94B8] font-medium flex items-center gap-1 transition-colors">
+                      <button className="px-4 py-2 text-slate-700 hover:text-[#0082AD] font-semibold text-sm flex items-center gap-1.5 transition-colors rounded-lg hover:bg-[#E6F4F8]">
                         {item.name}
-                        <ChevronDown className="w-4 h-4" />
+                        <ChevronDown className="w-4 h-4 text-[#0082AD]" />
                       </button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent>
-                      <DropdownMenuItem asChild>
+                    <DropdownMenuContent className="w-56 p-2 rounded-xl shadow-lg border border-slate-100 bg-white">
+                      <DropdownMenuItem asChild className="rounded-lg font-medium text-slate-700 hover:text-[#0082AD] hover:bg-[#E6F4F8]">
                         <Link href={item.href}>View All {item.name}</Link>
                       </DropdownMenuItem>
+                      <div className="h-px bg-slate-100 my-1" />
                       {item.dropdownItems && item.dropdownItems.length > 0 ? (
                         item.dropdownItems.map((dropdownItem) => (
-                          <DropdownMenuItem key={dropdownItem.name} asChild>
+                          <DropdownMenuItem key={dropdownItem.name} asChild className="rounded-lg text-slate-600 hover:text-[#0082AD] hover:bg-[#E6F4F8]">
                             <Link href={dropdownItem.href}>{dropdownItem.name}</Link>
                           </DropdownMenuItem>
                         ))
                       ) : (
-                        <DropdownMenuItem disabled>
-                          <span className="text-gray-400 text-xs">Loading...</span>
+                        <DropdownMenuItem disabled className="text-slate-400 text-xs">
+                          Loading items...
                         </DropdownMenuItem>
                       )}
                     </DropdownMenuContent>
@@ -150,7 +152,7 @@ export default function Header() {
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="px-4 py-2 text-[#056C8C] hover:text-[#0A94B8] font-medium transition-colors"
+                    className="px-4 py-2 text-slate-700 hover:text-[#0082AD] font-semibold text-sm transition-colors rounded-lg hover:bg-[#E6F4F8]"
                   >
                     {item.name}
                   </Link>
@@ -159,63 +161,71 @@ export default function Header() {
             </div>
 
             {/* Action Buttons */}
-            <div className="hidden md:flex items-center gap-2">
+            <div className="hidden md:flex items-center gap-2.5">
               <Link href="/admin-login">
-                <Button variant="outline" className="border-[#0A94B8] text-[#0A94B8] hover:bg-[#E8F1F4]">
-                  <User className="w-4 h-4 mr-1" />
-                  Admin Login
+                <Button variant="outline" size="sm" className="border-[#0082AD] text-[#0082AD] hover:bg-[#E6F4F8]">
+                  <User className="w-3.5 h-3.5 mr-1.5" />
+                  Admin
                 </Button>
               </Link>
               <Link href="/student-login">
-                <Button variant="outline" className="border-[#0A94B8] text-[#0A94B8] hover:bg-[#E8F1F4]">
-                  <User className="w-4 h-4 mr-1" />
-                  Student Login
+                <Button variant="outline" size="sm" className="border-[#0082AD] text-[#0082AD] hover:bg-[#E6F4F8]">
+                  <User className="w-3.5 h-3.5 mr-1.5" />
+                  Student
                 </Button>
               </Link>
-              <Button className="bg-[#76A440] hover:bg-[#8FC85C] text-white">
-                11th Registration
-              </Button>
+              <Link href="/contact">
+                <Button variant="secondary" size="sm" className="bg-[#7AA13B] hover:bg-[#8DB843] text-white shadow-sm font-bold">
+                  11th Admission
+                </Button>
+              </Link>
             </div>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Toggle Button */}
             <button
-              className="lg:hidden p-2"
+              className="lg:hidden p-2 text-slate-700 hover:text-[#0082AD] rounded-lg hover:bg-[#E6F4F8]"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Navigation Drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden bg-white border-t">
-            <div className="px-4 py-4 space-y-2">
+          <div className="lg:hidden bg-white border-t border-slate-100 shadow-xl px-4 py-6 space-y-3">
+            <div className="space-y-1">
               {navItems.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="block px-4 py-2 text-[#056C8C] hover:bg-[#E8F1F4] hover:text-[#0A94B8] rounded-lg transition-colors"
+                  className="block px-4 py-2.5 text-slate-700 hover:text-[#0082AD] hover:bg-[#E6F4F8] rounded-lg font-semibold transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {item.name}
                 </Link>
               ))}
-              <div className="pt-4 space-y-2 border-t">
-                <Link href="/admin-login" className="block">
-                  <Button variant="outline" className="w-full border-[#0A94B8] text-[#0A94B8]">
+            </div>
+
+            <div className="pt-4 space-y-2 border-t border-slate-100">
+              <div className="grid grid-cols-2 gap-2">
+                <Link href="/admin-login" onClick={() => setMobileMenuOpen(false)}>
+                  <Button variant="outline" className="w-full border-[#0082AD] text-[#0082AD]">
                     Admin Login
                   </Button>
                 </Link>
-                <Link href="/student-login" className="block">
-                  <Button variant="outline" className="w-full border-[#0A94B8] text-[#0A94B8]">
+                <Link href="/student-login" onClick={() => setMobileMenuOpen(false)}>
+                  <Button variant="outline" className="w-full border-[#0082AD] text-[#0082AD]">
                     Student Login
                   </Button>
                 </Link>
-                <Button className="w-full bg-[#76A440] hover:bg-[#8FC85C] text-white">
-                  11th Registration
-                </Button>
               </div>
+              <Link href="/contact" className="block" onClick={() => setMobileMenuOpen(false)}>
+                <Button variant="secondary" className="w-full bg-[#7AA13B] hover:bg-[#8DB843] text-white font-bold">
+                  11th Registration / Admission
+                </Button>
+              </Link>
             </div>
           </div>
         )}

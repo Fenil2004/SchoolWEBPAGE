@@ -1,88 +1,102 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Phone, Mail, ArrowRight, GraduationCap } from 'lucide-react';
+import { Phone, Mail, ArrowRight, GraduationCap, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 export default function CTASection() {
   return (
-    <section className="py-20 bg-gradient-to-br from-[#056C8C] via-[#044E64] to-[#044E64] relative overflow-hidden">
-      {/* Background decorations */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-[#0A94B8] rounded-full opacity-20 blur-3xl -translate-x-1/2 -translate-y-1/2" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#76A440] rounded-full opacity-20 blur-3xl translate-x-1/2 translate-y-1/2" />
+    <section className="py-20 bg-gradient-to-br from-[#005F80] via-[#0082AD] to-[#004761] relative overflow-hidden text-white">
+      {/* Background Orbs */}
+      <div className="absolute top-0 left-0 w-96 h-96 bg-[#0082AD]/30 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#7AA13B]/25 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Content */}
+        <div className="grid lg:grid-cols-12 gap-12 items-center">
+          
+          {/* Left Text & CTA */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
+            className="lg:col-span-7"
           >
-            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
-              Ready to Start Your Journey to Success?
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-cyan-100 text-xs font-bold uppercase tracking-wider mb-4">
+              <Sparkles className="w-3.5 h-3.5 text-[#7AA13B]" />
+              <span>Admissions Open for 2026-2027</span>
+            </div>
+
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight mb-6">
+              Ready to Secure Top Ranks in <span className="text-[#7AA13B]">Science & Entrance</span> Exams?
             </h2>
-            <p className="text-blue-100 text-lg mb-8">
-              Join thousands of successful students who achieved their dreams with Angels School Career Institute.
-              Admissions are now open for 11th Science batch.
+            
+            <p className="text-cyan-100 text-base sm:text-lg mb-8 max-w-xl leading-relaxed">
+              Take the first step towards an engineering or medical career with Angels School Career Institute's proven academic environment.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="bg-[#76A440] text-white hover:bg-[#8FC85C]">
-                Apply Now
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-              <Button size="lg" variant="outline" className="border-white bg-transparent text-white hover:bg-white/10">
-                <Phone className="w-5 h-5 mr-2" />
-                Call Us
-              </Button>
+            <div className="flex flex-wrap gap-4">
+              <Link href="/contact">
+                <Button size="lg" className="bg-[#7AA13B] hover:bg-[#8DB843] text-white font-extrabold px-8 py-4 text-base rounded-xl shadow-lg">
+                  Apply Online Now
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </Button>
+              </Link>
+
+              <a href="tel:+918401278780">
+                <Button size="lg" variant="outline" className="border-2 border-white bg-white/10 hover:bg-white text-white hover:text-[#005F80] font-bold px-7 py-4 text-base rounded-xl">
+                  <Phone className="w-4 h-4 mr-2" />
+                  Call Admissions (+91 8401278780)
+                </Button>
+              </a>
             </div>
           </motion.div>
 
-          {/* Contact Info Card */}
+          {/* Right Card */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20"
+            className="lg:col-span-5 bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 shadow-2xl"
           >
             <div className="flex items-center gap-4 mb-6">
-              <div className="w-16 h-16 bg-white rounded-xl flex items-center justify-center">
-                <GraduationCap className="w-8 h-8 text-[#0A94B8]" />
+              <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-md">
+                <GraduationCap className="w-7 h-7 text-[#0082AD]" />
               </div>
               <div>
-                <h3 className="text-xl font-bold text-white">Contact Us</h3>
-                <p className="text-blue-200">We're here to help</p>
+                <h3 className="text-xl font-extrabold text-white">Direct Helpline</h3>
+                <p className="text-xs text-cyan-200 font-medium">Bhavnagar & Gujarat Campuses</p>
               </div>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3">
               <a
                 href="tel:+918401278780"
-                className="flex items-center gap-4 p-4 bg-white/10 rounded-xl hover:bg-white/20 transition-colors group"
+                className="flex items-center gap-4 p-4 bg-white/10 rounded-2xl hover:bg-white/20 transition-all group border border-white/10"
               >
-                <div className="w-12 h-12 bg-[#0A94B8] rounded-lg flex items-center justify-center">
-                  <Phone className="w-6 h-6 text-white" />
+                <div className="w-10 h-10 bg-[#0082AD] rounded-xl flex items-center justify-center flex-shrink-0">
+                  <Phone className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <p className="text-white font-semibold">+91 8401278780</p>
-                  <p className="text-blue-200 text-sm">Call us anytime</p>
+                  <p className="text-white font-bold text-base">+91 8401278780</p>
+                  <p className="text-cyan-200 text-xs">Mon - Sat: 8:00 AM to 7:00 PM</p>
                 </div>
               </a>
 
               <a
                 href="mailto:angelsschoolno1@gmail.com"
-                className="flex items-center gap-4 p-4 bg-white/10 rounded-xl hover:bg-white/20 transition-colors group"
+                className="flex items-center gap-4 p-4 bg-white/10 rounded-2xl hover:bg-white/20 transition-all group border border-white/10"
               >
-                <div className="w-12 h-12 bg-[#0A94B8] rounded-lg flex items-center justify-center">
-                  <Mail className="w-6 h-6 text-white" />
+                <div className="w-10 h-10 bg-[#7AA13B] rounded-xl flex items-center justify-center flex-shrink-0">
+                  <Mail className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <p className="text-white font-semibold">angelsschoolno1@gmail.com</p>
-                  <p className="text-blue-200 text-sm">Email us for inquiries</p>
+                  <p className="text-white font-bold text-sm truncate">angelsschoolno1@gmail.com</p>
+                  <p className="text-cyan-200 text-xs">Official Inquiry Desk</p>
                 </div>
               </a>
             </div>
           </motion.div>
+
         </div>
       </div>
     </section>

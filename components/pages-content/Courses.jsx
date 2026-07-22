@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { GraduationCap, BookOpen, Users, Award, CheckCircle2, ArrowRight } from 'lucide-react';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { GraduationCap, BookOpen, Users, Award, CheckCircle2, ArrowRight, Sparkles } from 'lucide-react';
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import Link from 'next/link';
+
 
 export default function Courses() {
   const [activeCategory, setActiveCategory] = useState('all');
@@ -25,10 +27,7 @@ export default function Courses() {
       });
       if (response.ok) {
         const data = await response.json();
-        console.log('Fetched courses:', data); // Debug log
         setCourses(Array.isArray(data) ? data : []);
-      } else {
-        console.error('Failed to fetch courses:', response.status);
       }
     } catch (error) {
       console.error('Error fetching courses:', error);
@@ -37,221 +36,207 @@ export default function Courses() {
     }
   };
 
-  const getCategoryColor = (category) => {
-    const colors = {
-      'NEET': 'bg-red-600',
-      'JEE': 'bg-[#76A440]',
-      'GUJCET': 'bg-yellow-600',
-      'Foundation': 'bg-[#0A94B8]',
-    };
-    return colors[category] || 'bg-purple-600';
+  const getCategoryBadge = (category) => {
+    switch (category) {
+      case 'NEET':
+        return <Badge className="bg-[#7AA13B] text-white font-bold">NEET Medical</Badge>;
+      case 'JEE':
+        return <Badge className="bg-[#0082AD] text-white font-bold">JEE Engineering</Badge>;
+      case 'GUJCET':
+        return <Badge className="bg-amber-500 text-white font-bold">GUJCET State</Badge>;
+      default:
+        return <Badge className="bg-[#005F80] text-white font-bold">{category || 'Science Batch'}</Badge>;
+    }
   };
 
   const filteredCourses = activeCategory === 'all'
     ? courses
     : courses.filter(course => course.category?.toLowerCase() === activeCategory);
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-[#0A94B8] mb-4"></div>
-          <p className="text-gray-600">Loading courses...</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div>
-      {/* Hero Section */}
-      <section className="relative py-12 md:py-20 bg-gradient-to-br from-[#0A94B8] to-[#056C8C] overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          }} />
-        </div>
-
-        <div className="max-w-7xl mx-auto px-4 relative z-10">
+    <div className="bg-[#F8FAFC]">
+      
+      {/* Page Banner Header */}
+      <section className="relative py-16 md:py-24 bg-gradient-to-br from-[#005F80] via-[#0082AD] to-[#004761] overflow-hidden text-white">
+        <div className="max-w-7xl mx-auto px-4 relative z-10 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center"
           >
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 md:mb-6">Our Courses</h1>
-            <p className="text-white/90 text-base md:text-lg max-w-2xl mx-auto">
-              Choose from our comprehensive range of courses designed to help you achieve academic excellence
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-cyan-100 text-xs font-bold uppercase tracking-wider mb-4">
+              <Sparkles className="w-3.5 h-3.5 text-[#7AA13B]" />
+              <span>Academic Programs & Entrance DLP</span>
+            </div>
+            <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4">Academic Courses</h1>
+            <p className="text-cyan-100 text-base md:text-lg max-w-2xl mx-auto">
+              Empowering students for 11th-12th Board Science, JEE, NEET, and GUJCET through targeted learning
             </p>
           </motion.div>
         </div>
       </section>
 
       {/* Courses Section */}
-      <section className="py-12 md:py-20 bg-gray-50 overflow-x-hidden">
-        <div className="max-w-7xl mx-auto px-4 overflow-hidden">
-          {/* Filter Tabs */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex justify-center mb-8 md:mb-12 overflow-x-auto"
-          >
+      <section className="py-16 md:py-20">
+        <div className="max-w-7xl mx-auto px-4">
+          
+          {/* Category Filter Tabs */}
+          <div className="flex justify-center mb-12">
             <Tabs value={activeCategory} onValueChange={setActiveCategory}>
-              <TabsList className="bg-white shadow-sm flex-nowrap">
-                <TabsTrigger value="all" className="px-3 md:px-6 text-sm md:text-base">All Courses</TabsTrigger>
-                <TabsTrigger value="board" className="px-3 md:px-6 text-sm md:text-base">Board Exams</TabsTrigger>
-                <TabsTrigger value="jee" className="px-3 md:px-6 text-sm md:text-base">JEE</TabsTrigger>
-                <TabsTrigger value="neet" className="px-3 md:px-6 text-sm md:text-base">NEET</TabsTrigger>
+              <TabsList className="bg-white p-1.5 rounded-2xl shadow-sm border border-slate-100">
+                <TabsTrigger value="all" className="px-5 py-2 rounded-xl text-xs sm:text-sm font-bold data-[state=active]:bg-[#0082AD] data-[state=active]:text-white">All Programs</TabsTrigger>
+                <TabsTrigger value="board" className="px-5 py-2 rounded-xl text-xs sm:text-sm font-bold data-[state=active]:bg-[#0082AD] data-[state=active]:text-white">Board Science</TabsTrigger>
+                <TabsTrigger value="jee" className="px-5 py-2 rounded-xl text-xs sm:text-sm font-bold data-[state=active]:bg-[#0082AD] data-[state=active]:text-white">JEE Engineering</TabsTrigger>
+                <TabsTrigger value="neet" className="px-5 py-2 rounded-xl text-xs sm:text-sm font-bold data-[state=active]:bg-[#0082AD] data-[state=active]:text-white">NEET Medical</TabsTrigger>
               </TabsList>
             </Tabs>
-          </motion.div>
-
-          {/* Courses Grid */}
-          <div
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
-            style={{ maxWidth: '100%', width: '100%' }}
-          >
-            {filteredCourses.map((course, index) => (
-              <motion.div
-                key={course.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="w-full"
-                style={{ maxWidth: 'calc(100vw - 2rem)' }}
-              >
-                <Card
-                  className="overflow-hidden hover:shadow-2xl transition-all duration-300 h-full group"
-                  style={{ maxWidth: '100%', width: '100%' }}
-                >
-                  {/* Image - Fixed height container with inline styles for guaranteed containment */}
-                  <div
-                    className="relative w-full overflow-hidden bg-gray-200"
-                    style={{ height: '192px', maxHeight: '192px' }}
-                  >
-                    <img
-                      src={course.image || 'https://res.cloudinary.com/dneccresv/image/upload/v1765566933/school/courses/course1.jpg'}
-                      alt={course.name || course.title}
-                      className="group-hover:scale-110 transition-transform duration-500"
-                      style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover'
-                      }}
-                      loading="lazy"
-                      onError={(e) => {
-                        e.currentTarget.src = 'https://res.cloudinary.com/dneccresv/image/upload/v1765566933/school/courses/course1.jpg';
-                      }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
-                    <Badge className={`absolute top-4 left-4 ${getCategoryColor(course.category)} z-10`}>
-                      {course.category}
-                    </Badge>
-                    <div className="absolute bottom-4 left-4 right-4 z-10">
-                      <h3 className="text-xl font-bold text-white">{course.name || course.title}</h3>
-                    </div>
-                  </div>
-
-                  <CardContent className="p-6 flex flex-col">
-                    <p className="text-gray-600 text-sm mb-4 line-clamp-2 min-h-[2.5rem]">{course.description}</p>
-
-                    {/* Features - Show max 4 */}
-                    <div className="space-y-2 mb-6 min-h-[6rem]">
-                      {course.features && Array.isArray(course.features) && course.features.slice(0, 4).map((feature, idx) => (
-                        <div key={idx} className="flex items-center gap-2 text-sm">
-                          <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0" />
-                          <span className="text-gray-700 truncate">{feature}</span>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Meta */}
-                    <div className="flex items-center justify-between text-sm text-gray-500 pb-4 border-b">
-                      {course.features && (
-                        <span className="flex items-center gap-1">
-                          <BookOpen className="w-4 h-4" />
-                          {course.features.length} Features
-                        </span>
-                      )}
-                    </div>
-                  </CardContent>
-
-                  <CardFooter className="p-4 flex flex-col items-center gap-3 border-t w-full">
-                    <Button className="w-full bg-[#76A440] hover:bg-[#8FC85C] text-white flex items-center justify-center">
-                      <span>Enroll Now</span>
-                      <ArrowRight className="w-4 h-4 ml-2" />
-                    </Button>
-                  </CardFooter>
-                </Card>
-              </motion.div>
-            ))}
           </div>
+
+          {/* Skeleton Loading State */}
+          {loading ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[1, 2, 3, 4, 5, 6].map(i => (
+                <div key={i} className="rounded-2xl border border-slate-100 bg-white p-6 space-y-4 shadow-sm">
+                  <div className="h-48 rounded-xl skeleton-loader w-full" />
+                  <div className="h-6 skeleton-loader w-3/4 rounded" />
+                  <div className="h-4 skeleton-loader w-full rounded" />
+                </div>
+              ))}
+            </div>
+          ) : (
+            /* Courses Grid */
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {filteredCourses.map((course, index) => (
+                <motion.div
+                  key={course.id}
+                  initial={{ opacity: 0, y: 25 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.08 }}
+                >
+                  <Card className="overflow-hidden rounded-2xl border border-slate-100 bg-white hover:shadow-card-hover transition-all duration-300 h-full group flex flex-col justify-between">
+                    <div>
+                      {/* Course Image Banner */}
+                      <div className="relative h-48 w-full overflow-hidden bg-slate-100">
+                        <img
+                          src={course.image || 'https://res.cloudinary.com/dneccresv/image/upload/v1765566933/school/courses/course1.jpg'}
+                          alt={course.name || course.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          loading="lazy"
+                          onError={(e) => {
+                            e.currentTarget.src = 'https://res.cloudinary.com/dneccresv/image/upload/v1765566933/school/courses/course1.jpg';
+                          }}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#00384D]/85 via-black/20 to-transparent" />
+                        <div className="absolute top-4 left-4 z-10">
+                          {getCategoryBadge(course.category)}
+                        </div>
+                        <h3 className="absolute bottom-3 left-4 right-4 text-white font-extrabold text-lg leading-snug">
+                          {course.name || course.title}
+                        </h3>
+                      </div>
+
+                      <CardContent className="p-6 space-y-4">
+                        <p className="text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-3">
+                          {course.description}
+                        </p>
+
+                        {course.features && Array.isArray(course.features) && (
+                          <div className="pt-3 border-t border-slate-100 space-y-2">
+                            {course.features.slice(0, 4).map((feature, idx) => (
+                              <div key={idx} className="flex items-center gap-2 text-xs text-slate-700">
+                                <CheckCircle2 className="w-4 h-4 text-[#7AA13B] flex-shrink-0" />
+                                <span className="truncate">{feature}</span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </CardContent>
+                    </div>
+
+                    <CardFooter className="p-6 pt-0">
+                      <Link href="/contact" className="w-full">
+                        <Button className="w-full bg-[#7AA13B] hover:bg-[#8DB843] text-white font-extrabold text-xs h-10 rounded-xl shadow-sm">
+                          Apply / Inquire Course
+                          <ArrowRight className="w-4 h-4 ml-1.5" />
+                        </Button>
+                      </Link>
+                    </CardFooter>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+          )}
+
         </div>
       </section>
 
-      {/* DLP Section */}
+      {/* DLP Program Section */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
+            
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <span className="inline-block px-4 py-2 bg-[#E8F1F4] text-[#0A94B8] rounded-full text-sm font-medium mb-4">
-                Distance Learning
-              </span>
-              <h2 className="text-3xl lg:text-4xl font-bold text-[#056C8C] mb-6">
-                Distance Learning Program (DLP)
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-[#E6F4F8] border border-[#0082AD]/20 rounded-full text-[#0082AD] text-xs font-bold uppercase tracking-wider mb-4">
+                <BookOpen className="w-3.5 h-3.5 text-[#7AA13B]" />
+                <span>Distance Learning Program</span>
+              </div>
+
+              <h2 className="text-3xl font-extrabold text-[#005F80] mb-6 leading-tight">
+                Learn Anywhere with Angels School DLP
               </h2>
-              <p className="text-gray-600 leading-relaxed mb-6">
-                Can't attend regular classes? Our Distance Learning Program brings GCI's quality education to your home.
-                Get access to comprehensive study materials, video lectures, and online test series.
+
+              <p className="text-slate-600 leading-relaxed mb-6">
+                Designed for students unable to attend daily physical campus sessions. Our Distance Learning Program delivers comprehensive study modules, online video lectures, and test series right to your device.
               </p>
 
-              <div className="space-y-4 mb-8">
+              <div className="grid sm:grid-cols-2 gap-3 mb-8">
                 {[
-                  'Comprehensive Study Material',
-                  'Video Lectures by Expert Faculty',
-                  'Online Test Series',
-                  'Doubt Resolution Support',
-                  'Performance Analysis',
-                  'Mobile App Access',
+                  'Comprehensive Printed Modules',
+                  'Recorded Video Lectures',
+                  'Online CBT & OMR Test Series',
+                  'Digital Doubt Resolution Desk',
+                  'Weekly Analytics & Ranking',
+                  'Full Academic Mobile Access',
                 ].map((feature) => (
-                  <div key={feature} className="flex items-center gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-[#76A440]" />
-                    <span className="text-gray-700">{feature}</span>
+                  <div key={feature} className="flex items-center gap-2.5 p-2 bg-[#F8FAFC] rounded-xl border border-slate-100">
+                    <CheckCircle2 className="w-4 h-4 text-[#7AA13B] flex-shrink-0" />
+                    <span className="text-slate-700 text-xs font-bold">{feature}</span>
                   </div>
                 ))}
               </div>
 
-              <Button size="lg" className="bg-[#0A94B8] hover:bg-[#76A440] text-white">
-                Know More About DLP
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
+              <Link href="/contact">
+                <Button size="lg" className="bg-[#0082AD] hover:bg-[#005F80] text-white font-extrabold px-7 rounded-xl shadow-md">
+                  Inquire for DLP Package
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </Button>
+              </Link>
             </motion.div>
 
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
+              className="relative"
             >
-              <img
-                src="/images/course-fallback.jpg"
-                alt="Distance Learning"
-                className="rounded-2xl shadow-xl w-full"
-                onError={(e) => {
-                  e.currentTarget.src = '/images/course-fallback.jpg';
-                }}
-              />
+              <div className="relative rounded-3xl overflow-hidden shadow-xl border-4 border-white">
+                <img
+                  src="https://res.cloudinary.com/dneccresv/image/upload/v1765566933/school/courses/course1.jpg"
+                  alt="Distance Learning"
+                  className="w-full h-[320px] md:h-[400px] object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#00384D]/80 via-transparent to-transparent" />
+              </div>
             </motion.div>
+
           </div>
         </div>
       </section>
+
     </div>
   );
-}
+}

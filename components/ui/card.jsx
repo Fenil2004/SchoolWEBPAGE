@@ -3,7 +3,7 @@ import * as React from "react"
 const Card = React.forwardRef(({ className = "", ...props }, ref) => (
   <div
     ref={ref}
-    className={`rounded-lg border border-gray-200 bg-white text-gray-950 shadow-sm ${className}`}
+    className={`rounded-2xl border border-slate-100 bg-white text-slate-900 shadow-card transition-all duration-300 hover:shadow-card-hover ${className}`}
     {...props}
   />
 ))
@@ -21,7 +21,7 @@ CardHeader.displayName = "CardHeader"
 const CardTitle = React.forwardRef(({ className = "", ...props }, ref) => (
   <h3
     ref={ref}
-    className={`text-2xl font-semibold leading-none tracking-tight ${className}`}
+    className={`text-xl font-bold leading-tight tracking-tight text-[#005F80] ${className}`}
     {...props}
   />
 ))
@@ -30,7 +30,7 @@ CardTitle.displayName = "CardTitle"
 const CardDescription = React.forwardRef(({ className = "", ...props }, ref) => (
   <p
     ref={ref}
-    className={`text-sm text-gray-500 ${className}`}
+    className={`text-sm text-slate-500 ${className}`}
     {...props}
   />
 ))
@@ -51,3 +51,4 @@ const CardFooter = React.forwardRef(({ className = "", ...props }, ref) => (
 CardFooter.displayName = "CardFooter"
 
 export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }
+

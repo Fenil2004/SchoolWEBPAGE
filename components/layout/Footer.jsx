@@ -1,76 +1,93 @@
 import React from 'react';
 import Link from 'next/link';
-import { createPageUrl } from '@/utils';
-import { Phone, Mail, MapPin, Facebook, Twitter, Instagram, Youtube, GraduationCap, ArrowRight } from 'lucide-react';
+import { Phone, Mail, MapPin, Facebook, Twitter, Instagram, Youtube, ChevronUp, ArrowRight, Award, Sparkles } from 'lucide-react';
 
 export default function Footer() {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const quickLinks = [
-    { name: 'Home', href: 'Home' },
-    { name: 'About Us', href: 'About' },
-    { name: 'Courses', href: 'Courses' },
-    { name: 'Our Branches', href: 'Branches' },
-    { name: 'Gallery', href: 'Gallery' },
-    { name: 'Contact Us', href: 'Contact' },
+    { name: 'Home', href: '/' },
+    { name: 'About Us', href: '/about' },
+    { name: 'Courses', href: '/courses' },
+    { name: 'Our Branches', href: '/branches' },
+    { name: 'Gallery', href: '/gallery' },
+    { name: 'Contact Us', href: '/contact' },
   ];
 
   const courses = [
-    '11th Science',
-    '12th Science',
-    'JEE Preparation',
-    'NEET Preparation',
-    'GUJCET Preparation',
+    { name: '11th Science', href: '/courses#11th-science' },
+    { name: '12th Science', href: '/courses#12th-science' },
+    { name: 'JEE Preparation', href: '/courses#jee-preparation' },
+    { name: 'NEET Preparation', href: '/courses#neet-preparation' },
+    { name: 'GUJCET Preparation', href: '/courses#gujcet-preparation' },
+  ];
+
+  const branches = [
+    { name: 'Bhavnagar HQ', href: '/branches/bhavnagar' },
+    { name: 'Ahmedabad Branch', href: '/branches/ahmedabad' },
+    { name: 'Deesa Branch', href: '/branches/deesa' },
   ];
 
   return (
-    <footer className="bg-[#044E64] text-gray-300">
-      {/* Main Footer */}
-      <div className="max-w-7xl mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-          {/* About */}
+    <footer className="bg-[#004761] text-slate-200 relative overflow-hidden border-t-4 border-[#7AA13B]">
+      {/* Background Decorative Graphic */}
+      <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-[#0082AD]/10 rounded-full blur-3xl pointer-events-none" />
+
+      {/* Main Footer Content */}
+      <div className="max-w-7xl mx-auto px-4 pt-16 pb-12 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+          
+          {/* Brand Info */}
           <div>
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 bg-gradient-to-br from-[#0A94B8] to-[#056C8C] rounded-full flex items-center justify-center">
-                <GraduationCap className="w-7 h-7 text-white" />
+            <div className="flex items-center gap-3 mb-5">
+              <div className="w-11 h-11 bg-gradient-to-br from-[#0082AD] to-[#005F80] rounded-xl flex items-center justify-center shadow-md">
+                <span className="text-white font-extrabold text-xl">A</span>
               </div>
               <div>
-                <h3 className="text-xl font-bold text-white">Angels School</h3>
-                <p className="text-xs text-gray-500 italic">Career Institute</p>
+                <div className="flex items-baseline gap-1">
+                  <h3 className="text-xl font-extrabold text-white">Angels</h3>
+                  <span className="text-xl font-extrabold text-[#7AA13B]">School</span>
+                </div>
+                <p className="text-[11px] text-cyan-200 font-medium">Career Institute | Since 2002</p>
               </div>
             </div>
-            <p className="text-gray-400 text-sm leading-relaxed mb-6">
-              Angels School Career Institute is a well-known science education institute in Gujarat,
-              with a focus on preparing students for 11-12 science and competitive exams like JEE and NEET.
+            
+            <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-6">
+              Angels School Career Institute is a premier science education institution in Gujarat, dedicated to shaping brilliant futures through 11th-12th Science, JEE, NEET, and competitive excellence.
             </p>
-            <div className="flex gap-3">
-              <a href="#" className="w-10 h-10 bg-[#0A94B8] rounded-full flex items-center justify-center hover:bg-[#76A440] transition-colors">
-                <Facebook className="w-5 h-5" />
+
+            <div className="flex items-center gap-2.5">
+              <a href="#" className="w-9 h-9 bg-white/10 hover:bg-[#7AA13B] rounded-lg flex items-center justify-center text-white transition-all duration-200 hover:scale-110">
+                <Facebook className="w-4 h-4" />
               </a>
-              <a href="#" className="w-10 h-10 bg-[#0A94B8] rounded-full flex items-center justify-center hover:bg-[#76A440] transition-colors">
-                <Twitter className="w-5 h-5" />
+              <a href="#" className="w-9 h-9 bg-white/10 hover:bg-[#7AA13B] rounded-lg flex items-center justify-center text-white transition-all duration-200 hover:scale-110">
+                <Twitter className="w-4 h-4" />
               </a>
-              <a href="#" className="w-10 h-10 bg-[#0A94B8] rounded-full flex items-center justify-center hover:bg-[#76A440] transition-colors">
-                <Instagram className="w-5 h-5" />
+              <a href="#" className="w-9 h-9 bg-white/10 hover:bg-[#7AA13B] rounded-lg flex items-center justify-center text-white transition-all duration-200 hover:scale-110">
+                <Instagram className="w-4 h-4" />
               </a>
-              <a href="#" className="w-10 h-10 bg-[#0A94B8] rounded-full flex items-center justify-center hover:bg-[#76A440] transition-colors">
-                <Youtube className="w-5 h-5" />
+              <a href="#" className="w-9 h-9 bg-white/10 hover:bg-[#7AA13B] rounded-lg flex items-center justify-center text-white transition-all duration-200 hover:scale-110">
+                <Youtube className="w-4 h-4" />
               </a>
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Quick Navigation Links */}
           <div>
-            <h4 className="text-lg font-semibold text-white mb-6 relative">
+            <h4 className="text-base font-bold text-white mb-5 relative inline-block">
               Quick Links
-              <span className="absolute bottom-0 left-0 w-12 h-0.5 bg-[#76A440] -mb-2"></span>
+              <span className="block h-0.5 w-10 bg-[#7AA13B] mt-1.5 rounded-full" />
             </h4>
-            <ul className="space-y-3 mt-4">
+            <ul className="space-y-2.5 text-xs sm:text-sm">
               {quickLinks.map((link) => (
                 <li key={link.name}>
                   <Link
-                    href={createPageUrl(link.href)}
-                    className="flex items-center gap-2 text-[#A9DCE8] hover:text-[#76A440] transition-colors"
+                    href={link.href}
+                    className="group flex items-center gap-2 text-cyan-100 hover:text-[#7AA13B] transition-colors"
                   >
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight className="w-3.5 h-3.5 text-[#7AA13B] transform group-hover:translate-x-1 transition-transform" />
                     {link.name}
                   </Link>
                 </li>
@@ -78,68 +95,85 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Courses */}
+          {/* Our Programs */}
           <div>
-            <h4 className="text-lg font-semibold text-white mb-6 relative">
-              Our Courses
-              <span className="absolute bottom-0 left-0 w-12 h-0.5 bg-[#76A440] -mb-2"></span>
+            <h4 className="text-base font-bold text-white mb-5 relative inline-block">
+              Our Academic Programs
+              <span className="block h-0.5 w-10 bg-[#7AA13B] mt-1.5 rounded-full" />
             </h4>
-            <ul className="space-y-3 mt-4">
+            <ul className="space-y-2.5 text-xs sm:text-sm">
               {courses.map((course) => (
-                <li key={course}>
+                <li key={course.name}>
                   <Link
-                    href={createPageUrl('Courses')}
-                    className="flex items-center gap-2 text-[#A9DCE8] hover:text-[#76A440] transition-colors"
+                    href={course.href}
+                    className="group flex items-center gap-2 text-cyan-100 hover:text-[#7AA13B] transition-colors"
                   >
-                    <ArrowRight className="w-4 h-4" />
-                    {course}
+                    <ArrowRight className="w-3.5 h-3.5 text-[#7AA13B] transform group-hover:translate-x-1 transition-transform" />
+                    {course.name}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Contact Info */}
+          {/* Contact Information */}
           <div>
-            <h4 className="text-lg font-semibold text-white mb-6 relative">
-              Contact Us
-              <span className="absolute bottom-0 left-0 w-12 h-0.5 bg-[#76A440] -mb-2"></span>
+            <h4 className="text-base font-bold text-white mb-5 relative inline-block">
+              Contact & Branches
+              <span className="block h-0.5 w-10 bg-[#7AA13B] mt-1.5 rounded-full" />
             </h4>
-            <ul className="space-y-4 mt-4">
+            <ul className="space-y-3.5 text-xs sm:text-sm">
               <li className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-[#76A440] mt-1 flex-shrink-0" />
-                <span className="text-[#A9DCE8]">
+                <MapPin className="w-4 h-4 text-[#7AA13B] mt-1 flex-shrink-0" />
+                <span className="text-cyan-100 leading-snug">
                   Angels School Vidyapith Campus, Bhavnagar, Gujarat, India
                 </span>
               </li>
               <li className="flex items-center gap-3">
-                <Phone className="w-5 h-5 text-[#76A440] flex-shrink-0" />
-                <a href="tel:+918401278780" className="text-[#A9DCE8] hover:text-[#76A440] transition-colors">
+                <Phone className="w-4 h-4 text-[#7AA13B] flex-shrink-0" />
+                <a href="tel:+918401278780" className="text-cyan-100 hover:text-white transition-colors">
                   +91 8401278780
                 </a>
               </li>
               <li className="flex items-center gap-3">
-                <Mail className="w-5 h-5 text-[#76A440]" />
-                <a href="mailto:angelsschoolno1@gmail.com" className="text-[#A9DCE8] hover:text-[#76A440] transition-colors">
+                <Mail className="w-4 h-4 text-[#7AA13B] flex-shrink-0" />
+                <a href="mailto:angelsschoolno1@gmail.com" className="text-cyan-100 hover:text-white transition-colors">
                   angelsschoolno1@gmail.com
                 </a>
               </li>
             </ul>
+
+            <div className="mt-4 pt-4 border-t border-white/10">
+              <p className="text-xs font-semibold text-white mb-2">Our Campus Network:</p>
+              <div className="flex flex-wrap gap-2">
+                {branches.map(b => (
+                  <Link key={b.name} href={b.href} className="text-[11px] bg-white/10 hover:bg-[#7AA13B] text-cyan-100 hover:text-white px-2.5 py-1 rounded transition-colors">
+                    {b.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
           </div>
+
         </div>
       </div>
 
-      {/* Bottom Bar */}
-      <div className="border-t border-gray-800">
-        <div className="max-w-7xl mx-auto px-4 py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-gray-500 text-sm">
-              © {new Date().getFullYear()} Angels School Career Institute. All Rights Reserved.
-            </p>
-            <div className="flex gap-6 text-sm">
-              <a href="#" className="text-gray-500 hover:text-[#76A440] transition-colors">Privacy Policy</a>
-              <a href="#" className="text-gray-500 hover:text-[#76A440] transition-colors">Terms & Conditions</a>
-            </div>
+      {/* Copyright & Scroll To Top */}
+      <div className="border-t border-white/10 bg-[#00384D] py-5 px-4">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-cyan-200">
+          <p className="text-center sm:text-left">
+            © {new Date().getFullYear()} Angels School Career Institute. All Rights Reserved.
+          </p>
+          <div className="flex items-center gap-6">
+            <Link href="/contact" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/contact" className="hover:text-white transition-colors">Terms of Service</Link>
+            <button
+              onClick={scrollToTop}
+              className="w-8 h-8 bg-[#7AA13B] hover:bg-[#8DB843] text-white rounded-lg flex items-center justify-center transition-transform hover:scale-110 shadow-sm"
+              title="Back to Top"
+            >
+              <ChevronUp className="w-4 h-4" />
+            </button>
           </div>
         </div>
       </div>

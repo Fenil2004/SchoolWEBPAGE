@@ -9,14 +9,14 @@ import {
   Settings,
   LogOut,
   Users,
-  FileText,
-  Video
+  Video,
+  Shield,
+  ExternalLink
 } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-// Import admin components
 import HeroManagement from '@/components/admin/HeroManagement';
 import GalleryManagement from '@/components/admin/GalleryManagement';
 import TestimonialManagement from '@/components/admin/TestimonialManagement';
@@ -50,7 +50,7 @@ export default function AdminDashboard() {
   const fetchStats = async () => {
     try {
       const response = await fetch('/api/admin/stats', {
-        credentials: 'include' // Include HttpOnly cookie
+        credentials: 'include'
       });
       if (response.ok) {
         const data = await response.json();
@@ -63,9 +63,8 @@ export default function AdminDashboard() {
 
   const checkAuth = async () => {
     try {
-      // Verify authentication with server using HttpOnly cookie
       const response = await fetch('/api/auth/me', {
-        credentials: 'include' // Include HttpOnly cookie
+        credentials: 'include'
       });
 
       if (!response.ok) {
@@ -82,7 +81,6 @@ export default function AdminDashboard() {
         return;
       }
 
-      // Verify user is admin
       if (data.user.role !== 'admin') {
         alert('Access denied. Admin privileges required.');
         router.push('/admin-login');
@@ -90,7 +88,6 @@ export default function AdminDashboard() {
       }
 
       setUser(data.user);
-      // Optionally store user info in localStorage for UI display (not for auth)
       localStorage.setItem('user', JSON.stringify(data.user));
     } catch (error) {
       console.error('Auth check error:', error);
@@ -102,7 +99,6 @@ export default function AdminDashboard() {
 
   const handleLogout = async () => {
     try {
-      // Call logout API to clear HttpOnly cookie
       await fetch('/api/auth/logout', {
         method: 'POST',
         credentials: 'include'
@@ -110,7 +106,6 @@ export default function AdminDashboard() {
     } catch (error) {
       console.error('Logout error:', error);
     } finally {
-      // Clear user data from localStorage
       localStorage.removeItem('user');
       router.push('/');
     }
@@ -118,194 +113,213 @@ export default function AdminDashboard() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-[#F8FAFC] flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading...</p>
+          <div className="w-12 h-12 border-4 border-[#0082AD] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-slate-600 text-xs font-bold">Verifying Admin Session...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Top Bar */}
-      <div className="bg-white border-b sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 py-4">
+    <div className="min-h-screen bg-[#F8FAFC]">
+      
+      {/* Admin Header */}
+      <div className="bg-gradient-to-r from-[#005F80] via-[#0082AD] to-[#004761] border-b border-cyan-900 sticky top-0 z-50 text-white shadow-md">
+        <div className="max-w-7xl mx-auto px-4 py-3.5">
           <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">Admin Dashboard</h1>
-              <p className="text-sm text-gray-500">Welcome back, {user?.full_name}</p>
+            
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center">
+                <Shield className="w-5 h-5 text-[#7AA13B]" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h1 className="text-lg font-extrabold text-white">Angels School</h1>
+                  <span className="bg-[#7AA13B] text-white text-[10px] font-bold uppercase px-2 py-0.5 rounded-full">Admin Portal</span>
+                </div>
+                <p className="text-xs text-cyan-200">Welcome, {user?.full_name || 'Administrator'}</p>
+              </div>
             </div>
-            <div className="flex items-center gap-4">
-              <a href="/" className="text-blue-600 hover:underline text-sm">
-                View Website
+
+            <div className="flex items-center gap-3">
+              <a
+                href="/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold text-white transition-colors"
+              >
+                <span>Live Site</span>
+                <ExternalLink className="w-3.5 h-3.5" />
               </a>
-              <Button variant="outline" onClick={handleLogout}>
-                <LogOut className="w-4 h-4 mr-2" />
-                Logout
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleLogout}
+                className="text-white hover:bg-rose-500/20 hover:text-rose-200 text-xs font-bold gap-1.5 h-9 rounded-xl"
+              >
+                <LogOut className="w-4 h-4" />
+                <span>Logout</span>
               </Button>
             </div>
+
           </div>
         </div>
       </div>
 
-      {/* Main Content */}
+      {/* Main Container */}
       <div className="max-w-7xl mx-auto px-4 py-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} defaultValue="overview" className="space-y-6">
-          <TabsList className="bg-white p-1">
-            <TabsTrigger value="overview" className="gap-2">
+          
+          {/* Dashboard Tab Bar */}
+          <TabsList className="bg-white p-1.5 rounded-2xl border border-slate-100 shadow-sm flex flex-wrap justify-start gap-1 h-auto">
+            <TabsTrigger value="overview" className="gap-2 px-4 py-2 rounded-xl text-xs font-bold data-[state=active]:bg-[#0082AD] data-[state=active]:text-white">
               <LayoutDashboard className="w-4 h-4" />
               Overview
             </TabsTrigger>
-            <TabsTrigger value="hero" className="gap-2">
+            <TabsTrigger value="hero" className="gap-2 px-4 py-2 rounded-xl text-xs font-bold data-[state=active]:bg-[#0082AD] data-[state=active]:text-white">
               <Video className="w-4 h-4" />
-              Hero Section
+              Hero Banners
             </TabsTrigger>
-            <TabsTrigger value="courses" className="gap-2">
+            <TabsTrigger value="courses" className="gap-2 px-4 py-2 rounded-xl text-xs font-bold data-[state=active]:bg-[#0082AD] data-[state=active]:text-white">
               <BookOpen className="w-4 h-4" />
               Courses
             </TabsTrigger>
-            <TabsTrigger value="gallery" className="gap-2">
+            <TabsTrigger value="gallery" className="gap-2 px-4 py-2 rounded-xl text-xs font-bold data-[state=active]:bg-[#0082AD] data-[state=active]:text-white">
               <ImageIcon className="w-4 h-4" />
               Gallery
             </TabsTrigger>
-            <TabsTrigger value="testimonials" className="gap-2">
+            <TabsTrigger value="testimonials" className="gap-2 px-4 py-2 rounded-xl text-xs font-bold data-[state=active]:bg-[#0082AD] data-[state=active]:text-white">
               <MessageSquare className="w-4 h-4" />
               Testimonials
             </TabsTrigger>
-            <TabsTrigger value="branches" className="gap-2">
+            <TabsTrigger value="branches" className="gap-2 px-4 py-2 rounded-xl text-xs font-bold data-[state=active]:bg-[#0082AD] data-[state=active]:text-white">
               <MapPin className="w-4 h-4" />
               Branches
             </TabsTrigger>
-            <TabsTrigger value="team" className="gap-2">
+            <TabsTrigger value="team" className="gap-2 px-4 py-2 rounded-xl text-xs font-bold data-[state=active]:bg-[#0082AD] data-[state=active]:text-white">
               <Users className="w-4 h-4" />
-              Team
+              Leadership Team
             </TabsTrigger>
-            <TabsTrigger value="settings" className="gap-2">
+            <TabsTrigger value="settings" className="gap-2 px-4 py-2 rounded-xl text-xs font-bold data-[state=active]:bg-[#0082AD] data-[state=active]:text-white">
               <Settings className="w-4 h-4" />
-              Settings
+              System Settings
             </TabsTrigger>
           </TabsList>
 
           {/* Overview Tab */}
-          <TabsContent value="overview">
+          <TabsContent value="overview" className="space-y-6">
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <Card>
-                <CardHeader className="pb-3">
-                  <CardTitle className="text-sm font-medium text-gray-600">
-                    Total Courses
+              <Card className="rounded-2xl border border-slate-100 bg-white shadow-sm hover:shadow-card-hover transition-all">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                    Active Courses
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">{stats.courses}</div>
-                  <p className="text-xs text-gray-500">Active courses</p>
+                  <div className="text-3xl font-extrabold text-[#0082AD]">{stats.courses}</div>
+                  <p className="text-xs text-slate-500 mt-1">Managed Academic Batches</p>
                 </CardContent>
               </Card>
 
-              <Card>
-                <CardHeader className="pb-3">
-                  <CardTitle className="text-sm font-medium text-gray-600">
+              <Card className="rounded-2xl border border-slate-100 bg-white shadow-sm hover:shadow-card-hover transition-all">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-xs font-bold uppercase tracking-wider text-slate-500">
                     Gallery Images
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">{stats.galleryImages}</div>
-                  <p className="text-xs text-gray-500">Images uploaded</p>
+                  <div className="text-3xl font-extrabold text-[#7AA13B]">{stats.galleryImages}</div>
+                  <p className="text-xs text-slate-500 mt-1">Uploaded Media Items</p>
                 </CardContent>
               </Card>
 
-              <Card>
-                <CardHeader className="pb-3">
-                  <CardTitle className="text-sm font-medium text-gray-600">
-                    Testimonials
+              <Card className="rounded-2xl border border-slate-100 bg-white shadow-sm hover:shadow-card-hover transition-all">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                    Student Testimonials
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">{stats.testimonials}</div>
-                  <p className="text-xs text-gray-500">Student reviews</p>
+                  <div className="text-3xl font-extrabold text-[#0082AD]">{stats.testimonials}</div>
+                  <p className="text-xs text-slate-500 mt-1">Published Reviews</p>
                 </CardContent>
               </Card>
 
-              <Card>
-                <CardHeader className="pb-3">
-                  <CardTitle className="text-sm font-medium text-gray-600">
-                    Branches
+              <Card className="rounded-2xl border border-slate-100 bg-white shadow-sm hover:shadow-card-hover transition-all">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                    Campus Network
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">{stats.branches}</div>
-                  <p className="text-xs text-gray-500">Across Gujarat</p>
+                  <div className="text-3xl font-extrabold text-[#7AA13B]">{stats.branches}</div>
+                  <p className="text-xs text-slate-500 mt-1">Active Gujarat Campuses</p>
                 </CardContent>
               </Card>
             </div>
 
-            <Card className="mt-6">
+            <Card className="rounded-3xl border border-slate-100 bg-white shadow-sm">
               <CardHeader>
-                <CardTitle>Quick Actions</CardTitle>
+                <CardTitle className="text-base font-extrabold text-[#005F80]">Quick Actions</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid md:grid-cols-3 gap-4">
                   <Button
-                    className="h-24 flex flex-col gap-2"
+                    className="h-24 rounded-2xl border border-slate-200 bg-[#F8FAFC] hover:bg-[#E6F4F8] hover:border-[#0082AD] text-slate-700 hover:text-[#0082AD] transition-all flex flex-col gap-2"
                     variant="outline"
                     onClick={() => setActiveTab('gallery')}
                   >
-                    <ImageIcon className="w-6 h-6" />
-                    <span>Add Gallery Image</span>
+                    <ImageIcon className="w-6 h-6 text-[#0082AD]" />
+                    <span className="font-bold text-xs">Add Gallery Image</span>
                   </Button>
                   <Button
-                    className="h-24 flex flex-col gap-2"
+                    className="h-24 rounded-2xl border border-slate-200 bg-[#F8FAFC] hover:bg-[#F2F7E9] hover:border-[#7AA13B] text-slate-700 hover:text-[#7AA13B] transition-all flex flex-col gap-2"
                     variant="outline"
                     onClick={() => setActiveTab('courses')}
                   >
-                    <BookOpen className="w-6 h-6" />
-                    <span>Add New Course</span>
+                    <BookOpen className="w-6 h-6 text-[#7AA13B]" />
+                    <span className="font-bold text-xs">Add New Course</span>
                   </Button>
                   <Button
-                    className="h-24 flex flex-col gap-2"
+                    className="h-24 rounded-2xl border border-slate-200 bg-[#F8FAFC] hover:bg-[#E6F4F8] hover:border-[#0082AD] text-slate-700 hover:text-[#0082AD] transition-all flex flex-col gap-2"
                     variant="outline"
                     onClick={() => setActiveTab('testimonials')}
                   >
-                    <MessageSquare className="w-6 h-6" />
-                    <span>Add Testimonial</span>
+                    <MessageSquare className="w-6 h-6 text-[#0082AD]" />
+                    <span className="font-bold text-xs">Add Student Review</span>
                   </Button>
                 </div>
               </CardContent>
             </Card>
           </TabsContent>
 
-          {/* Hero Section Tab */}
+          {/* Subcomponents Management Tabs */}
           <TabsContent value="hero">
             <HeroManagement />
           </TabsContent>
 
-          {/* Courses Tab */}
           <TabsContent value="courses">
             <CourseManagement />
           </TabsContent>
 
-          {/* Gallery Tab */}
           <TabsContent value="gallery">
             <GalleryManagement />
           </TabsContent>
 
-          {/* Testimonials Tab */}
           <TabsContent value="testimonials">
             <TestimonialManagement />
           </TabsContent>
 
-          {/* Branches Tab */}
           <TabsContent value="branches">
             <BranchManagement />
           </TabsContent>
 
-          {/* Team Tab */}
           <TabsContent value="team">
             <TeamManagement />
           </TabsContent>
 
-          {/* Settings Tab */}
           <TabsContent value="settings">
             <SettingsManagement />
           </TabsContent>
@@ -314,3 +328,4 @@ export default function AdminDashboard() {
     </div>
   );
 }
+

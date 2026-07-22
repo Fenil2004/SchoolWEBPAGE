@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Play, X, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Play, ArrowRight, Award, Users, BookOpen, GraduationCap, Sparkles, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 
@@ -45,7 +45,6 @@ export default function HeroSection() {
         if (Array.isArray(data) && data.length > 0) {
           const activeHeroes = data.filter(h => h.isActive);
           if (activeHeroes.length > 0) {
-            // Sort by displayOrder if needed, currently API does it
             setHeroItems(activeHeroes);
           } else {
             setHeroItems([DEFAULT_HERO]);
@@ -54,161 +53,181 @@ export default function HeroSection() {
           setHeroItems([DEFAULT_HERO]);
         }
       } else {
-        console.error('Failed to fetch hero content:', response.status);
         setHeroItems([DEFAULT_HERO]);
       }
     } catch (error) {
-      console.error('Error fetching hero content:', error);
       setHeroItems([DEFAULT_HERO]);
     } finally {
       setLoading(false);
     }
   };
 
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % heroItems.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + heroItems.length) % heroItems.length);
-  };
-
   const currentHero = heroItems[currentIndex] || DEFAULT_HERO;
 
   return (
-    <section className="relative min-h-[500px] md:min-h-[600px] lg:min-h-[700px] overflow-hidden flex items-center">
-      {/* Background with gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#0A94B8] via-[#0680A0] to-[#056C8C]">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          }} />
-        </div>
-        <div className="absolute top-20 left-10 w-64 h-64 bg-[#0A94B8] rounded-full opacity-20 blur-3xl" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#76A440] rounded-full opacity-15 blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#056C8C]/50 to-transparent" />
+    <section className="relative min-h-[550px] lg:min-h-[680px] bg-gradient-to-br from-[#005F80] via-[#0082AD] to-[#004761] overflow-hidden flex flex-col justify-between pt-12 pb-16">
+      
+      {/* Decorative Brand SVG Pattern */}
+      <div className="absolute inset-0 opacity-10 pointer-events-none">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.5'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        }} />
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 w-full">
-        <AnimatePresence mode="wait">
-          <div key={currentIndex} className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Text Content */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 20 }}
-              transition={{ duration: 0.5 }}
-              className="text-center lg:text-left"
-            >
-              <motion.span
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="inline-block px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white text-sm font-medium mb-6"
-              >
-                🎓 Welcome to Excellence in Education
-              </motion.span>
+      {/* Decorative Glow Orbs */}
+      <div className="absolute -top-24 -left-24 w-96 h-96 bg-[#0082AD]/30 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#7AA13B]/25 rounded-full blur-3xl pointer-events-none" />
 
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6 min-h-[3em] lg:min-h-[2.5em]">
+      {/* Main Content Grid */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 w-full my-auto">
+        <AnimatePresence mode="wait">
+          <div key={currentIndex} className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+            
+            {/* Left Hero Text Content */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 30 }}
+              transition={{ duration: 0.5 }}
+              className="lg:col-span-7 text-center lg:text-left"
+            >
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white text-xs sm:text-sm font-semibold mb-6 shadow-sm">
+                <Sparkles className="w-4 h-4 text-amber-300" />
+                <span>Premier Science & Competitive Institute in Gujarat</span>
+              </div>
+
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight mb-6">
                 {currentHero.title}
                 {currentHero.subtitle && (
-                  <span className="block text-[#E8F1F4] text-2xl md:text-3xl lg:text-4xl mt-2 font-medium">
+                  <span className="block text-[#7AA13B] text-2xl sm:text-3xl lg:text-4xl font-bold mt-2 tracking-normal">
                     {currentHero.subtitle}
                   </span>
                 )}
               </h1>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <p className="text-slate-200 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed mb-8">
+                Empowering students to achieve rank-one results in 11th-12th Board Science, JEE (Main & Advanced), NEET, and GUJCET through state-of-the-art methodology.
+              </p>
+
+              {/* Action Buttons */}
+              <div className="flex flex-wrap gap-4 justify-center lg:justify-start items-center">
                 <Button
                   size="lg"
-                  className="bg-[#76A440] hover:bg-[#8FC85C] text-white font-semibold px-8 transition-colors"
+                  className="bg-[#7AA13B] hover:bg-[#8DB843] text-white font-extrabold px-8 py-4 text-base rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
                   onClick={() => window.location.href = currentHero.ctaLink || '/contact'}
                 >
                   {currentHero.ctaText || 'Enroll Now'}
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
+
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-2 border-white bg-transparent text-white hover:bg-white/10 font-semibold px-8"
+                  className="border-2 border-white bg-white/10 hover:bg-white text-white hover:text-[#005F80] font-bold px-7 py-4 text-base rounded-xl transition-all"
+                  onClick={() => window.location.href = '/courses'}
                 >
-                  Scholarship Exam
+                  Explore Programs
                 </Button>
+              </div>
+
+              {/* Quick Key Metrics Bar (Podar-inspired) */}
+              <div className="grid grid-cols-3 gap-4 mt-10 pt-8 border-t border-white/15 max-w-xl mx-auto lg:mx-0">
+                <div className="text-center lg:text-left">
+                  <p className="text-2xl sm:text-3xl font-black text-white">2002</p>
+                  <p className="text-xs text-cyan-200 font-medium">Established</p>
+                </div>
+                <div className="text-center lg:text-left">
+                  <p className="text-2xl sm:text-3xl font-black text-[#7AA13B]">3+</p>
+                  <p className="text-xs text-cyan-200 font-medium">Major Campuses</p>
+                </div>
+                <div className="text-center lg:text-left">
+                  <p className="text-2xl sm:text-3xl font-black text-white">99.8%</p>
+                  <p className="text-xs text-cyan-200 font-medium">Success Rate</p>
+                </div>
               </div>
             </motion.div>
 
-            {/* Video Card */}
+            {/* Right Hero Media Card with Floating Badges */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
+              exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.5 }}
-              className="relative hidden lg:block"
+              className="lg:col-span-5 relative"
             >
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl transform rotate-2 hover:rotate-0 transition-transform duration-500 border-4 border-white/20">
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white/20 group">
                 <img
                   src={currentHero.imageUrl || DEFAULT_HERO.imageUrl}
                   alt={currentHero.title}
-                  className="w-full h-[300px] lg:h-[400px] object-cover"
+                  className="w-full h-[320px] sm:h-[400px] object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#056C8C]/80 via-[#0A94B8]/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#004761]/90 via-[#0082AD]/30 to-transparent" />
 
+                {/* Video Play Button */}
                 <button
                   onClick={() => setVideoOpen(true)}
-                  className="absolute inset-0 flex items-center justify-center group"
+                  className="absolute inset-0 flex flex-col items-center justify-center group"
                 >
-                  <div className="w-20 h-20 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                    <Play className="w-8 h-8 text-[#0A94B8] ml-1" />
+                  <div className="w-20 h-20 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-300">
+                    <Play className="w-8 h-8 text-[#0082AD] ml-1 fill-[#0082AD]" />
                   </div>
+                  <span className="mt-3 px-4 py-1.5 bg-black/40 backdrop-blur-md rounded-full text-white text-xs font-semibold tracking-wide">
+                    Watch Campus Life
+                  </span>
                 </button>
+              </div>
 
-                <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <p className="text-white font-semibold text-lg line-clamp-1">{currentHero.title}</p>
-                  <p className="text-[#E8F1F4] text-sm">Watch our story</p>
+              {/* Floating Badge 1 - Top Right */}
+              <div className="absolute -top-4 -right-4 bg-white p-3.5 rounded-2xl shadow-xl border border-slate-100 flex items-center gap-3 hidden sm:flex animate-bounce-slow">
+                <div className="w-10 h-10 bg-[#E6F4F8] rounded-xl flex items-center justify-center text-[#0082AD]">
+                  <Award className="w-5 h-5" />
+                </div>
+                <div>
+                  <p className="text-xs text-slate-500 font-medium">Rank #1 Institute</p>
+                  <p className="text-sm font-bold text-slate-800">Gujarat Education</p>
                 </div>
               </div>
 
-              {/* Stats Badge */}
-              <div className="absolute -bottom-6 -left-6 bg-white rounded-xl shadow-xl p-4 animate-bounce-slow">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-[#E8F1F4] rounded-full flex items-center justify-center">
-                    <span className="text-2xl">🏆</span>
-                  </div>
-                  <div>
-                    <p className="text-2xl font-bold text-[#056C8C]">10+</p>
-                    <p className="text-sm text-gray-500">Branches</p>
-                  </div>
+              {/* Floating Badge 2 - Bottom Left */}
+              <div className="absolute -bottom-6 -left-4 bg-white p-3.5 rounded-2xl shadow-xl border border-slate-100 flex items-center gap-3 hidden sm:flex">
+                <div className="w-10 h-10 bg-[#F2F7E9] rounded-xl flex items-center justify-center text-[#7AA13B]">
+                  <GraduationCap className="w-5 h-5" />
+                </div>
+                <div>
+                  <p className="text-xs text-slate-500 font-medium">Over 10,000+</p>
+                  <p className="text-sm font-bold text-slate-800">Alumni Engineers & Doctors</p>
                 </div>
               </div>
+
             </motion.div>
+
           </div>
         </AnimatePresence>
 
-        {/* Navigation Dots */}
+        {/* Carousel Indicators */}
         {heroItems.length > 1 && (
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+          <div className="flex justify-center gap-2 mt-8 z-20">
             {heroItems.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentIndex ? 'bg-white w-8' : 'bg-white/50 hover:bg-white/80'
-                  }`}
+                className={`h-2.5 rounded-full transition-all duration-300 ${
+                  index === currentIndex ? 'bg-[#7AA13B] w-8' : 'bg-white/40 hover:bg-white/70 w-2.5'
+                }`}
                 aria-label={`Go to slide ${index + 1}`}
               />
             ))}
           </div>
         )}
-
-        {/* Navigation Arrows removed as per user request */}
-
       </div>
 
+      {/* Video Modal */}
       <Dialog open={videoOpen} onOpenChange={setVideoOpen}>
-        <DialogContent className="max-w-4xl p-0 bg-black border-none">
+        <DialogContent className="max-w-4xl p-0 bg-black border-none rounded-2xl overflow-hidden">
           <div className="relative pt-[56.25%]">
             <iframe
               className="absolute inset-0 w-full h-full"
-              src="https://www.youtube.com/embed/3wu0iQeJKyg"
+              src="https://www.youtube.com/embed/3wu0iQeJKyg?autoplay=1"
               title="Journey Of Angels School Vidhyapith"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
@@ -217,12 +236,13 @@ export default function HeroSection() {
         </DialogContent>
       </Dialog>
 
-      {/* Wave Divider */}
-      <div className="absolute bottom-0 left-0 right-0 z-0">
-        <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0 120L60 110C120 100 240 80 360 70C480 60 600 60 720 65C840 70 960 80 1080 85C1200 90 1320 90 1380 90L1440 90V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="white" />
+      {/* Bottom Curve Wave Transition */}
+      <div className="absolute bottom-0 left-0 right-0 pointer-events-none">
+        <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-12 md:h-16 text-[#F8FAFC]">
+          <path d="M0 80C240 20 480 20 720 40C960 60 1200 60 1440 20V80H0Z" fill="currentColor" />
         </svg>
       </div>
+
     </section>
   );
-}
+}

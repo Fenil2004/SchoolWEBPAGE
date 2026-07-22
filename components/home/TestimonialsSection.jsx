@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Quote, ChevronLeft, ChevronRight, Star } from 'lucide-react';
+import { Quote, ChevronLeft, ChevronRight, Star, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function TestimonialsSection() {
@@ -22,10 +22,7 @@ export default function TestimonialsSection() {
       });
       if (response.ok) {
         const data = await response.json();
-        console.log('Fetched testimonials:', data); // Debug log
         setTestimonials(Array.isArray(data) ? data.filter(t => t.isActive) : []);
-      } else {
-        console.error('Failed to fetch testimonials:', response.status);
       }
     } catch (error) {
       console.error('Error fetching testimonials:', error);
@@ -36,9 +33,9 @@ export default function TestimonialsSection() {
 
   if (loading) {
     return (
-      <section className="py-20 bg-[#F5F8FA]">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <p className="text-gray-600">Loading testimonials...</p>
+      <section className="py-20 bg-[#0082AD] text-white">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="bg-white rounded-3xl p-10 skeleton-loader h-64" />
         </div>
       </section>
     );
@@ -57,53 +54,54 @@ export default function TestimonialsSection() {
   };
 
   return (
-    <section className="py-20 bg-[#0A94B8]">
-      <div className="max-w-7xl mx-auto px-4">
+    <section className="py-20 bg-gradient-to-br from-[#0082AD] via-[#005F80] to-[#004761] text-white relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 relative z-10">
+        
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-14"
         >
-          <span className="inline-block px-4 py-2 bg-white/20 text-white rounded-full text-sm font-medium mb-4">
-            Testimonials
-          </span>
-          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
-            What Say Our Students
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-cyan-100 text-xs font-bold uppercase tracking-wider mb-3">
+            <Sparkles className="w-3.5 h-3.5 text-[#7AA13B]" />
+            <span>Success Stories</span>
+          </div>
+
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-3">
+            What Our Students & Parents Say
           </h2>
-          <p className="text-white/90 max-w-2xl mx-auto">
-            Hear from our successful students who achieved their dreams with Gyanmanjari
+          <p className="text-cyan-100 max-w-2xl mx-auto text-sm sm:text-base">
+            Real experiences from students who transformed their academic goals into top achievements at Angels School
           </p>
         </motion.div>
 
-        {/* Testimonial Slider */}
+        {/* Testimonial Card */}
         <div className="relative max-w-4xl mx-auto">
-          {/* Main Card */}
           <AnimatePresence mode="wait">
             <motion.div
               key={currentIndex}
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.96 }}
               transition={{ duration: 0.3 }}
-              className="bg-white rounded-3xl shadow-xl p-8 lg:p-12 relative"
+              className="bg-white rounded-3xl shadow-2xl p-8 sm:p-12 relative text-slate-900 border border-slate-100"
             >
-              {/* Quote Icon */}
-              <div className="absolute top-8 right-8 opacity-10">
-                <Quote className="w-24 h-24 text-[#0A94B8]" />
+              <div className="absolute top-6 right-8 opacity-10 pointer-events-none">
+                <Quote className="w-28 h-28 text-[#0082AD]" />
               </div>
 
-              <div className="flex flex-col lg:flex-row gap-8 items-center">
-                {/* Image */}
+              <div className="flex flex-col sm:flex-row gap-8 items-center sm:items-start relative z-10">
+                {/* Avatar */}
                 <div className="flex-shrink-0">
                   <div className="relative">
                     <img
-                      src={testimonials[currentIndex].image || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(testimonials[currentIndex].name)}
+                      src={testimonials[currentIndex].image || 'https://ui-avatars.com/api/?background=0082AD&color=fff&name=' + encodeURIComponent(testimonials[currentIndex].name)}
                       alt={testimonials[currentIndex].name}
-                      className="w-32 h-32 rounded-full object-cover border-4 border-[#D9EEF4]"
+                      className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl object-cover border-4 border-[#E6F4F8] shadow-md"
                     />
-                    <div className="absolute -bottom-2 -right-2 bg-[#0A94B8] rounded-full p-2">
+                    <div className="absolute -bottom-2 -right-2 bg-[#7AA13B] rounded-lg p-1.5 shadow">
                       <div className="flex">
                         {[...Array(testimonials[currentIndex].rating || 5)].map((_, i) => (
                           <Star key={i} className="w-3 h-3 text-white fill-white" />
@@ -113,25 +111,24 @@ export default function TestimonialsSection() {
                   </div>
                 </div>
 
-                {/* Content */}
-                <div className="flex-1 text-center lg:text-left">
-                  {/* Stars */}
-                  <div className="flex justify-center lg:justify-start gap-1 mb-4">
+                {/* Body */}
+                <div className="flex-1 text-center sm:text-left">
+                  <div className="flex justify-center sm:justify-start gap-1 mb-3">
                     {[...Array(testimonials[currentIndex].rating || 5)].map((_, i) => (
-                      <Star key={i} className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                      <Star key={i} className="w-4 h-4 text-amber-400 fill-amber-400" />
                     ))}
                   </div>
 
-                  <p className="text-gray-600 text-lg leading-relaxed mb-6 italic">
+                  <p className="text-slate-700 text-sm sm:text-base leading-relaxed mb-6 font-medium italic">
                     "{testimonials[currentIndex].message}"
                   </p>
 
                   <div>
-                    <h4 className="text-xl font-bold text-[#056C8C]">
+                    <h4 className="text-lg font-bold text-[#005F80]">
                       {testimonials[currentIndex].name}
                     </h4>
-                    <p className="text-[#0A94B8] font-medium">
-                      {testimonials[currentIndex].role} - {testimonials[currentIndex].course}
+                    <p className="text-xs font-semibold text-[#7AA13B]">
+                      {testimonials[currentIndex].role} — {testimonials[currentIndex].course}
                     </p>
                   </div>
                 </div>
@@ -139,26 +136,27 @@ export default function TestimonialsSection() {
             </motion.div>
           </AnimatePresence>
 
-          {/* Navigation */}
-          <div className="flex justify-center gap-4 mt-8">
+          {/* Controls */}
+          <div className="flex items-center justify-center gap-5 mt-8">
             <Button
               variant="outline"
               size="icon"
-              className="rounded-full"
+              className="rounded-xl border-white/20 bg-white/10 hover:bg-white text-white hover:text-[#0082AD]"
               onClick={prevTestimonial}
+              aria-label="Previous Testimonial"
             >
               <ChevronLeft className="w-5 h-5" />
             </Button>
             
-            {/* Dots */}
             <div className="flex items-center gap-2">
               {testimonials.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentIndex(index)}
-                  className={`w-3 h-3 rounded-full transition-all ${
-                    index === currentIndex ? 'bg-[#0A94B8] w-8' : 'bg-white/50'
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    index === currentIndex ? 'bg-[#7AA13B] w-7' : 'bg-white/40 w-2'
                   }`}
+                  aria-label={`Go to slide ${index + 1}`}
                 />
               ))}
             </div>
@@ -166,14 +164,16 @@ export default function TestimonialsSection() {
             <Button
               variant="outline"
               size="icon"
-              className="rounded-full"
+              className="rounded-xl border-white/20 bg-white/10 hover:bg-white text-white hover:text-[#0082AD]"
               onClick={nextTestimonial}
+              aria-label="Next Testimonial"
             >
               <ChevronRight className="w-5 h-5" />
             </Button>
           </div>
         </div>
+
       </div>
     </section>
   );
-}
+}

@@ -1,108 +1,120 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { BookOpen, Download, ExternalLink } from 'lucide-react';
+import { BookOpen, Download, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 
 export default function PublicationsSection() {
   const publications = [
     {
-      title: 'Physics',
-      subject: '11th & 12th',
-      color: 'from-[#0A94B8] to-[#056C8C]',
+      title: 'Physics Mastery',
+      subject: '11th & 12th Board + JEE/NEET',
+      color: 'from-[#0082AD] to-[#005F80]',
       image: 'https://res.cloudinary.com/dneccresv/image/upload/v1765566945/school/publications/phy.jpg',
     },
     {
-      title: 'Chemistry',
-      subject: '11th & 12th',
-      color: 'from-[#76A440] to-[#8FC85C]',
+      title: 'Chemistry Guide',
+      subject: 'Organic, Inorganic & Physical',
+      color: 'from-[#7AA13B] to-[#5E802B]',
       image: 'https://res.cloudinary.com/dneccresv/image/upload/v1765566946/school/publications/chem.jpg',
     },
     {
-      title: 'Mathematics',
-      subject: '11th & 12th',
-      color: 'from-[#0A94B8] to-[#056C8C]',
+      title: 'Mathematics Module',
+      subject: 'Calculus, Algebra & Vector Geometry',
+      color: 'from-[#0082AD] to-[#004761]',
       image: 'https://res.cloudinary.com/dneccresv/image/upload/v1765566947/school/publications/math.jpg',
     },
     {
-      title: 'Biology',
-      subject: '11th & 12th',
-      color: 'from-[#76A440] to-[#8FC85C]',
+      title: 'Biology Comprehensive',
+      subject: 'Botany & Zoology NCERT Special',
+      color: 'from-[#7AA13B] to-[#8DB843]',
       image: 'https://res.cloudinary.com/dneccresv/image/upload/v1765566948/school/publications/bio.jpg',
     },
   ];
 
   return (
-    <section className="py-12 md:py-20 bg-gradient-to-br from-[#056C8C] to-[#044E64] relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
+    <section className="py-20 bg-gradient-to-br from-[#004761] via-[#005F80] to-[#00384D] relative overflow-hidden text-white">
+      {/* Background Decorative Grid */}
+      <div className="absolute inset-0 opacity-10 pointer-events-none">
         <div className="absolute inset-0" style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
         }} />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 relative z-10">
+        
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12 md:mb-16"
+          className="text-center mb-16"
         >
-          <span className="inline-block px-4 py-2 bg-white/20 backdrop-blur-sm text-white rounded-full text-sm font-medium mb-4">
-            Publications
-          </span>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4">
-            Our Publications
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-cyan-200 text-xs font-bold uppercase tracking-wider mb-3">
+            <Sparkles className="w-3.5 h-3.5 text-[#7AA13B]" />
+            <span>Curated Study Material</span>
+          </div>
+
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-4">
+            Our Official Publications
           </h2>
-          <p className="text-blue-100 max-w-2xl mx-auto text-sm md:text-base">
-            Expert faculty prepared study materials designed specifically for board and competitive exams
+          <p className="text-cyan-100 max-w-2xl mx-auto text-sm sm:text-base">
+            Expertly crafted modules, question banks, and revision guides authored by senior Angels School faculty
           </p>
         </motion.div>
 
         {/* Publications Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {publications.map((pub, index) => (
             <motion.div
               key={pub.title}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
             >
-              <Card className="overflow-hidden bg-white hover:shadow-2xl transition-all duration-300 group">
-                <div className="relative">
-                  <div className={`h-32 md:h-48 bg-gradient-to-br ${pub.color} flex items-center justify-center relative overflow-hidden`}>
+              <Card className="overflow-hidden rounded-2xl bg-white text-slate-900 border-none shadow-xl hover:shadow-card-hover transition-all duration-300 group h-full flex flex-col justify-between">
+                <div>
+                  <div className={`h-48 bg-gradient-to-br ${pub.color} flex items-center justify-center relative overflow-hidden`}>
                     <img
                       src={pub.image}
                       alt={pub.title}
-                      className="w-full h-full object-cover opacity-30 absolute inset-0"
+                      className="w-full h-full object-cover opacity-25 group-hover:scale-110 transition-transform duration-500 absolute inset-0"
                       loading="lazy"
                       onError={(e) => {
                         e.currentTarget.style.display = 'none';
                       }}
                     />
-                    <BookOpen className="w-12 h-12 md:w-20 md:h-20 text-white relative z-10" />
+                    <div className="w-16 h-16 bg-white/15 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/30 relative z-10 shadow-lg">
+                      <BookOpen className="w-8 h-8 text-white" />
+                    </div>
+
+                    {/* Hover Overlay */}
+                    <div className="absolute inset-0 bg-[#004761]/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4">
+                      <Button variant="secondary" size="sm" className="bg-[#7AA13B] hover:bg-[#8DB843] text-white font-bold gap-2 shadow">
+                        <Download className="w-4 h-4" />
+                        Sample Module
+                      </Button>
+                    </div>
                   </div>
 
-                  {/* Overlay on hover */}
-                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <Button variant="secondary" size="sm" className="gap-2">
-                      <Download className="w-4 h-4" />
-                      Download Sample
-                    </Button>
+                  <div className="p-5 text-center">
+                    <h3 className="text-lg font-bold text-[#005F80] mb-1">{pub.title}</h3>
+                    <p className="text-xs text-slate-500 font-medium">{pub.subject}</p>
                   </div>
                 </div>
 
-                <div className="p-4 text-center">
-                  <h3 className="text-xl font-bold text-[#056C8C]">{pub.title}</h3>
-                  <p className="text-sm text-gray-500">{pub.subject}</p>
+                <div className="px-5 pb-5 pt-0 text-center">
+                  <span className="text-[11px] font-bold text-[#7AA13B] bg-[#F2F7E9] px-3 py-1 rounded-full inline-block">
+                    Standard Curriculum Included
+                  </span>
                 </div>
               </Card>
             </motion.div>
           ))}
         </div>
+
       </div>
     </section>
   );
-}
+}

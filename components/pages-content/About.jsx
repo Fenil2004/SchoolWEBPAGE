@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle2, Users, Award, BookOpen, Target, Eye, Heart, GraduationCap, Building2, Trophy } from 'lucide-react';
+import { CheckCircle2, Target, Eye, Heart, Sparkles, Award } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 
 export default function About() {
@@ -31,79 +31,75 @@ export default function About() {
   const values = [
     {
       icon: Target,
-      title: 'Mission',
-      description: 'To provide quality education to every student and bring out the best in them through innovative teaching methods.',
-      color: 'from-[#0A94B8] to-[#056C8C]',
+      title: 'Our Mission',
+      description: 'To provide quality science education to every student, bringing out their highest potential through innovative, concept-driven pedagogy.',
+      color: 'from-[#0082AD] to-[#005F80]',
     },
     {
       icon: Eye,
-      title: 'Vision',
-      description: 'To be the leading educational institution that transforms students into successful professionals and responsible citizens.',
-      color: 'from-[#76A440] to-[#8FC85C]',
+      title: 'Our Vision',
+      description: 'To stand as Gujarat’s premier institution for board and competitive excellence, empowering students into visionary engineers, doctors, and leaders.',
+      color: 'from-[#7AA13B] to-[#5E802B]',
     },
     {
       icon: Heart,
-      title: 'Values',
-      description: 'Integrity, Excellence, Innovation, and Student-Centric approach in everything we do.',
-      color: 'from-[#0A94B8] to-[#056C8C]',
+      title: 'Core Values',
+      description: 'Integrity, academic rigour, student-centric care, and continuous innovation in educational delivery.',
+      color: 'from-[#0082AD] to-[#004761]',
     },
   ];
 
   const achievements = [
-    { value: '25+', label: 'Years of Excellence' },
-    { value: '15000+', label: 'Students Enrolled' },
-    { value: '500+', label: 'NEET/JEE Selections' },
-    { value: '10+', label: 'Branches in Gujarat' },
+    { value: '20+', label: 'Years of Excellence' },
+    { value: '15,000+', label: 'Enrolled Alumni' },
+    { value: '500+', label: 'NEET & JEE Ranks' },
+    { value: '3+', label: 'Gujarat Campuses' },
     { value: '100+', label: 'Expert Faculty' },
-    { value: '95%', label: 'Success Rate' },
+    { value: '99.8%', label: 'Success Rate' },
   ];
 
-  // Fallback data if no team members in database
   const defaultPrincipals = [
-    { id: '1', name: 'Girish Patel', role: 'Principal', subtitle: 'Academics', image: 'https://res.cloudinary.com/dneccresv/image/upload/v1765566950/school/team/admin1.jpg' },
+    { id: '1', name: 'Girish Patel', role: 'Principal', subtitle: 'Academics & Strategy', image: 'https://res.cloudinary.com/dneccresv/image/upload/v1765566950/school/team/admin1.jpg' },
     { id: '2', name: 'Satish Patel', role: 'Principal', subtitle: 'Administration', image: 'https://res.cloudinary.com/dneccresv/image/upload/v1765566951/school/team/admin2.jpg' },
-    { id: '3', name: 'Mahesh Patel', role: 'Principal', subtitle: 'Operations', image: 'https://res.cloudinary.com/dneccresv/image/upload/v1765566952/school/team/admin3.jpg' },
+    { id: '3', name: 'Mahesh Patel', role: 'Principal', subtitle: 'Student Operations', image: 'https://res.cloudinary.com/dneccresv/image/upload/v1765566952/school/team/admin3.jpg' },
   ];
 
   const defaultTrustees = [
-    { id: '1', name: 'Rajesh Shah', role: 'Trustee', image: 'https://res.cloudinary.com/dneccresv/image/upload/v1765566950/school/team/admin1.jpg' },
-    { id: '2', name: 'Mina Patel', role: 'Trustee', image: 'https://res.cloudinary.com/dneccresv/image/upload/v1765566953/school/team/admin4.jpg' },
-    { id: '3', name: 'Amit Sharma', role: 'Trustee', image: 'https://res.cloudinary.com/dneccresv/image/upload/v1765566951/school/team/admin2.jpg' },
-    { id: '4', name: 'Priya Joshi', role: 'Trustee', image: 'https://res.cloudinary.com/dneccresv/image/upload/v1765566952/school/team/admin3.jpg' },
+    { id: '1', name: 'Rajesh Shah', role: 'Trustee Board', image: 'https://res.cloudinary.com/dneccresv/image/upload/v1765566950/school/team/admin1.jpg' },
+    { id: '2', name: 'Mina Patel', role: 'Trustee Board', image: 'https://res.cloudinary.com/dneccresv/image/upload/v1765566953/school/team/admin4.jpg' },
+    { id: '3', name: 'Amit Sharma', role: 'Trustee Board', image: 'https://res.cloudinary.com/dneccresv/image/upload/v1765566951/school/team/admin2.jpg' },
+    { id: '4', name: 'Priya Joshi', role: 'Trustee Board', image: 'https://res.cloudinary.com/dneccresv/image/upload/v1765566952/school/team/admin3.jpg' },
   ];
 
   const displayPrincipals = principals.length > 0 ? principals : defaultPrincipals;
   const displayTrustees = trustees.length > 0 ? trustees : defaultTrustees;
 
   return (
-    <div>
-      {/* Hero Section */}
-      <section className="relative py-12 md:py-20 bg-gradient-to-br from-[#0A94B8] to-[#056C8C] overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          }} />
-        </div>
-
-        <div className="max-w-7xl mx-auto px-4 relative z-10">
+    <div className="bg-[#F8FAFC]">
+      
+      {/* Page Header Banner */}
+      <section className="relative py-16 md:py-24 bg-gradient-to-br from-[#005F80] via-[#0082AD] to-[#004761] overflow-hidden text-white">
+        <div className="max-w-7xl mx-auto px-4 relative z-10 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center"
           >
-            <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6">About Us</h1>
-            <p className="text-white/90 text-lg max-w-2xl mx-auto">
-              Building a great nation through holistic development of the students since 1998
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-cyan-100 text-xs font-bold uppercase tracking-wider mb-4">
+              <Sparkles className="w-3.5 h-3.5 text-[#7AA13B]" />
+              <span>Educational Legacy Since 2002</span>
+            </div>
+            <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4">About Angels School</h1>
+            <p className="text-cyan-100 text-base md:text-lg max-w-2xl mx-auto">
+              Shaping bright futures and rank-one results through dedicated science education
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* About Content */}
+      {/* Main Overview */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Image */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -112,51 +108,45 @@ export default function About() {
             >
               <img
                 src="https://res.cloudinary.com/dneccresv/image/upload/v1765566943/school/gallery/gallery1.jpg"
-                alt="GCI Campus"
-                className="rounded-2xl shadow-xl w-full h-[250px] md:h-[400px] lg:h-[500px] object-cover"
+                alt="Angels School Campus"
+                className="rounded-3xl shadow-xl border-4 border-white w-full h-[300px] md:h-[450px] object-cover"
                 onError={(e) => {
                   e.currentTarget.src = 'https://res.cloudinary.com/dneccresv/image/upload/v1765566941/school/gallery/gall6.jpg';
                 }}
               />
-              <div className="absolute -bottom-6 -right-6 w-full h-full border-4 border-[#0A94B8] rounded-2xl -z-10 hidden md:block" />
+              <div className="absolute -bottom-5 -right-5 w-full h-full border-4 border-[#7AA13B] rounded-3xl -z-10 hidden md:block" />
             </motion.div>
 
-            {/* Content */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <span className="inline-block px-4 py-2 bg-[#E8F1F4] text-[#0A94B8] rounded-full text-sm font-medium mb-4">
-                Who We Are
-              </span>
-              <h2 className="text-3xl lg:text-4xl font-bold text-[#056C8C] mb-6">
-                Welcome to <span className="text-[#0A94B8]">Angels School Career Institute</span>
+              <span className="text-[#0082AD] text-xs font-extrabold uppercase tracking-widest block mb-2">Institutional Heritage</span>
+              <h2 className="text-3xl font-extrabold text-slate-900 mb-6">
+                Welcome to <span className="text-[#0082AD]">Angels School</span> <span className="text-[#7AA13B]">Career Institute</span>
               </h2>
-              <p className="text-gray-600 leading-relaxed mb-6">
-                Angels School Career Institute is a well-known science education institute in Gujarat,
-                with a focus on preparing students for 11-12 science and competitive exams like JEE and NEET.
-                Founded in 1998, we have grown to become one of the most trusted names in education.
+              
+              <p className="text-slate-600 leading-relaxed mb-5">
+                Established with a vision for educational excellence, Angels School Career Institute is Gujarat's benchmark institution for 11th-12th Science and competitive exam preparation.
               </p>
-              <p className="text-gray-600 leading-relaxed mb-8">
-                Our mission is to provide quality education to every student and bring out the best in them.
-                We achieve this through innovative teaching methods, interactive classroom sessions,
-                video lectures, and personalized attention.
+              
+              <p className="text-slate-600 leading-relaxed mb-8">
+                Our institute combines experienced faculty mentors, digital classrooms, state-of-the-art laboratory infrastructure, and specialized doubt-solving systems across campuses in Gujarat.
               </p>
 
-              {/* Features */}
-              <div className="grid sm:grid-cols-2 gap-4">
+              <div className="grid sm:grid-cols-2 gap-3">
                 {[
-                  'Experienced Faculty',
-                  'Modern Infrastructure',
-                  'Comprehensive Study Material',
-                  'Regular Mock Tests',
-                  'Doubt Clearing Sessions',
-                  'Career Counseling',
+                  'Senior PhD & IITian Faculty',
+                  'Digital Smart Classrooms',
+                  'Curated Board & JEE/NEET Modules',
+                  'CBT & OMR Mock Exam Series',
+                  'Dedicated Doubt Solution Cell',
+                  'Personalized Performance Tracking',
                 ].map((feature) => (
-                  <div key={feature} className="flex items-center gap-2">
-                    <CheckCircle2 className="w-5 h-5 text-[#76A440]" />
-                    <span className="text-gray-700">{feature}</span>
+                  <div key={feature} className="flex items-center gap-2.5 p-2 bg-[#F8FAFC] rounded-xl border border-slate-100">
+                    <CheckCircle2 className="w-4 h-4 text-[#7AA13B] flex-shrink-0" />
+                    <span className="text-slate-700 text-xs font-bold">{feature}</span>
                   </div>
                 ))}
               </div>
@@ -166,7 +156,7 @@ export default function About() {
       </section>
 
       {/* Mission, Vision, Values */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-[#F8FAFC]">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -174,11 +164,11 @@ export default function About() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              Our Core Values
+            <h2 className="text-3xl font-extrabold text-[#005F80] mb-3">
+              Pillars of Our Institution
             </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              The principles that guide everything we do
+            <p className="text-slate-600 max-w-xl mx-auto text-sm">
+              Core philosophies driving every academic initiative at Angels School
             </p>
           </motion.div>
 
@@ -186,18 +176,18 @@ export default function About() {
             {values.map((value, index) => (
               <motion.div
                 key={value.title}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 25 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
               >
-                <Card className="h-full hover:shadow-xl transition-shadow">
+                <Card className="h-full rounded-2xl border border-slate-100 bg-white hover:shadow-card-hover transition-all">
                   <CardContent className="p-8 text-center">
-                    <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${value.color} flex items-center justify-center mx-auto mb-6`}>
-                      <value.icon className="w-10 h-10 text-white" />
+                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${value.color} flex items-center justify-center mx-auto mb-6 shadow-md`}>
+                      <value.icon className="w-8 h-8 text-white" />
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-4">{value.title}</h3>
-                    <p className="text-gray-600">{value.description}</p>
+                    <h3 className="text-xl font-bold text-slate-900 mb-3">{value.title}</h3>
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">{value.description}</p>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -206,23 +196,9 @@ export default function About() {
         </div>
       </section>
 
-      {/* Achievements */}
-      <section className="py-20 bg-gradient-to-br from-[#0A94B8] to-[#056C8C]">
+      {/* Metrics Banner */}
+      <section className="py-16 bg-gradient-to-br from-[#005F80] to-[#00384D] text-white">
         <div className="max-w-7xl mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
-              Our Achievements
-            </h2>
-            <p className="text-white/90 max-w-2xl mx-auto">
-              Numbers that speak for our commitment to excellence
-            </p>
-          </motion.div>
-
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
             {achievements.map((item, index) => (
               <motion.div
@@ -230,18 +206,18 @@ export default function About() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="text-center p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20"
+                transition={{ delay: index * 0.08 }}
+                className="text-center p-5 bg-white/10 backdrop-blur-md rounded-2xl border border-white/15"
               >
-                <p className="text-3xl lg:text-4xl font-bold text-white mb-2">{item.value}</p>
-                <p className="text-white/80 text-sm">{item.label}</p>
+                <p className="text-2xl sm:text-3xl font-extrabold text-white mb-1">{item.value}</p>
+                <p className="text-cyan-200 text-xs font-semibold">{item.label}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Leadership Team - 3 Principals */}
+      {/* Leadership */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
@@ -250,11 +226,9 @@ export default function About() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl lg:text-4xl font-bold text-[#056C8C] mb-4">
-              Leadership Team
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Our dedicated principals driving academic excellence
+            <h2 className="text-3xl font-extrabold text-[#005F80] mb-3">Academic Leadership</h2>
+            <p className="text-slate-600 text-sm max-w-xl mx-auto">
+              Meet our academic directors guiding student achievement
             </p>
           </motion.div>
 
@@ -262,28 +236,26 @@ export default function About() {
             {displayPrincipals.slice(0, 3).map((member, index) => (
               <motion.div
                 key={member.id}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 25 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
                 className="text-center group"
               >
-                <div className="relative mb-6 inline-block">
-                  <div className="w-[220px] h-[220px] mx-auto overflow-hidden rounded-xl shadow-lg">
-                    <img
-                      src={member.image || 'https://res.cloudinary.com/dneccresv/image/upload/v1765566950/school/team/admin1.jpg'}
-                      alt={member.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      onError={(e) => {
-                        e.currentTarget.src = 'https://res.cloudinary.com/dneccresv/image/upload/v1765566950/school/team/admin1.jpg';
-                      }}
-                    />
-                  </div>
+                <div className="w-48 h-48 mx-auto overflow-hidden rounded-2xl shadow-lg border-2 border-slate-100 mb-4">
+                  <img
+                    src={member.image || 'https://res.cloudinary.com/dneccresv/image/upload/v1765566950/school/team/admin1.jpg'}
+                    alt={member.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    onError={(e) => {
+                      e.currentTarget.src = 'https://res.cloudinary.com/dneccresv/image/upload/v1765566950/school/team/admin1.jpg';
+                    }}
+                  />
                 </div>
-                <h3 className="text-lg font-bold text-[#056C8C] mb-1">{member.role}</h3>
-                <p className="text-gray-700 font-medium">{member.name}</p>
+                <h3 className="text-lg font-bold text-[#0082AD]">{member.name}</h3>
+                <p className="text-xs font-bold text-[#7AA13B] uppercase">{member.role}</p>
                 {member.subtitle && (
-                  <p className="text-gray-500 text-sm mt-1">{member.subtitle}</p>
+                  <p className="text-xs text-slate-500 mt-1">{member.subtitle}</p>
                 )}
               </motion.div>
             ))}
@@ -291,8 +263,8 @@ export default function About() {
         </div>
       </section>
 
-      {/* Trustees - 4 in grid */}
-      <section className="py-20 bg-gray-50">
+      {/* Board of Trustees */}
+      <section className="py-20 bg-[#F8FAFC]">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -300,11 +272,9 @@ export default function About() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl lg:text-4xl font-bold text-[#056C8C] mb-4">
-              Trustees
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Our governing board ensuring institutional excellence
+            <h2 className="text-3xl font-extrabold text-[#005F80] mb-3">Board of Trustees</h2>
+            <p className="text-slate-600 text-sm max-w-xl mx-auto">
+              Institutional guidance and governance body
             </p>
           </motion.div>
 
@@ -312,31 +282,31 @@ export default function About() {
             {displayTrustees.slice(0, 4).map((member, index) => (
               <motion.div
                 key={member.id}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
                 className="text-center group"
               >
-                <div className="relative mb-4 inline-block">
-                  <div className="w-[180px] h-[180px] mx-auto overflow-hidden rounded-xl shadow-lg">
-                    <img
-                      src={member.image || 'https://res.cloudinary.com/dneccresv/image/upload/v1765566950/school/team/admin1.jpg'}
-                      alt={member.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      onError={(e) => {
-                        e.currentTarget.src = 'https://res.cloudinary.com/dneccresv/image/upload/v1765566950/school/team/admin1.jpg';
-                      }}
-                    />
-                  </div>
+                <div className="w-40 h-40 mx-auto overflow-hidden rounded-2xl shadow-md border border-slate-200 mb-3">
+                  <img
+                    src={member.image || 'https://res.cloudinary.com/dneccresv/image/upload/v1765566950/school/team/admin1.jpg'}
+                    alt={member.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    onError={(e) => {
+                      e.currentTarget.src = 'https://res.cloudinary.com/dneccresv/image/upload/v1765566950/school/team/admin1.jpg';
+                    }}
+                  />
                 </div>
-                <h3 className="text-base font-bold text-[#056C8C]">{member.name}</h3>
-                <p className="text-gray-500 text-sm">{member.role}</p>
+                <h3 className="text-sm font-bold text-slate-800">{member.name}</h3>
+                <p className="text-xs text-slate-500">{member.role}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
+
     </div>
   );
 }
+

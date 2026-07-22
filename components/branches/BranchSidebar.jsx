@@ -22,14 +22,13 @@ export default function BranchSidebar({ currentBranch }) {
       });
       if (response.ok) {
         const data = await response.json();
-        // Filter active branches and map to sidebar format
         const activeBranches = Array.isArray(data)
           ? data.filter(branch => branch.isActive).map(branch => ({
             id: branch.id,
             name: branch.name,
             slug: branch.slug,
             href: `/branches/${branch.slug}`,
-            type: branch.isHeadquarter ? 'Head Office' : 'Branch',
+            type: branch.isHeadquarter ? 'Head Office' : 'Campus Branch',
             isMain: branch.isHeadquarter,
           }))
           : [];
@@ -44,11 +43,11 @@ export default function BranchSidebar({ currentBranch }) {
 
   if (loading) {
     return (
-      <Card className="sticky top-24">
+      <Card className="sticky top-28 rounded-2xl border border-slate-100 shadow-sm bg-white">
         <CardContent className="p-6">
-          <h3 className="text-lg font-bold text-gray-900 mb-4">All Branches</h3>
-          <div className="flex items-center justify-center py-8">
-            <Loader2 className="w-6 h-6 animate-spin text-[#0A94B8]" />
+          <h3 className="text-base font-extrabold text-[#005F80] mb-4">Our Campus Network</h3>
+          <div className="flex items-center justify-center py-6">
+            <Loader2 className="w-6 h-6 animate-spin text-[#0082AD]" />
           </div>
         </CardContent>
       </Card>
@@ -56,12 +55,12 @@ export default function BranchSidebar({ currentBranch }) {
   }
 
   return (
-    <Card className="sticky top-24">
+    <Card className="sticky top-28 rounded-2xl border border-slate-100 shadow-sm bg-white">
       <CardContent className="p-6">
-        <h3 className="text-lg font-bold text-gray-900 mb-4">All Branches</h3>
-        <div className="space-y-3">
+        <h3 className="text-base font-extrabold text-[#005F80] mb-4">Our Campus Network</h3>
+        <div className="space-y-2.5">
           {branches.length === 0 ? (
-            <p className="text-gray-500 text-sm">No branches found</p>
+            <p className="text-slate-400 text-xs">No active campuses listed.</p>
           ) : (
             branches.map((branch) => {
               const isActive = branch.slug === currentBranch || branch.id === currentBranch;
@@ -69,35 +68,29 @@ export default function BranchSidebar({ currentBranch }) {
                 <Link
                   key={branch.id}
                   href={branch.href}
-                  className={`block p-3 rounded-lg transition-all ${isActive
-                      ? 'bg-[#0A94B8] text-white shadow-md'
-                      : 'bg-gray-50 text-gray-700 hover:bg-[#E8F1F4]'
+                  className={`block p-3.5 rounded-xl transition-all ${isActive
+                      ? 'bg-gradient-to-r from-[#0082AD] to-[#005F80] text-white shadow-md'
+                      : 'bg-[#F8FAFC] text-slate-700 hover:bg-[#E6F4F8] border border-slate-100'
                     }`}
                 >
-                  <div className="flex items-start gap-3">
-                    <div className={`mt-1 ${isActive ? 'text-white' : 'text-[#0A94B8]'}`}>
+                  <div className="flex items-center gap-3">
+                    <div className={`p-2 rounded-lg ${isActive ? 'bg-white/20 text-white' : 'bg-white text-[#0082AD] shadow-sm'}`}>
                       {branch.isMain ? (
-                        <Building2 className="w-5 h-5" />
+                        <Building2 className="w-4 h-4" />
                       ) : (
-                        <MapPin className="w-5 h-5" />
+                        <MapPin className="w-4 h-4" />
                       )}
                     </div>
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2">
-                        <span className="font-medium text-sm">{branch.name}</span>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between gap-1">
+                        <span className="font-bold text-xs truncate">{branch.name}</span>
                         {branch.isMain && (
-                          <Badge
-                            className={`text-xs ${isActive ? 'bg-white text-[#0A94B8]' : 'bg-[#E8F1F4] text-[#0A94B8]'
-                              }`}
-                          >
+                          <span className={`text-[10px] px-1.5 py-0.5 rounded font-extrabold ${isActive ? 'bg-[#7AA13B] text-white' : 'bg-[#E6F4F8] text-[#0082AD]'}`}>
                             HQ
-                          </Badge>
+                          </span>
                         )}
                       </div>
-                      <span
-                        className={`text-xs ${isActive ? 'text-white/90' : 'text-gray-500'
-                          }`}
-                      >
+                      <span className={`text-[11px] block mt-0.5 ${isActive ? 'text-cyan-100' : 'text-slate-500'}`}>
                         {branch.type}
                       </span>
                     </div>
@@ -111,3 +104,4 @@ export default function BranchSidebar({ currentBranch }) {
     </Card>
   );
 }
+

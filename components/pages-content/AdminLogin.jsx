@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Lock, Mail, Eye, EyeOff, Shield } from 'lucide-react';
+import { Lock, Mail, Eye, EyeOff, Shield, Award } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { useRouter } from 'next/router';
 
 export default function AdminLogin() {
@@ -26,8 +26,8 @@ export default function AdminLogin() {
         headers: {
           'Content-Type': 'application/json',
         },
-        cache: 'no-store', // Prevent browser caching
-        credentials: 'include', // Include cookies in request
+        cache: 'no-store',
+        credentials: 'include',
         body: JSON.stringify({
           email,
           password,
@@ -35,7 +35,6 @@ export default function AdminLogin() {
         }),
       });
 
-      // Handle non-JSON responses (e.g., HTML error pages)
       const text = await response.text();
       let data;
       try {
@@ -48,12 +47,8 @@ export default function AdminLogin() {
       }
 
       if (data.success) {
-        // Cookie is set automatically by the server (HttpOnly)
-        // Store user info in localStorage (not sensitive data)
         localStorage.setItem('authToken', data.token);
         localStorage.setItem('user', JSON.stringify(data.user));
-
-        // Redirect to admin dashboard
         await router.push('/admin/dashboard');
       } else {
         setError(data.message || 'Invalid email or password. Please try again.');
@@ -67,90 +62,99 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0A94B8] via-[#056C8C] to-[#044E64] flex items-center justify-center p-4">
+    <div className="min-h-[85vh] bg-gradient-to-br from-[#005F80] via-[#0082AD] to-[#004761] flex items-center justify-center p-4 relative overflow-hidden">
+      
+      {/* Background Decorative Glow */}
+      <div className="absolute top-10 left-10 w-96 h-96 bg-[#0082AD]/30 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#7AA13B]/20 rounded-full blur-3xl pointer-events-none" />
+
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 25 }}
         animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-md"
+        className="w-full max-w-md relative z-10"
       >
-        <Card className="shadow-2xl">
-          <CardHeader className="text-center pb-8 pt-8">
-            <div className="w-20 h-20 bg-gradient-to-br from-[#0A94B8] to-[#056C8C] rounded-full flex items-center justify-center mx-auto mb-4">
-              <Shield className="w-10 h-10 text-white" />
+        <Card className="rounded-3xl shadow-2xl border-none bg-white overflow-hidden">
+          <CardHeader className="text-center pb-4 pt-10 px-8 bg-gradient-to-b from-[#E6F4F8] to-white">
+            <div className="w-16 h-16 bg-gradient-to-br from-[#0082AD] to-[#005F80] rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-md border-2 border-white">
+              <Shield className="w-8 h-8 text-white" />
             </div>
-            <CardTitle className="text-2xl font-bold">Admin Login</CardTitle>
-            <p className="text-gray-500 mt-2">Access the admin dashboard</p>
+            <div className="flex items-center justify-center gap-1 mb-1">
+              <span className="text-2xl font-extrabold text-[#0082AD]">Angels</span>
+              <span className="text-2xl font-extrabold text-[#7AA13B]">School</span>
+            </div>
+            <h2 className="text-lg font-bold text-slate-800">Admin Portal</h2>
+            <p className="text-xs text-slate-500 font-medium">Authorized Personnel Authentication</p>
           </CardHeader>
 
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-6">
+          <CardContent className="p-8 pt-4">
+            <form onSubmit={handleSubmit} className="space-y-5">
               {error && (
-                <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg text-sm">
+                <div className="bg-rose-50 border border-rose-200 text-rose-600 px-4 py-3 rounded-xl text-xs font-semibold">
                   {error}
                 </div>
               )}
 
               <div className="space-y-2">
-                <Label htmlFor="email">Email Address</Label>
+                <Label htmlFor="email" className="text-xs font-bold text-slate-700">Admin Email Address</Label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                   <Input
                     id="email"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your email"
-                    className="pl-10"
+                    placeholder="admin@angelsschool.com"
+                    className="pl-10 h-11 rounded-xl border-slate-200 focus:border-[#0082AD] focus:ring-[#0082AD] text-sm"
                     required
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password" className="text-xs font-bold text-slate-700">Password</Label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                   <Input
                     id="password"
                     type={showPassword ? 'text' : 'password'}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Enter your password"
-                    className="pl-10 pr-10"
+                    placeholder="••••••••"
+                    className="pl-10 pr-10 h-11 rounded-xl border-slate-200 focus:border-[#0082AD] focus:ring-[#0082AD] text-sm"
                     required
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
                   >
-                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
                 </div>
               </div>
 
               <Button
                 type="submit"
-                className="w-full bg-[#76A440] hover:bg-[#8FC85C] text-white"
-                size="lg"
+                className="w-full bg-[#7AA13B] hover:bg-[#8DB843] text-white font-extrabold h-11 rounded-xl shadow-md transition-all mt-2"
                 disabled={isLoading}
               >
-                {isLoading ? 'Logging in...' : 'Login as Admin'}
+                {isLoading ? 'Authenticating...' : 'Sign In to Admin Portal'}
               </Button>
 
-              <div className="text-center pt-4">
-                <a href="/student-login" className="text-sm text-[#0A94B8] hover:underline">
-                  Student? Click here to login
+              <div className="text-center pt-2 border-t border-slate-100">
+                <a href="/student-login" className="text-xs font-bold text-[#0082AD] hover:underline">
+                  Student Portal Access →
                 </a>
               </div>
             </form>
           </CardContent>
         </Card>
 
-        <p className="text-center text-white/80 text-sm mt-6">
-          © {new Date().getFullYear()} Angels School Career Institute
+        <p className="text-center text-cyan-200 text-xs mt-6 font-medium">
+          © {new Date().getFullYear()} Angels School Career Institute. All Rights Reserved.
         </p>
       </motion.div>
     </div>
   );
 }
+
