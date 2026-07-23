@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
+import { CommerceWatermarks } from '@/components/ui/SectionWatermark';
 
 export default function CoursesSection() {
   const [courses, setCourses] = useState([]);
@@ -47,8 +48,10 @@ export default function CoursesSection() {
   };
 
   return (
-    <section className="py-20 bg-[#F8FAFC]">
-      <div className="max-w-7xl mx-auto px-4">
+    <section className="py-20 bg-[#F8FAFC] relative overflow-hidden">
+      <CommerceWatermarks />
+      <div className="max-w-7xl mx-auto px-4 relative z-10">
+
         
         {/* Header */}
         <motion.div

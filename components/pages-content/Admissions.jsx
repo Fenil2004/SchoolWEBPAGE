@@ -5,36 +5,42 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
+import AgeEligibilityCalculator from '@/components/pages-content/AgeEligibilityCalculator';
+import DocumentsChecklist from '@/components/pages-content/DocumentsChecklist';
+import ScholarshipsCards from '@/components/pages-content/ScholarshipsCards';
+import PageHeaderBanner from '@/components/layout/PageHeaderBanner';
 
 export default function Admissions() {
+
   const [openFaq, setOpenFaq] = useState(null);
 
   const steps = [
     {
       num: '01',
       title: 'Submit Online Application',
-      desc: 'Fill out student details, target campus (Bhavnagar, Ahmedabad, or Deesa), and stream preference.',
+      desc: 'Fill out student details, target campus, and stream preference (Bhulka, Secondary 1-10, Science NEET/JEE, or Commerce).',
       icon: FileText,
     },
     {
       num: '02',
       title: 'Academic Consultation & Campus Visit',
-      desc: 'Meet our senior science faculty and tour classrooms, STEM labs, and doubt resolution desks.',
+      desc: 'Meet our senior faculty, visit STEM labs, and explore Bhulka early childhood play zones.',
       icon: UserCheck,
     },
     {
       num: '03',
       title: 'Document Verification',
-      desc: 'Submit Class 10/11 marksheets, school leaving certificate, and passport-size photographs.',
+      desc: 'Submit birth certificate (for Bhulka) or previous grade marksheets, school leaving certificate, and photos.',
       icon: ShieldCheck,
     },
     {
       num: '04',
       title: 'Enrollment & Welcome Kit',
-      desc: 'Receive seat allocation, student ID credentials, and published study module books.',
+      desc: 'Receive seat allocation, student ID credentials, and published study materials.',
       icon: CheckCircle2,
     },
   ];
+
 
   const faqs = [
     {
@@ -43,7 +49,7 @@ export default function Admissions() {
     },
     {
       q: 'Are instruction mediums available in both English and Gujarati?',
-      a: 'Yes! Angels School operates dedicated parallel batches in English Medium and Gujarati Medium with equal academic rigor and published study material.',
+      a: 'Yes! We offer separate English Medium and Gujarati Medium divisions from Bhulka Kindergarten up to Grade 12.',
     },
     {
       q: 'What entrance exams do you train students for?',
@@ -62,23 +68,27 @@ export default function Admissions() {
   return (
     <div className="min-h-screen bg-[#F8FAFC]">
       
-      {/* Header Banner */}
-      <section className="py-14 md:py-20 bg-gradient-to-br from-[#005F80] via-[#0082AD] to-[#004761] text-white">
-        <div className="max-w-7xl mx-auto px-4 text-center max-w-3xl">
-          <Badge className="bg-[#7AA13B] text-white font-bold mb-3 uppercase tracking-wider px-3 py-1">
-            Admissions 2026 - 2027
-          </Badge>
-          <h1 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight">
-            Admissions Journey & Guidelines
-          </h1>
-          <p className="text-cyan-100 text-xs md:text-sm mt-3 leading-relaxed">
-            Step-by-step roadmap to enrolling your child at Angels School Career Institute across Gujarat campuses.
-          </p>
+      {/* Dynamic Page Header Banner */}
+      <PageHeaderBanner
+        pageSlug="admissions"
+        defaultTitle="Join Angels School Family"
+        defaultBadge="Admissions Open 2026-27"
+        defaultSubtitle="Simple 4-step admission process for Bhulka Kindergarten, Secondary & Higher Secondary"
+      />
+
+      {/* Age Eligibility Calculator & Admissions Cards */}
+      <section className="py-12 bg-white border-b border-slate-100">
+        <div className="max-w-7xl mx-auto px-4 space-y-12">
+          <AgeEligibilityCalculator />
+          <DocumentsChecklist />
+          <ScholarshipsCards />
         </div>
       </section>
 
       {/* 4-Step Admission Journey Grid */}
       <section className="py-16">
+
+
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center max-w-xl mx-auto mb-12">
             <h2 className="text-2xl md:text-3xl font-extrabold text-[#005F80]">4-Step Admission Journey</h2>

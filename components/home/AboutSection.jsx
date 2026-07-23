@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle2, Users, Award, BookOpen, Sparkles } from 'lucide-react';
+import { GeneralAcademicWatermarks } from '@/components/ui/SectionWatermark';
 
 export default function AboutSection() {
   const features = [
@@ -19,8 +20,10 @@ export default function AboutSection() {
   ];
 
   return (
-    <section className="py-20 bg-[#F8FAFC]">
-      <div className="max-w-7xl mx-auto px-4">
+    <section className="py-20 bg-[#F8FAFC] relative overflow-hidden">
+      <GeneralAcademicWatermarks />
+      <div className="max-w-7xl mx-auto px-4 relative z-10">
+
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           
           {/* Left Media Showcase */}

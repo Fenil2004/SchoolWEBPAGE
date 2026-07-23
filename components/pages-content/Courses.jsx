@@ -6,9 +6,13 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Link from 'next/link';
-
+import CurriculumTabs from '@/components/pages-content/CurriculumTabs';
+import StreamComparisonTable from '@/components/pages-content/StreamComparisonTable';
+import PageHeaderBanner from '@/components/layout/PageHeaderBanner';
 
 export default function Courses() {
+
+
   const [activeCategory, setActiveCategory] = useState('all');
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -45,35 +49,24 @@ export default function Courses() {
       case 'GUJCET':
         return <Badge className="bg-amber-500 text-white font-bold">GUJCET State</Badge>;
       default:
-        return <Badge className="bg-[#005F80] text-white font-bold">{category || 'Science Batch'}</Badge>;
+        return <Badge className="bg-[#005F80] text-white font-bold">Academic Program</Badge>;
     }
   };
 
   const filteredCourses = activeCategory === 'all'
     ? courses
-    : courses.filter(course => course.category?.toLowerCase() === activeCategory);
+    : courses.filter(c => c.category?.toLowerCase() === activeCategory.toLowerCase());
 
   return (
     <div className="bg-[#F8FAFC]">
       
-      {/* Page Banner Header */}
-      <section className="relative py-16 md:py-24 bg-gradient-to-br from-[#005F80] via-[#0082AD] to-[#004761] overflow-hidden text-white">
-        <div className="max-w-7xl mx-auto px-4 relative z-10 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-cyan-100 text-xs font-bold uppercase tracking-wider mb-4">
-              <Sparkles className="w-3.5 h-3.5 text-[#7AA13B]" />
-              <span>Academic Programs & Entrance DLP</span>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4">Academic Courses</h1>
-            <p className="text-cyan-100 text-base md:text-lg max-w-2xl mx-auto">
-              Empowering students for 11th-12th Board Science, JEE, NEET, and GUJCET through targeted learning
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      {/* Dynamic Page Header Banner */}
+      <PageHeaderBanner
+        pageSlug="courses"
+        defaultTitle="Academic Programs & Streams"
+        defaultBadge="Academic Excellence"
+        defaultSubtitle="From Bhulka Kindergarten to Higher Secondary Science (NEET & JEE) and Commerce"
+      />
 
       {/* Courses Section */}
       <section className="py-16 md:py-20">
@@ -170,8 +163,18 @@ export default function Courses() {
         </div>
       </section>
 
+      {/* Curriculum & Grade Breakdown Tabs Section */}
+      <section className="py-12 bg-slate-50 border-t border-slate-100">
+        <div className="max-w-7xl mx-auto px-4 space-y-12">
+          <CurriculumTabs />
+          <StreamComparisonTable />
+        </div>
+      </section>
+
       {/* DLP Program Section */}
       <section className="py-20 bg-white">
+
+
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             

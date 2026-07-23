@@ -4,6 +4,7 @@ import { X, ChevronLeft, ChevronRight, ZoomIn, Play, Sparkles, Image as ImageIco
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import PageHeaderBanner from '@/components/layout/PageHeaderBanner';
 
 export default function Gallery() {
   const [activeCategory, setActiveCategory] = useState('all');
@@ -62,25 +63,14 @@ export default function Gallery() {
 
   return (
     <div className="bg-[#F8FAFC]">
-      
-      {/* Page Header Banner */}
-      <section className="relative py-16 md:py-24 bg-gradient-to-br from-[#005F80] via-[#0082AD] to-[#004761] overflow-hidden text-white">
-        <div className="max-w-7xl mx-auto px-4 relative z-10 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-cyan-100 text-xs font-bold uppercase tracking-wider mb-4">
-              <Sparkles className="w-3.5 h-3.5 text-[#7AA13B]" />
-              <span>Campus Life & Events Showcase</span>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4">Media Gallery</h1>
-            <p className="text-cyan-100 text-base md:text-lg max-w-2xl mx-auto">
-              Explore our state-of-the-art laboratories, smart classrooms, events, and student milestones
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      {/* Dynamic Page Header Banner */}
+      <PageHeaderBanner
+        pageSlug="gallery"
+        defaultTitle="Angels School Photo Gallery"
+        defaultBadge="Campus Life Memories"
+        defaultSubtitle="Glimpses of academic labs, annual events, sports meets & student celebrations"
+      />
+
 
       {/* Gallery Section */}
       <section className="py-16 md:py-20">

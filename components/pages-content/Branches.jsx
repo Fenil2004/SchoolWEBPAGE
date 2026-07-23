@@ -5,8 +5,11 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import CampusComparison from '@/components/branches/CampusComparison';
+import PageHeaderBanner from '@/components/layout/PageHeaderBanner';
 
 export default function Branches() {
+
   const [branches, setBranches] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -36,24 +39,13 @@ export default function Branches() {
   return (
     <div className="bg-[#F8FAFC]">
       
-      {/* Page Header Banner */}
-      <section className="relative py-16 md:py-24 bg-gradient-to-br from-[#005F80] via-[#0082AD] to-[#004761] overflow-hidden text-white">
-        <div className="max-w-7xl mx-auto px-4 relative z-10 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-cyan-100 text-xs font-bold uppercase tracking-wider mb-4">
-              <Sparkles className="w-3.5 h-3.5 text-[#7AA13B]" />
-              <span>Gujarat Campus Network</span>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4">Our School Campuses</h1>
-            <p className="text-cyan-100 text-base md:text-lg max-w-2xl mx-auto">
-              Delivering benchmark science education across our state-of-the-art academic branches
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      {/* Dynamic Page Header Banner */}
+      <PageHeaderBanner
+        pageSlug="branches"
+        defaultTitle="Our Campus Branches"
+        defaultBadge="State-of-the-Art Infrastructure"
+        defaultSubtitle="Discover campus locations, science laboratories, and facilities across Gujarat"
+      />
 
       {/* Network Stats */}
       <section className="py-12 bg-white border-b border-slate-100">
@@ -182,8 +174,16 @@ export default function Branches() {
         </div>
       </section>
 
+      {/* Campus Comparison Section */}
+      <section className="py-12 bg-slate-50 border-t border-slate-100">
+        <div className="max-w-7xl mx-auto px-4">
+          <CampusComparison />
+        </div>
+      </section>
+
       {/* Embedded Map Section */}
       <section className="py-16 bg-white border-t border-slate-100">
+
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

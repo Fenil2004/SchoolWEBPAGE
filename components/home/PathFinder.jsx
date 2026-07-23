@@ -6,8 +6,10 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
+import { BhulkaWatermarks } from '@/components/ui/SectionWatermark';
 
 export default function PathFinder() {
+
   const { t } = useLanguage();
   const [selectedStage, setSelectedStage] = useState('higher-secondary');
   const [selectedMedium, setSelectedMedium] = useState('english');
@@ -42,8 +44,10 @@ export default function PathFinder() {
   const currentRecommendation = pathOptions.find((p) => p.id === selectedStage) || pathOptions[1];
 
   return (
-    <section className="py-16 bg-gradient-to-br from-[#E6F4F8] via-[#F8FAFC] to-[#F0F8FA] border-y border-cyan-100/50">
-      <div className="max-w-7xl mx-auto px-4">
+    <section className="py-16 bg-gradient-to-br from-[#E6F4F8] via-[#F8FAFC] to-[#F0F8FA] border-y border-cyan-100/50 relative overflow-hidden">
+      <BhulkaWatermarks />
+      <div className="max-w-7xl mx-auto px-4 relative z-10">
+
         
         {/* Title Badge */}
         <div className="text-center max-w-2xl mx-auto mb-10">

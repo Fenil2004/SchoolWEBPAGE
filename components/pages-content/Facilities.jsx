@@ -4,6 +4,7 @@ import { Building2, BookOpen, Users, Award, ShieldCheck, Bus, Wifi, Cpu, Coffee,
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
+import PageHeaderBanner from '@/components/layout/PageHeaderBanner';
 
 export default function Facilities() {
   const facilityList = [
@@ -48,20 +49,13 @@ export default function Facilities() {
   return (
     <div className="min-h-screen bg-[#F8FAFC]">
       
-      {/* Header Banner */}
-      <section className="py-14 md:py-20 bg-gradient-to-br from-[#005F80] via-[#0082AD] to-[#004761] text-white">
-        <div className="max-w-7xl mx-auto px-4 text-center max-w-3xl">
-          <Badge className="bg-[#0082AD] text-white font-bold mb-3 uppercase tracking-wider px-3 py-1">
-            World-Class Standards
-          </Badge>
-          <h1 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight">
-            Campus Infrastructure & Facilities
-          </h1>
-          <p className="text-cyan-100 text-xs md:text-sm mt-3 leading-relaxed">
-            Empowering students with state-of-the-art STEM laboratories, digital testing hubs, and modern learning spaces.
-          </p>
-        </div>
-      </section>
+      {/* Dynamic Page Header Banner */}
+      <PageHeaderBanner
+        pageSlug="facilities"
+        defaultTitle="Campus Infrastructure & STEM Labs"
+        defaultBadge="Modern Educational Tech"
+        defaultSubtitle="Advanced Physics, Chemistry, Biology STEM labs, smart classrooms & sports grounds"
+      />
 
       {/* Facilities Grid */}
       <section className="py-16">

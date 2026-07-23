@@ -1,6 +1,7 @@
 import React from 'react';
-import Apply from '@/components/pages-content/Apply';
+import Admissions from '@/components/pages-content/Admissions';
 
 export default function ApplyPage() {
-  return <Apply />;
+  return <Admissions />;
 }
+

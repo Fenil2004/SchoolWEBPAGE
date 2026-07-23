@@ -7,8 +7,11 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import DepartmentContacts from '@/components/pages-content/DepartmentContacts';
+import PageHeaderBanner from '@/components/layout/PageHeaderBanner';
 
 export default function Contact() {
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -46,16 +49,14 @@ export default function Contact() {
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
 
       const data = await response.json();
 
-      if (data.success) {
-        alert(data.message || 'Thank you for your message! We will get back to you soon.');
+      if (response.ok && data.success) {
+        alert('Thank you! Your message has been sent successfully. Our team will contact you shortly.');
         setFormData({
           name: '',
           email: '',
@@ -91,38 +92,26 @@ export default function Contact() {
     {
       icon: Mail,
       title: 'Official Email',
-      detail: settings?.email || 'angelsschoolno1@gmail.com',
+      detail: settings?.email || 'info@angelsschool.ac.in',
       color: 'bg-[#0082AD]',
     },
     {
       icon: Clock,
-      title: 'Campus Hours',
-      detail: 'Mon-Sat: 7:00 AM - 7:00 PM',
+      title: 'Office Hours',
+      detail: 'Mon - Sat: 7:30 AM - 6:30 PM',
       color: 'bg-[#7AA13B]',
     },
   ];
 
   return (
     <div className="bg-[#F8FAFC]">
-      
-      {/* Page Header Banner */}
-      <section className="relative py-16 md:py-24 bg-gradient-to-br from-[#005F80] via-[#0082AD] to-[#004761] overflow-hidden text-white">
-        <div className="max-w-7xl mx-auto px-4 relative z-10 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-cyan-100 text-xs font-bold uppercase tracking-wider mb-4">
-              <Sparkles className="w-3.5 h-3.5 text-[#7AA13B]" />
-              <span>Direct Student Assistance Desk</span>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4">Contact Admission Office</h1>
-            <p className="text-cyan-100 text-base md:text-lg max-w-2xl mx-auto">
-              We are available to resolve your course inquiries, admission guidance, and campus visit bookings
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      {/* Dynamic Page Header Banner */}
+      <PageHeaderBanner
+        pageSlug="contact"
+        defaultTitle="Contact Admission Office"
+        defaultBadge="Direct Student Assistance Desk"
+        defaultSubtitle="We are available to resolve your course inquiries, admission guidance, and campus visit bookings"
+      />
 
       {/* Info Cards Grid */}
       <section className="py-12 bg-white border-b border-slate-100">
@@ -150,8 +139,16 @@ export default function Contact() {
         </div>
       </section>
 
+      {/* Department Contacts Table Section */}
+      <section className="py-12 bg-slate-50 border-b border-slate-100">
+        <div className="max-w-7xl mx-auto px-4">
+          <DepartmentContacts />
+        </div>
+      </section>
+
       {/* Contact Form & Map */}
       <section className="py-16 md:py-20">
+
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             

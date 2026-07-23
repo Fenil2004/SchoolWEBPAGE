@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle2, Target, Eye, Heart, Sparkles, Award } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+import GrowthTimeline from '@/components/pages-content/GrowthTimeline';
+import PageHeaderBanner from '@/components/layout/PageHeaderBanner';
 
 export default function About() {
   const [principals, setPrincipals] = useState([]);
@@ -76,27 +78,16 @@ export default function About() {
 
   return (
     <div className="bg-[#F8FAFC]">
-      
-      {/* Page Header Banner */}
-      <section className="relative py-16 md:py-24 bg-gradient-to-br from-[#005F80] via-[#0082AD] to-[#004761] overflow-hidden text-white">
-        <div className="max-w-7xl mx-auto px-4 relative z-10 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-cyan-100 text-xs font-bold uppercase tracking-wider mb-4">
-              <Sparkles className="w-3.5 h-3.5 text-[#7AA13B]" />
-              <span>Educational Legacy Since 2002</span>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4">About Angels School</h1>
-            <p className="text-cyan-100 text-base md:text-lg max-w-2xl mx-auto">
-              Shaping bright futures and rank-one results through dedicated science education
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      {/* Dynamic Page Header Banner */}
+      <PageHeaderBanner
+        pageSlug="about"
+        defaultTitle="About Angels School"
+        defaultBadge="Educational Legacy Since 2002"
+        defaultSubtitle="Shaping bright futures and rank-one results through dedicated science education"
+      />
 
       {/* Main Overview */}
+
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -196,8 +187,16 @@ export default function About() {
         </div>
       </section>
 
+      {/* Historical Growth Timeline */}
+      <section className="py-12 bg-slate-50 border-t border-slate-100">
+        <div className="max-w-7xl mx-auto px-4">
+          <GrowthTimeline />
+        </div>
+      </section>
+
       {/* Metrics Banner */}
       <section className="py-16 bg-gradient-to-br from-[#005F80] to-[#00384D] text-white">
+
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
             {achievements.map((item, index) => (

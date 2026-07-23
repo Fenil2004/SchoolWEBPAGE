@@ -364,3 +364,10 @@ export default function BranchDetailPage() {
         </div>
     );
 }
+
+export async function getServerSideProps(context) {
+    return {
+        props: {},
+    };
+}
+

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Quote, ChevronLeft, ChevronRight, Star, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { TrophyWatermarks } from '@/components/ui/SectionWatermark';
 
 export default function TestimonialsSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -55,6 +56,7 @@ export default function TestimonialsSection() {
 
   return (
     <section className="py-20 bg-gradient-to-br from-[#0082AD] via-[#005F80] to-[#004761] text-white relative overflow-hidden">
+      <TrophyWatermarks />
       <div className="max-w-7xl mx-auto px-4 relative z-10">
         
         {/* Header */}

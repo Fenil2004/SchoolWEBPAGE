@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { HelpCircle, Calendar, Heart, BookOpen, ClipboardCheck, Sparkles, Compass } from 'lucide-react';
+import { ScienceWatermarks } from '@/components/ui/SectionWatermark';
 
 export default function WorkingSystemSection() {
   const systems = [
@@ -43,8 +44,10 @@ export default function WorkingSystemSection() {
   ];
 
   return (
-    <section className="py-20 bg-[#F8FAFC]">
-      <div className="max-w-7xl mx-auto px-4">
+    <section className="py-20 bg-[#F8FAFC] relative overflow-hidden">
+      <ScienceWatermarks />
+      <div className="max-w-7xl mx-auto px-4 relative z-10">
+
         
         {/* Header */}
         <motion.div

@@ -4,6 +4,7 @@ import { MapPin, Phone, ArrowRight, Building, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import Link from 'next/link';
+import { ContactWatermarks } from '@/components/ui/SectionWatermark';
 
 export default function BranchesSection() {
   const [branches, setBranches] = useState([]);
@@ -33,8 +34,10 @@ export default function BranchesSection() {
   };
 
   return (
-    <section className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4">
+    <section className="py-20 bg-white relative overflow-hidden">
+      <ContactWatermarks />
+      <div className="max-w-7xl mx-auto px-4 relative z-10">
+
         
         {/* Section Header */}
         <motion.div

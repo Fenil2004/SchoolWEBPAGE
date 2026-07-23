@@ -1,20 +1,30 @@
 import React from 'react';
 import Link from 'next/link';
 import { Phone, Mail, MapPin, Facebook, Twitter, Instagram, Youtube, ChevronUp, ArrowRight, Award, Sparkles } from 'lucide-react';
+import FooterCTAStrip from '@/components/layout/FooterCTAStrip';
 
 export default function Footer() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+
   const quickLinks = [
     { name: 'Home', href: '/' },
     { name: 'About Us', href: '/about' },
     { name: 'Courses', href: '/courses' },
     { name: 'Our Branches', href: '/branches' },
+    { name: 'Admissions', href: '/admissions' },
+    { name: 'Achievements', href: '/achievements' },
+    { name: 'Alumni Network', href: '/alumni' },
+    { name: 'Careers', href: '/careers' },
+    { name: 'Blog', href: '/blog' },
+    { name: 'FAQ & Help', href: '/faq' },
+    { name: 'Virtual Tour', href: '/virtual-tour' },
     { name: 'Gallery', href: '/gallery' },
     { name: 'Contact Us', href: '/contact' },
   ];
+
 
   const courses = [
     { name: '11th Science', href: '/courses#11th-science' },
@@ -32,8 +42,12 @@ export default function Footer() {
 
   return (
     <footer className="bg-[#004761] text-slate-200 relative overflow-hidden border-t-4 border-[#7AA13B]">
+      {/* Top CTA Strip */}
+      <FooterCTAStrip />
+
       {/* Background Decorative Graphic */}
       <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-[#0082AD]/10 rounded-full blur-3xl pointer-events-none" />
+
 
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-4 pt-16 pb-12 relative z-10">

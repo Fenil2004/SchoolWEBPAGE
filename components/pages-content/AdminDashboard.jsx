@@ -24,6 +24,11 @@ import CourseManagement from '@/components/admin/CourseManagement';
 import BranchManagement from '@/components/admin/BranchManagement';
 import SettingsManagement from '@/components/admin/SettingsManagement';
 import TeamManagement from '@/components/admin/TeamManagement';
+import BannerManagement from '@/components/admin/BannerManagement';
+import BlogManagement from '@/components/admin/BlogManagement';
+import EventManagement from '@/components/admin/EventManagement';
+import { Trophy } from 'lucide-react';
+
 
 export default function AdminDashboard() {
   const [user, setUser] = useState(null);
@@ -182,14 +187,27 @@ export default function AdminDashboard() {
               <Video className="w-4 h-4" />
               Hero Banners
             </TabsTrigger>
+            <TabsTrigger value="banners" className="gap-2 px-4 py-2 rounded-xl text-xs font-bold data-[state=active]:bg-[#0082AD] data-[state=active]:text-white">
+              <ImageIcon className="w-4 h-4" />
+              Page Headers
+            </TabsTrigger>
             <TabsTrigger value="courses" className="gap-2 px-4 py-2 rounded-xl text-xs font-bold data-[state=active]:bg-[#0082AD] data-[state=active]:text-white">
               <BookOpen className="w-4 h-4" />
               Courses
+            </TabsTrigger>
+            <TabsTrigger value="blogs" className="gap-2 px-4 py-2 rounded-xl text-xs font-bold data-[state=active]:bg-[#0082AD] data-[state=active]:text-white">
+              <BookOpen className="w-4 h-4" />
+              News & Blogs
+            </TabsTrigger>
+            <TabsTrigger value="events" className="gap-2 px-4 py-2 rounded-xl text-xs font-bold data-[state=active]:bg-[#0082AD] data-[state=active]:text-white">
+              <Trophy className="w-4 h-4" />
+              Events & Awards
             </TabsTrigger>
             <TabsTrigger value="gallery" className="gap-2 px-4 py-2 rounded-xl text-xs font-bold data-[state=active]:bg-[#0082AD] data-[state=active]:text-white">
               <ImageIcon className="w-4 h-4" />
               Gallery
             </TabsTrigger>
+
             <TabsTrigger value="testimonials" className="gap-2 px-4 py-2 rounded-xl text-xs font-bold data-[state=active]:bg-[#0082AD] data-[state=active]:text-white">
               <MessageSquare className="w-4 h-4" />
               Testimonials
@@ -300,13 +318,26 @@ export default function AdminDashboard() {
             <HeroManagement />
           </TabsContent>
 
+          <TabsContent value="banners">
+            <BannerManagement />
+          </TabsContent>
+
           <TabsContent value="courses">
             <CourseManagement />
+          </TabsContent>
+
+          <TabsContent value="blogs">
+            <BlogManagement />
+          </TabsContent>
+
+          <TabsContent value="events">
+            <EventManagement />
           </TabsContent>
 
           <TabsContent value="gallery">
             <GalleryManagement />
           </TabsContent>
+
 
           <TabsContent value="testimonials">
             <TestimonialManagement />

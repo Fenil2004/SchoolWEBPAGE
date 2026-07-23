@@ -57,9 +57,22 @@ export default function Header() {
     { name: t('about'), href: '/about' },
     { name: t('courses'), href: '/courses', hasDropdown: true, dropdownItems: courses },
     { name: t('branches'), href: '/branches', hasDropdown: true, dropdownItems: branches },
-    { name: t('facilities'), href: '/facilities' },
     { name: t('admissions'), href: '/admissions' },
     { name: t('gallery'), href: '/gallery' },
+    {
+      name: 'More ▾',
+      href: '#',
+      hasDropdown: true,
+      dropdownItems: [
+        { name: t('achievements'), href: '/achievements' },
+        { name: t('alumni'), href: '/alumni' },
+        { name: t('careers'), href: '/careers' },
+        { name: t('blog'), href: '/blog' },
+        { name: t('faq'), href: '/faq' },
+        { name: t('virtualTour'), href: '/virtual-tour' },
+        { name: t('facilities'), href: '/facilities' },
+      ]
+    },
     { name: t('contact'), href: '/contact' },
   ], [courses, branches, language]);
 
@@ -143,10 +156,14 @@ export default function Header() {
                       </button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-56 p-2 rounded-xl shadow-lg border border-slate-100 bg-white">
-                      <DropdownMenuItem asChild className="rounded-lg font-medium text-slate-700 hover:text-[#0082AD] hover:bg-[#E6F4F8]">
-                        <Link href={item.href}>View All {item.name}</Link>
-                      </DropdownMenuItem>
-                      <div className="h-px bg-slate-100 my-1" />
+                      {item.href !== '#' && (
+                        <>
+                          <DropdownMenuItem asChild className="rounded-lg font-medium text-slate-700 hover:text-[#0082AD] hover:bg-[#E6F4F8]">
+                            <Link href={item.href}>View All {item.name}</Link>
+                          </DropdownMenuItem>
+                          <div className="h-px bg-slate-100 my-1" />
+                        </>
+                      )}
                       {item.dropdownItems && item.dropdownItems.length > 0 ? (
                         item.dropdownItems.map((dropdownItem) => (
                           <DropdownMenuItem key={dropdownItem.name} asChild className="rounded-lg text-slate-600 hover:text-[#0082AD] hover:bg-[#E6F4F8]">

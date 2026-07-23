@@ -224,3 +224,55 @@ model TeamMember {
 
   @@map("team_members")
 }
+
+// Dynamic Page Header Banners
+model PageBanner {
+  id        String   @id @default(cuid())
+  pageSlug  String   @unique // e.g. "about", "courses", "branches", "facilities", "admissions", "gallery", "contact", "achievements", "alumni", "careers", "blog", "faq", "virtual-tour"
+  pageName  String   // e.g. "About Us Page"
+  badge     String?  // e.g. "Educational Legacy Since 2002"
+  title     String   // e.g. "About Angels School"
+  subtitle  String?  @db.Text // e.g. "Shaping bright futures through dedicated science education"
+  bgImage   String?  // Cloudinary image URL. Fallback to default gradient if null
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("page_banners")
+}
+
+// News & Blog Posts
+model BlogPost {
+  id         String   @id @default(cuid())
+  title      String
+  slug       String   @unique
+  category   String   // "Science & Entrance", "Bhulka Kindergarten", "Commerce Stream", "News"
+  author     String   @default("Angels School")
+  date       String?
+  image      String?
+  summary    String   @db.Text
+  content    String?  @db.Text
+  isFeatured Boolean  @default(false)
+  isActive   Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("blog_posts")
+}
+
+// Event Achievements & Competitions
+model EventAchievement {
+  id          String   @id @default(cuid())
+  title       String
+  category    String   // "Science Fair", "National Olympiad", "Sports Champion", "Hackathon"
+  eventDate   String?
+  description String   @db.Text
+  winnerName  String?
+  image       String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("event_achievements")
+}
+

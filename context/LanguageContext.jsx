@@ -18,6 +18,12 @@ export const translations = {
     facilities: 'Facilities',
     admissions: 'Admissions',
     contact: 'Contact',
+    achievements: 'Achievements',
+    alumni: 'Alumni',
+    careers: 'Careers',
+    blog: 'Blog',
+    faq: 'FAQ',
+    virtualTour: 'Virtual Tour',
     startAdmissions: 'Start Admissions',
     languageName: 'English',
     motto: 'Building a Healthy Mindset Through Education',
@@ -48,6 +54,12 @@ export const translations = {
     facilities: 'સુવિધાઓ',
     admissions: 'પ્રવેશ પ્રક્રિયા',
     contact: 'સંપર્ક કરો',
+    achievements: 'સિદ્ધિઓ',
+    alumni: 'પૂર્વ વિદ્યાર્થીઓ',
+    careers: 'કારકિર્દી',
+    blog: 'બ્લોગ',
+    faq: 'પ્રશ્નોત્તરી',
+    virtualTour: 'વર્ચ્યુઅલ ટૂર',
     startAdmissions: 'પ્રવેશ શરૂ કરો',
     languageName: 'ગુજરાતી',
     motto: 'શિક્ષા સે સ્વસ્થ માનસિકતા કા નિર્માણ',
@@ -69,6 +81,7 @@ export const translations = {
     admissionsTitle: 'પ્રવેશ માર્ગદર્શિકા અને પ્રશ્નોત્તરી',
   }
 };
+
 
 export function LanguageProvider({ children }) {
   const [language, setLanguage] = useState('en');
