@@ -18,26 +18,28 @@ async function handler(req, res) {
 
   if (req.method === 'POST') {
     try {
-      const { title, subtitle, ctaText, ctaLink, imageUrl, displayOrder, isActive } = req.body;
+      const { title, subtitle, ctaText, ctaLink, videoUrl, imageUrl, displayOrder, isActive } = req.body;
 
-      // Validation
-      if (!title || !subtitle || !ctaText || !ctaLink) {
+      if (!title) {
         return res.status(400).json({
           success: false,
-          message: 'Missing required fields',
+          message: 'Title is required',
         });
       }
 
+      const createData = {
+        title,
+        subtitle: subtitle || '',
+        ctaText: ctaText || 'Enroll Now',
+        ctaLink: ctaLink || '/admissions',
+        imageUrl: imageUrl || null,
+        videoUrl: videoUrl || null,
+        displayOrder: displayOrder ? parseInt(displayOrder) : 0,
+        isActive: isActive !== undefined ? isActive : true,
+      };
+
       const heroContent = await prisma.heroContent.create({
-        data: {
-          title,
-          subtitle,
-          ctaText,
-          ctaLink,
-          imageUrl,
-          displayOrder: displayOrder || 0,
-          isActive: isActive !== undefined ? isActive : true,
-        },
+        data: createData,
       });
 
       return res.status(201).json({
@@ -49,7 +51,7 @@ async function handler(req, res) {
       console.error('Create hero content error:', error);
       return res.status(500).json({
         success: false,
-        message: 'Failed to create hero content',
+        message: error.message || 'Failed to create hero content',
       });
     }
   }

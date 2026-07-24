@@ -18,6 +18,7 @@ export default function HeroManagement() {
     subtitle: '',
     ctaText: '',
     ctaLink: '',
+    videoUrl: '',
     imageUrl: '',
     displayOrder: 1,
     isActive: true
@@ -79,11 +80,12 @@ export default function HeroManagement() {
 
       const heroData = {
         title: formData.title,
-        subtitle: formData.subtitle || null,
-        ctaText: formData.ctaText || null,
-        ctaLink: formData.ctaLink || null,
+        subtitle: formData.subtitle || '',
+        ctaText: formData.ctaText || 'Enroll Now',
+        ctaLink: formData.ctaLink || '/admissions',
+        videoUrl: formData.videoUrl || null,
         imageUrl: imageUrl || null,
-        displayOrder: parseInt(formData.displayOrder),
+        displayOrder: parseInt(formData.displayOrder || 1),
         isActive: formData.isActive
       };
 
@@ -126,6 +128,7 @@ export default function HeroManagement() {
       subtitle: hero.subtitle,
       ctaText: hero.ctaText,
       ctaLink: hero.ctaLink,
+      videoUrl: hero.videoUrl || '',
       imageUrl: hero.imageUrl || '',
       displayOrder: hero.displayOrder,
       isActive: hero.isActive !== undefined ? hero.isActive : true
@@ -170,6 +173,7 @@ export default function HeroManagement() {
       subtitle: '',
       ctaText: '',
       ctaLink: '',
+      videoUrl: '',
       imageUrl: '',
       displayOrder: 1,
       isActive: true
@@ -272,6 +276,19 @@ export default function HeroManagement() {
                 )}
               </div>
               
+              <div>
+                <Label htmlFor="videoUrl">Optional Campus Video URL (YouTube link)</Label>
+                <Input
+                  id="videoUrl"
+                  value={formData.videoUrl || ''}
+                  onChange={(e) => setFormData({ ...formData, videoUrl: e.target.value })}
+                  placeholder="e.g. https://www.youtube.com/watch?v=3wu0iQeJKyg (Leave empty if photo only)"
+                />
+                <p className="text-xs text-slate-500 mt-1">
+                  If provided, a "Watch Campus Video" play button will appear over the photo. If left empty, only the clean photo will display.
+                </p>
+              </div>
+
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="ctaText">CTA Button Text</Label>
@@ -283,12 +300,12 @@ export default function HeroManagement() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="ctaLink">CTA Button Link</Label>
+                  <Label htmlFor="ctaLink">CTA Button Link (URL or YouTube link)</Label>
                   <Input
                     id="ctaLink"
                     value={formData.ctaLink}
                     onChange={(e) => setFormData({ ...formData, ctaLink: e.target.value })}
-                    placeholder="e.g., /contact"
+                    placeholder="e.g., /contact or https://youtu.be/..."
                   />
                 </div>
               </div>

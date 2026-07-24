@@ -7,7 +7,10 @@ import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import { CommerceWatermarks } from '@/components/ui/SectionWatermark';
 
+import { useLanguage } from '@/context/LanguageContext';
+
 export default function CoursesSection() {
+  const { t } = useLanguage();
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -52,7 +55,6 @@ export default function CoursesSection() {
       <CommerceWatermarks />
       <div className="max-w-7xl mx-auto px-4 relative z-10">
 
-        
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -62,14 +64,14 @@ export default function CoursesSection() {
         >
           <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-white border border-[#0082AD]/20 rounded-full text-[#0082AD] text-xs font-bold uppercase tracking-wider mb-3 shadow-sm">
             <BookOpen className="w-3.5 h-3.5 text-[#7AA13B]" />
-            <span>Academic Programs & DLP</span>
+            <span>{t('academics')}</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl font-extrabold text-[#005F80] mb-4">
-            Specialized Science Courses
+            {t('coursesTitle')}
           </h2>
           <p className="text-slate-600 max-w-2xl mx-auto text-sm sm:text-base">
-            Comprehensive curriculum designed for 11th-12th Science board mastery and competitive entrance dominance
+            {t('coursesSubtitle')}
           </p>
         </motion.div>
 

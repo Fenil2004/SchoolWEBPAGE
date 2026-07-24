@@ -2,9 +2,19 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle2, Users, Award, BookOpen, Sparkles } from 'lucide-react';
 import { GeneralAcademicWatermarks } from '@/components/ui/SectionWatermark';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function AboutSection() {
-  const features = [
+  const { t, language } = useLanguage();
+
+  const features = language === 'gu' ? [
+    'અદ્યતન બોર્ડ અને સ્પર્ધાત્મક પરીક્ષા શિક્ષણ પદ્ધતિ',
+    'ઇન્ટરેક્ટિવ વર્ગખંડ અને ડાઉટ સોલ્વિંગ સત્રો',
+    'ડિજિટલ વિડીયો લેક્ચર્સ અને વિદ્યાર્થી ટ્રેકિંગ',
+    'અદ્યતન સાયન્સ અને કમ્પ્યુટર લેબ સુવિધાઓ',
+    'સંપૂર્ણ અભ્યાસ સાહિત્ય અને OMR ટેસ્ટ સીરીઝ',
+    'અનુભવી અને સમર્પિત નિષ્ણાત શિક્ષકો',
+  ] : [
     'Innovative Board & Competitive pedagogy',
     'Interactive classroom sessions & Doubt Solving',
     'Video lectures & personalized student tracking',
@@ -13,10 +23,14 @@ export default function AboutSection() {
     'Experienced & dedicated expert faculty',
   ];
 
-  const stats = [
+  const stats = language === 'gu' ? [
+    { icon: Users, value: '૧૫,૦૦૦+', label: 'સફળ વિદ્યાર્થીઓ' },
+    { icon: Award, value: '૫૦૦+', label: 'ટોચના JEE/NEET રેન્ક' },
+    { icon: BookOpen, value: '૪+', label: 'અદ્યતન કેમ્પસ' },
+  ] : [
     { icon: Users, value: '15,000+', label: 'Successful Students' },
     { icon: Award, value: '500+', label: 'Top JEE/NEET Ranks' },
-    { icon: BookOpen, value: '3+', label: 'Premier Campuses' },
+    { icon: BookOpen, value: '4+', label: 'Premier Campuses' },
   ];
 
   return (

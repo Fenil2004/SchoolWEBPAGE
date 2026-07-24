@@ -2,42 +2,41 @@ import React from 'react';
 import Link from 'next/link';
 import { Phone, Mail, MapPin, Facebook, Twitter, Instagram, Youtube, ChevronUp, ArrowRight, Award, Sparkles } from 'lucide-react';
 import FooterCTAStrip from '@/components/layout/FooterCTAStrip';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function Footer() {
+  const { t } = useLanguage();
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-
   const quickLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'About Us', href: '/about' },
-    { name: 'Courses', href: '/courses' },
-    { name: 'Our Branches', href: '/branches' },
-    { name: 'Admissions', href: '/admissions' },
-    { name: 'Achievements', href: '/achievements' },
-    { name: 'Alumni Network', href: '/alumni' },
-    { name: 'Careers', href: '/careers' },
-    { name: 'Blog', href: '/blog' },
-    { name: 'FAQ & Help', href: '/faq' },
-    { name: 'Virtual Tour', href: '/virtual-tour' },
-    { name: 'Gallery', href: '/gallery' },
-    { name: 'Contact Us', href: '/contact' },
+    { name: t('home'), href: '/' },
+    { name: t('about'), href: '/about' },
+    { name: t('courses'), href: '/courses' },
+    { name: t('branches'), href: '/branches' },
+    { name: t('admissions'), href: '/admissions' },
+    { name: t('achievements'), href: '/achievements' },
+    { name: t('alumni'), href: '/alumni' },
+    { name: t('careers'), href: '/careers' },
+    { name: t('blog'), href: '/blog' },
+    { name: t('faq'), href: '/faq' },
+    { name: t('virtualTour'), href: '/virtual-tour' },
+    { name: t('gallery'), href: '/gallery' },
+    { name: t('contact'), href: '/contact' },
   ];
 
-
   const courses = [
-    { name: '11th Science', href: '/courses#11th-science' },
-    { name: '12th Science', href: '/courses#12th-science' },
+    { name: '11th Science (PCM/PCB)', href: '/courses#11th-science' },
+    { name: '12th Science (NEET/JEE)', href: '/courses#12th-science' },
     { name: 'JEE Preparation', href: '/courses#jee-preparation' },
     { name: 'NEET Preparation', href: '/courses#neet-preparation' },
-    { name: 'GUJCET Preparation', href: '/courses#gujcet-preparation' },
+    { name: 'Commerce Stream', href: '/courses#commerce' },
   ];
 
   const branches = [
-    { name: 'Bhavnagar HQ', href: '/branches/bhavnagar' },
-    { name: 'Ahmedabad Branch', href: '/branches/ahmedabad' },
-    { name: 'Deesa Branch', href: '/branches/deesa' },
+    { name: 'Deesa Head Office', href: '/branches/deesa' },
   ];
 
   return (
@@ -56,9 +55,11 @@ export default function Footer() {
           {/* Brand Info */}
           <div>
             <div className="flex items-center gap-3 mb-5">
-              <div className="w-11 h-11 bg-gradient-to-br from-[#0082AD] to-[#005F80] rounded-xl flex items-center justify-center shadow-md">
-                <span className="text-white font-extrabold text-xl">A</span>
-              </div>
+              <img
+                src="/images/logo.jpg"
+                alt="Angels School Logo"
+                className="w-11 h-11 rounded-xl object-contain bg-white p-0.5 shadow-md"
+              />
               <div>
                 <div className="flex items-baseline gap-1">
                   <h3 className="text-xl font-extrabold text-white">Angels</h3>

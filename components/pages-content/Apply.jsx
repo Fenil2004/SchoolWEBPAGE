@@ -15,7 +15,7 @@ export default function Apply() {
     phone: '',
     email: '',
     medium: 'English Medium',
-    branch: 'Bhavnagar Head Office',
+    branch: 'Deesa Head Office',
     course: '11th-12th Science (JEE/NEET)',
     notes: '',
   });
@@ -158,9 +158,7 @@ export default function Apply() {
                       onChange={(e) => setFormData({ ...formData, branch: e.target.value })}
                       className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#0082AD]"
                     >
-                      <option value="Bhavnagar Head Office">Bhavnagar Campus</option>
-                      <option value="Ahmedabad Branch">Ahmedabad Campus</option>
-                      <option value="Deesa Branch">Deesa HQ Campus</option>
+                      <option value="Deesa Head Office">Deesa HQ Campus</option>
                     </select>
                   </div>
 

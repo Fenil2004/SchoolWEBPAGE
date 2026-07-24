@@ -221,8 +221,6 @@ export default function Contact() {
                           </SelectTrigger>
                           <SelectContent>
                             <SelectItem value="deesa">Deesa Campus (HQ)</SelectItem>
-                            <SelectItem value="ahmedabad">Ahmedabad Campus</SelectItem>
-                            <SelectItem value="bhavnagar">Bhavnagar Campus</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>

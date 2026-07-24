@@ -8,8 +8,9 @@ import WorkingSystemSection from '@/components/home/WorkingSystemSection';
 import CoursesSection from '@/components/home/CoursesSection';
 import VirtualTourModal from '@/components/home/VirtualTourModal';
 import ToppersHallOfFame from '@/components/home/ToppersHallOfFame';
+import EventsSection from '@/components/home/EventsSection';
 import PublicationsSection from '@/components/home/PublicationsSection';
-import TestimonialsSection from '@/components/home/TestimonialsSection';
+import AlumniStoriesSection from '@/components/home/AlumniStoriesSection';
 import NewsBlogsSection from '@/components/home/NewsBlogsSection';
 import BranchesSection from '@/components/home/BranchesSection';
 import InteractiveFAQ from '@/components/ui/InteractiveFAQ';
@@ -27,8 +28,9 @@ export default function Home() {
       <CoursesSection />
       <VirtualTourModal />
       <ToppersHallOfFame />
+      <EventsSection />
       <PublicationsSection />
-      <TestimonialsSection />
+      <AlumniStoriesSection />
       <NewsBlogsSection />
       <BranchesSection />
       <InteractiveFAQ />

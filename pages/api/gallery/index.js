@@ -1,6 +1,15 @@
 import { prisma } from '@/lib/db';
 import { authMiddleware, requireRole } from '@/lib/auth';
 
+// Increase body size limit for image uploads (base64 encoded)
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '10mb',
+    },
+  },
+};
+
 // GET all gallery images or POST new image
 async function handler(req, res) {
   if (req.method === 'GET') {
@@ -39,7 +48,7 @@ async function handler(req, res) {
       // If not including imageUrl, add a placeholder
       const processedImages = includeImageUrl ? images : images.map(img => ({
         ...img,
-        imageUrl: '/placeholder-image.jpg',
+        imageUrl: '/images/gallery-fallback.jpg',
         hasImage: true,
       }));
 

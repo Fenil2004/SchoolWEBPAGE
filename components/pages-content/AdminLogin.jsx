@@ -75,9 +75,11 @@ export default function AdminLogin() {
       >
         <Card className="rounded-3xl shadow-2xl border-none bg-white overflow-hidden">
           <CardHeader className="text-center pb-4 pt-10 px-8 bg-gradient-to-b from-[#E6F4F8] to-white">
-            <div className="w-16 h-16 bg-gradient-to-br from-[#0082AD] to-[#005F80] rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-md border-2 border-white">
-              <Shield className="w-8 h-8 text-white" />
-            </div>
+            <img
+              src="/images/logo.jpg"
+              alt="Angels School Logo"
+              className="w-16 h-16 rounded-2xl object-contain mx-auto mb-4 shadow-md border-2 border-white bg-white"
+            />
             <div className="flex items-center justify-center gap-1 mb-1">
               <span className="text-2xl font-extrabold text-[#0082AD]">Angels</span>
               <span className="text-2xl font-extrabold text-[#7AA13B]">School</span>

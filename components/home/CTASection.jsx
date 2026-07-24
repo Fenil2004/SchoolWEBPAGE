@@ -3,8 +3,11 @@ import { motion } from 'framer-motion';
 import { Phone, Mail, ArrowRight, GraduationCap, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function CTASection() {
+  const { t } = useLanguage();
+
   return (
     <section className="py-20 bg-gradient-to-br from-[#005F80] via-[#0082AD] to-[#004761] relative overflow-hidden text-white">
       {/* Background Orbs */}
@@ -23,21 +26,21 @@ export default function CTASection() {
           >
             <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-cyan-100 text-xs font-bold uppercase tracking-wider mb-4">
               <Sparkles className="w-3.5 h-3.5 text-[#7AA13B]" />
-              <span>Admissions Open for 2026-2027</span>
+              <span>{t('heroBadge')}</span>
             </div>
 
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight mb-6">
-              Ready to Secure Top Ranks in <span className="text-[#7AA13B]">Science & Entrance</span> Exams?
+              {t('ctaTitle')}
             </h2>
             
             <p className="text-cyan-100 text-base sm:text-lg mb-8 max-w-xl leading-relaxed">
-              Take the first step towards an engineering or medical career with Angels School Career Institute's proven academic environment.
+              {t('ctaSubtitle')}
             </p>
 
             <div className="flex flex-wrap gap-4">
               <Link href="/contact">
                 <Button size="lg" className="bg-[#7AA13B] hover:bg-[#8DB843] text-white font-extrabold px-8 py-4 text-base rounded-xl shadow-lg">
-                  Apply Online Now
+                  {t('applyOnline')}
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
               </Link>
@@ -64,7 +67,7 @@ export default function CTASection() {
               </div>
               <div>
                 <h3 className="text-xl font-extrabold text-white">Direct Helpline</h3>
-                <p className="text-xs text-cyan-200 font-medium">Bhavnagar & Gujarat Campuses</p>
+                <p className="text-xs text-cyan-200 font-medium">Deesa & Gujarat Campuses</p>
               </div>
             </div>
 

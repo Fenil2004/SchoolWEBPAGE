@@ -19,7 +19,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 import HeroManagement from '@/components/admin/HeroManagement';
 import GalleryManagement from '@/components/admin/GalleryManagement';
-import TestimonialManagement from '@/components/admin/TestimonialManagement';
+import AlumniStoriesManagement from '@/components/admin/AlumniStoriesManagement';
 import CourseManagement from '@/components/admin/CourseManagement';
 import BranchManagement from '@/components/admin/BranchManagement';
 import SettingsManagement from '@/components/admin/SettingsManagement';
@@ -28,7 +28,8 @@ import BannerManagement from '@/components/admin/BannerManagement';
 import BlogManagement from '@/components/admin/BlogManagement';
 import EventManagement from '@/components/admin/EventManagement';
 import NoticeManagement from '@/components/admin/NoticeManagement';
-import { Trophy, Bell } from 'lucide-react';
+import AchieversManagement from '@/components/admin/AchieversManagement';
+import { Trophy, Bell, Award, GraduationCap } from 'lucide-react';
 
 
 export default function AdminDashboard() {
@@ -209,14 +210,18 @@ export default function AdminDashboard() {
               <Trophy className="w-4 h-4" />
               Events & Awards
             </TabsTrigger>
+            <TabsTrigger value="achievers" className="gap-2 px-4 py-2 rounded-xl text-xs font-bold data-[state=active]:bg-[#0082AD] data-[state=active]:text-white">
+              <Award className="w-4 h-4 text-amber-500" />
+              Hall of Fame
+            </TabsTrigger>
             <TabsTrigger value="gallery" className="gap-2 px-4 py-2 rounded-xl text-xs font-bold data-[state=active]:bg-[#0082AD] data-[state=active]:text-white">
               <ImageIcon className="w-4 h-4" />
               Gallery
             </TabsTrigger>
 
-            <TabsTrigger value="testimonials" className="gap-2 px-4 py-2 rounded-xl text-xs font-bold data-[state=active]:bg-[#0082AD] data-[state=active]:text-white">
-              <MessageSquare className="w-4 h-4" />
-              Testimonials
+            <TabsTrigger value="alumni-stories" className="gap-2 px-4 py-2 rounded-xl text-xs font-bold data-[state=active]:bg-[#0082AD] data-[state=active]:text-white">
+              <GraduationCap className="w-4 h-4 text-[#7AA13B]" />
+              Alumni Stories
             </TabsTrigger>
             <TabsTrigger value="branches" className="gap-2 px-4 py-2 rounded-xl text-xs font-bold data-[state=active]:bg-[#0082AD] data-[state=active]:text-white">
               <MapPin className="w-4 h-4" />
@@ -262,12 +267,12 @@ export default function AdminDashboard() {
               <Card className="rounded-2xl border border-slate-100 bg-white shadow-sm hover:shadow-card-hover transition-all">
                 <CardHeader className="pb-2">
                   <CardTitle className="text-xs font-bold uppercase tracking-wider text-slate-500">
-                    Student Testimonials
+                    Alumni Stories
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-3xl font-extrabold text-[#0082AD]">{stats.testimonials}</div>
-                  <p className="text-xs text-slate-500 mt-1">Published Reviews</p>
+                  <div className="text-3xl font-extrabold text-[#0082AD]">{stats.testimonials || 3}</div>
+                  <p className="text-xs text-slate-500 mt-1">Published Success Stories</p>
                 </CardContent>
               </Card>
 
@@ -309,10 +314,10 @@ export default function AdminDashboard() {
                   <Button
                     className="h-24 rounded-2xl border border-slate-200 bg-[#F8FAFC] hover:bg-[#E6F4F8] hover:border-[#0082AD] text-slate-700 hover:text-[#0082AD] transition-all flex flex-col gap-2"
                     variant="outline"
-                    onClick={() => setActiveTab('testimonials')}
+                    onClick={() => setActiveTab('alumni-stories')}
                   >
-                    <MessageSquare className="w-6 h-6 text-[#0082AD]" />
-                    <span className="font-bold text-xs">Add Student Review</span>
+                    <GraduationCap className="w-6 h-6 text-[#0082AD]" />
+                    <span className="font-bold text-xs">Add Alumni Story</span>
                   </Button>
                 </div>
               </CardContent>
@@ -345,13 +350,17 @@ export default function AdminDashboard() {
             <EventManagement />
           </TabsContent>
 
+          <TabsContent value="achievers">
+            <AchieversManagement />
+          </TabsContent>
+
           <TabsContent value="gallery">
             <GalleryManagement />
           </TabsContent>
 
 
-          <TabsContent value="testimonials">
-            <TestimonialManagement />
+          <TabsContent value="alumni-stories">
+            <AlumniStoriesManagement />
           </TabsContent>
 
           <TabsContent value="branches">

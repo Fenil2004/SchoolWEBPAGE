@@ -122,7 +122,7 @@ export default function BranchesSection() {
                   </div>
 
                   <div className="p-4 pt-0">
-                    <Link href={`/branches/${branch.slug || 'bhavnagar'}`}>
+                    <Link href={`/branches/${branch.slug || 'deesa'}`}>
                       <Button variant="outline" size="sm" className="w-full border-[#0082AD] text-[#0082AD] hover:bg-[#E6F4F8] font-bold text-xs">
                         Campus Details
                         <ArrowRight className="w-3.5 h-3.5 ml-1" />

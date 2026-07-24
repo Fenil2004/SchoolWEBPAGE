@@ -158,9 +158,10 @@ model HeroContent {
   id          String   @id @default(cuid())
   title       String
   subtitle    String   @db.Text
-  ctaText     String
-  ctaLink     String
+  ctaText     String   @default("Enroll Now")
+  ctaLink     String   @default("/admissions")
   imageUrl    String?
+  videoUrl    String?
   isActive    Boolean  @default(true)
   displayOrder Int     @default(0)
   createdAt   DateTime @default(now())

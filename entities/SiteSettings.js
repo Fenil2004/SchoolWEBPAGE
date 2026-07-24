@@ -19,7 +19,7 @@ export class SiteSettings {
     whatsappNumber = '',
     // Address
     headOfficeAddress = '',
-    city = 'Bhavnagar',
+    city = 'Deesa',
     state = 'Gujarat',
     country = 'India',
     pincode = '',

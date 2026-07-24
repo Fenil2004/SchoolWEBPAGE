@@ -1,22 +1,28 @@
 import React from 'react';
 import { School, Users, GraduationCap, Award, BookOpen, Calendar, ShieldCheck, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useLanguage } from '@/context/LanguageContext';
 
-/**
- * StatsCounterBar Component
- * 
- * 8-metric grid displaying Angels School achievements, campus network,
- * pass rate, NEET & JEE top ranks, and academic legacy.
- */
 export default function StatsCounterBar() {
-  const stats = [
-    { icon: School, value: '2', label: 'Campus Branches', desc: 'State-of-the-Art Infrastructure' },
-    { icon: Users, value: '15,000+', label: 'Enrolled & Alumni', desc: 'Successful Students' },
+  const { t, language } = useLanguage();
+
+  const stats = language === 'gu' ? [
+    { icon: School, value: '૪', label: 'કેમ્પસ શાખાઓ', desc: 'ડીસા અને ગુજરાતમાં' },
+    { icon: Users, value: '૧૨,૫૦૦+', label: 'સફળ વિદ્યાર્થીઓ', desc: 'ધોરણ ૧ થી ૧૨ વિદ્યાર્થીઓ' },
+    { icon: GraduationCap, value: '૫૦૦+', label: 'NEET & JEE રેન્કર્સ', desc: 'ટોચની સાયન્સ પ્રવેશ પરીક્ષાઓ' },
+    { icon: Award, value: '૯૯.૪%', label: 'બોર્ડ પરિણામ ટકાવારી', desc: 'સતત શૈક્ષણિક શ્રેષ્ઠતા' },
+    { icon: Calendar, value: '૨૫+ વર્ષ', label: 'વિશ્વાસનો વારસો', desc: 'સ્થાપના ૨૦૦૨' },
+    { icon: BookOpen, value: '૧૫,૦૦૦+', label: 'પુસ્તકોની સંખ્યા', desc: 'ડિજિટલ અને ભૌતિક પુસ્તકાલય' },
+    { icon: ShieldCheck, value: '૧૫૦+', label: 'નિષ્ણાત શિક્ષકો', desc: 'તાલીમબદ્ધ અનુભવી શિક્ષકો' },
+    { icon: Sparkles, value: '૧૦૦%', label: 'સ્માર્ટ ડિજિટલ વર્ગખંડો', desc: 'ઓડિયો-વિઝ્યુઅલ ટેકનોલોજી' },
+  ] : [
+    { icon: School, value: '4', label: 'Campus Branches', desc: 'Deesa & Gujarat Campuses' },
+    { icon: Users, value: '12,500+', label: 'Enrolled Students', desc: 'Grades 1 to 12 Scholars' },
     { icon: GraduationCap, value: '500+', label: 'NEET & JEE Ranks', desc: 'Top Science Entrances' },
-    { icon: Award, value: '98.5%', label: 'Board Pass Rate', desc: 'Consistent Academic Excellence' },
-    { icon: Calendar, value: '25+ Years', label: 'Legacy of Trust', desc: 'Established 1998' },
+    { icon: Award, value: '99.4%', label: 'Board Pass Rate', desc: 'Consistent Academic Excellence' },
+    { icon: Calendar, value: '25+ Years', label: 'Legacy of Trust', desc: 'Established 2002' },
     { icon: BookOpen, value: '15,000+', label: 'Library Titles', desc: 'Digital & Physical Books' },
-    { icon: ShieldCheck, value: '100+', label: 'Expert Faculty', desc: 'Trained Educators' },
+    { icon: ShieldCheck, value: '150+', label: 'Expert Faculty', desc: 'Trained Senior Educators' },
     { icon: Sparkles, value: '100%', label: 'Smart Classrooms', desc: 'Audio-Visual Tech Labs' },
   ];
 

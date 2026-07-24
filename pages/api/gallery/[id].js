@@ -1,6 +1,15 @@
 import { prisma } from '@/lib/db';
 import { requireRole } from '@/lib/auth';
 
+// Increase body size limit for image uploads (base64 encoded)
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '10mb',
+    },
+  },
+};
+
 // GET, PUT, or DELETE a specific gallery image
 async function handler(req, res) {
   const { id } = req.query;

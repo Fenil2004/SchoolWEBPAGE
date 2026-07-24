@@ -16,65 +16,83 @@ export default function Header() {
   const { language, toggleLanguage, t } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [admissionsOpen, setAdmissionsOpen] = useState(false);
-  const [courses, setCourses] = useState([]);
-  const [branches, setBranches] = useState([]);
+  const [openDropdown, setOpenDropdown] = useState(null);
+  const hoverTimeoutRef = React.useRef(null);
+  const [mobileExpanded, setMobileExpanded] = useState({
+    About: true,
+    Academics: true,
+    Campus: true,
+    Media: true,
+    'અમારા વિશે': true,
+    'અભ્યાસક્રમ': true,
+    'કેમ્પસ': true,
+    'મીડિયા': true,
+  });
 
-  useEffect(() => {
-    fetch('/api/courses')
-      .then(res => res.json())
-      .then(data => {
-        if (Array.isArray(data)) {
-          const courseLinks = data
-            .filter(course => course.isActive)
-            .slice(0, 8)
-            .map(course => ({
-              name: course.name,
-              href: `/courses#${course.slug}`
-            }));
-          setCourses(courseLinks);
-        }
-      })
-      .catch(error => console.error('Error fetching courses:', error));
+  const handleMouseEnter = (itemName) => {
+    if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+    setOpenDropdown(itemName);
+  };
 
-    fetch('/api/branches')
-      .then(res => res.json())
-      .then(data => {
-        if (Array.isArray(data)) {
-          const branchLinks = data
-            .filter(branch => branch.isActive)
-            .map(branch => ({
-              name: branch.name + (branch.isHeadquarter ? ' (HQ)' : ''),
-              href: `/branches/${branch.slug}`
-            }));
-          setBranches(branchLinks);
-        }
-      })
-      .catch(error => console.error('Error fetching branches:', error));
-  }, []);
+  const handleMouseLeave = () => {
+    hoverTimeoutRef.current = setTimeout(() => {
+      setOpenDropdown(null);
+    }, 150);
+  };
+
+  const toggleMobileCategory = (categoryName) => {
+    setMobileExpanded((prev) => ({
+      ...prev,
+      [categoryName]: !prev[categoryName],
+    }));
+  };
 
   const navItems = useMemo(() => [
-    { name: t('home'), href: '/' },
-    { name: t('about'), href: '/about' },
-    { name: t('courses'), href: '/courses', hasDropdown: true, dropdownItems: courses },
-    { name: t('branches'), href: '/branches', hasDropdown: true, dropdownItems: branches },
-    { name: t('admissions'), href: '/admissions' },
-    { name: t('gallery'), href: '/gallery' },
+    { name: t('home') || 'Home', href: '/' },
     {
-      name: 'More ▾',
-      href: '#',
+      name: t('about') || 'About',
+      href: '/about',
       hasDropdown: true,
       dropdownItems: [
-        { name: t('achievements'), href: '/achievements' },
-        { name: t('alumni'), href: '/alumni' },
-        { name: t('careers'), href: '/careers' },
-        { name: t('blog'), href: '/blog' },
-        { name: t('faq'), href: '/faq' },
-        { name: t('virtualTour'), href: '/virtual-tour' },
-        { name: t('facilities'), href: '/facilities' },
+        { name: t('aboutSchool') || 'About School', href: '/about' },
+        { name: t('branches') || 'Branches', href: '/branches' },
+        { name: t('leadership') || 'Leadership', href: '/about#leadership' },
+        { name: t('careers') || 'Careers', href: '/careers' },
       ]
     },
-    { name: t('contact'), href: '/contact' },
-  ], [courses, branches, language]);
+    {
+      name: t('academics') || 'Academics',
+      href: '/courses',
+      hasDropdown: true,
+      dropdownItems: [
+        { name: t('courses') || 'Courses', href: '/courses' },
+        { name: t('admissions') || 'Admissions', href: '/admissions' },
+        { name: t('achievements') || 'Achievements', href: '/achievements' },
+      ]
+    },
+    {
+      name: t('campus') || 'Campus',
+      href: '/facilities',
+      hasDropdown: true,
+      dropdownItems: [
+        { name: t('facilities') || 'Facilities', href: '/facilities' },
+        { name: t('virtualTour') || 'Virtual Tour', href: '/virtual-tour' },
+        { name: t('alumni') || 'Alumni', href: '/alumni' },
+      ]
+    },
+    {
+      name: t('media') || 'Media',
+      href: '/gallery',
+      hasDropdown: true,
+      dropdownItems: [
+        { name: t('gallery') || 'Gallery', href: '/gallery' },
+        { name: t('blog') || 'Blog', href: '/blog' },
+        { name: t('news') || 'News', href: '/blog' },
+        { name: t('faq') || 'FAQ', href: '/faq' },
+      ]
+    },
+    { name: t('contact') || 'Contact', href: '/contact' },
+  ], [language, t]);
 
   return (
     <header className="w-full relative z-50">
@@ -126,12 +144,11 @@ export default function Header() {
             {/* Brand Logo & Tagline */}
             <Link href="/" className="flex items-center gap-3 group">
               <div className="relative">
-                <div className="w-12 h-12 bg-gradient-to-br from-[#0082AD] to-[#005F80] rounded-xl flex items-center justify-center shadow-md transform group-hover:scale-105 transition-transform duration-200">
-                  <span className="text-white font-extrabold text-2xl tracking-tighter">A</span>
-                  <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-[#7AA13B] rounded-full border-2 border-white flex items-center justify-center">
-                    <Award className="w-2.5 h-2.5 text-white" />
-                  </div>
-                </div>
+                <img
+                  src="/images/logo.jpg"
+                  alt="Angels School Logo"
+                  className="w-12 h-12 rounded-xl object-contain shadow-md border border-slate-100 transform group-hover:scale-105 transition-transform duration-200"
+                />
               </div>
               <div className="flex flex-col">
                 <div className="flex items-baseline gap-1">
@@ -145,38 +162,53 @@ export default function Header() {
             </Link>
 
             {/* Desktop Navigation Menu */}
-            <div className="hidden lg:flex items-center gap-0.5">
+            <div className="hidden lg:flex items-center gap-1">
               {navItems.map((item) => {
                 return item.hasDropdown ? (
-                  <DropdownMenu key={`${item.name}-${item.dropdownItems?.length || 0}`}>
-                    <DropdownMenuTrigger asChild>
-                      <button className="px-3.5 py-2 text-slate-700 hover:text-[#0082AD] font-semibold text-xs xl:text-sm flex items-center gap-1 transition-colors rounded-lg hover:bg-[#E6F4F8]">
-                        {item.name}
-                        <ChevronDown className="w-3.5 h-3.5 text-[#0082AD]" />
-                      </button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-56 p-2 rounded-xl shadow-lg border border-slate-100 bg-white">
-                      {item.href !== '#' && (
-                        <>
-                          <DropdownMenuItem asChild className="rounded-lg font-medium text-slate-700 hover:text-[#0082AD] hover:bg-[#E6F4F8]">
-                            <Link href={item.href}>View All {item.name}</Link>
-                          </DropdownMenuItem>
-                          <div className="h-px bg-slate-100 my-1" />
-                        </>
-                      )}
-                      {item.dropdownItems && item.dropdownItems.length > 0 ? (
-                        item.dropdownItems.map((dropdownItem) => (
-                          <DropdownMenuItem key={dropdownItem.name} asChild className="rounded-lg text-slate-600 hover:text-[#0082AD] hover:bg-[#E6F4F8]">
-                            <Link href={dropdownItem.href}>{dropdownItem.name}</Link>
-                          </DropdownMenuItem>
-                        ))
-                      ) : (
-                        <DropdownMenuItem disabled className="text-slate-400 text-xs">
-                          Loading items...
-                        </DropdownMenuItem>
-                      )}
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+                  <div
+                    key={item.name}
+                    className="relative"
+                    onMouseEnter={() => handleMouseEnter(item.name)}
+                    onMouseLeave={handleMouseLeave}
+                  >
+                    <Link
+                      href={item.href}
+                      className={`px-3.5 py-2 font-semibold text-xs xl:text-sm flex items-center gap-1 transition-all rounded-lg ${
+                        openDropdown === item.name
+                          ? 'text-[#0082AD] bg-[#E6F4F8]'
+                          : 'text-slate-700 hover:text-[#0082AD] hover:bg-[#E6F4F8]'
+                      }`}
+                    >
+                      <span>{item.name}</span>
+                      <ChevronDown
+                        className={`w-3.5 h-3.5 text-[#0082AD] transition-transform duration-200 ${
+                          openDropdown === item.name ? 'rotate-180' : ''
+                        }`}
+                      />
+                    </Link>
+
+                    {/* Smooth Hover Dropdown Menu */}
+                    <div
+                      className={`absolute left-0 top-full pt-1.5 w-56 z-50 transition-all duration-200 ease-out origin-top-left ${
+                        openDropdown === item.name
+                          ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto'
+                          : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'
+                      }`}
+                    >
+                      <div className="bg-white/95 backdrop-blur-md rounded-xl shadow-xl border border-slate-100 p-2 space-y-0.5">
+                        {item.dropdownItems.map((subItem) => (
+                          <Link
+                            key={subItem.name}
+                            href={subItem.href}
+                            className="block px-3 py-2 text-xs xl:text-sm font-medium text-slate-700 hover:text-[#0082AD] hover:bg-[#E6F4F8] rounded-lg transition-colors"
+                            onClick={() => setOpenDropdown(null)}
+                          >
+                            {subItem.name}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
                 ) : (
                   <Link
                     key={item.name}
@@ -227,21 +259,63 @@ export default function Header() {
 
         {/* Mobile Navigation Drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden bg-white border-t border-slate-100 shadow-xl px-4 py-6 space-y-3">
-            <div className="space-y-1">
+          <div className="lg:hidden bg-white border-t border-slate-100 shadow-xl px-4 py-5 space-y-3 max-h-[80vh] overflow-y-auto">
+            <div className="space-y-2">
               {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="block px-4 py-2.5 text-slate-700 hover:text-[#0082AD] hover:bg-[#E6F4F8] rounded-lg font-semibold transition-colors text-sm"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item.name}
-                </Link>
+                <div key={item.name} className="border-b border-slate-100/80 last:border-0 pb-1">
+                  {item.hasDropdown ? (
+                    <div>
+                      <div className="flex items-center justify-between px-3 py-2 rounded-lg text-slate-800 font-bold bg-slate-50/70 hover:bg-[#E6F4F8] transition-colors">
+                        <Link
+                          href={item.href}
+                          className="flex-1 text-sm font-bold text-[#0082AD]"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          {item.name}
+                        </Link>
+                        <button
+                          onClick={() => toggleMobileCategory(item.name)}
+                          className="p-1 text-[#0082AD] hover:bg-slate-200/50 rounded-md transition-transform"
+                          aria-label={`Toggle ${item.name} sub-menu`}
+                        >
+                          <ChevronDown
+                            className={`w-4 h-4 transition-transform duration-200 ${
+                              mobileExpanded[item.name] ? 'rotate-180' : ''
+                            }`}
+                          />
+                        </button>
+                      </div>
+
+                      {/* Mobile Sub-Items Accordion */}
+                      {mobileExpanded[item.name] && (
+                        <div className="pl-4 pr-2 py-1.5 mt-1 space-y-1 bg-white border-l-2 border-[#0082AD] rounded-r-lg">
+                          {item.dropdownItems.map((subItem) => (
+                            <Link
+                              key={subItem.name}
+                              href={subItem.href}
+                              className="block px-3 py-2 text-xs font-semibold text-slate-700 hover:text-[#0082AD] hover:bg-[#E6F4F8] rounded-md transition-colors"
+                              onClick={() => setMobileMenuOpen(false)}
+                            >
+                              {subItem.name}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      className="block px-3 py-2 text-slate-800 font-bold hover:text-[#0082AD] hover:bg-[#E6F4F8] rounded-lg transition-colors text-sm"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {item.name}
+                    </Link>
+                  )}
+                </div>
               ))}
             </div>
 
-            <div className="pt-4 space-y-2 border-t border-slate-100">
+            <div className="pt-3 space-y-2 border-t border-slate-100">
               <Button
                 onClick={() => {
                   setMobileMenuOpen(false);

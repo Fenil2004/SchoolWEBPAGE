@@ -7,19 +7,21 @@ async function handler(req, res) {
 
   if (req.method === 'PUT') {
     try {
-      const { title, subtitle, ctaText, ctaLink, imageUrl, displayOrder, isActive } = req.body;
+      const { title, subtitle, ctaText, ctaLink, videoUrl, imageUrl, displayOrder, isActive } = req.body;
+
+      const updateData = {};
+      if (title !== undefined) updateData.title = title;
+      if (subtitle !== undefined) updateData.subtitle = subtitle || '';
+      if (ctaText !== undefined) updateData.ctaText = ctaText || 'Enroll Now';
+      if (ctaLink !== undefined) updateData.ctaLink = ctaLink || '/admissions';
+      if (videoUrl !== undefined) updateData.videoUrl = videoUrl || null;
+      if (imageUrl !== undefined) updateData.imageUrl = imageUrl || null;
+      if (displayOrder !== undefined) updateData.displayOrder = parseInt(displayOrder);
+      if (isActive !== undefined) updateData.isActive = isActive;
 
       const heroContent = await prisma.heroContent.update({
         where: { id },
-        data: {
-          ...(title && { title }),
-          ...(subtitle && { subtitle }),
-          ...(ctaText && { ctaText }),
-          ...(ctaLink && { ctaLink }),
-          ...(imageUrl !== undefined && { imageUrl }),
-          ...(displayOrder !== undefined && { displayOrder }),
-          ...(isActive !== undefined && { isActive }),
-        },
+        data: updateData,
       });
 
       return res.status(200).json({
@@ -31,7 +33,7 @@ async function handler(req, res) {
       console.error('Update hero content error:', error);
       return res.status(500).json({
         success: false,
-        message: 'Failed to update hero content',
+        message: error.message || 'Failed to update hero content',
       });
     }
   }

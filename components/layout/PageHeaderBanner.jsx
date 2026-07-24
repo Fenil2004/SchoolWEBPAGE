@@ -9,12 +9,15 @@ import { Sparkles } from 'lucide-react';
  * Controlled via Admin Panel with dynamic badge, title, subtitle, and custom bgImage URL.
  * If bgImage is null/empty, gracefully falls back to default brand gradient.
  */
+import { useLanguage } from '@/context/LanguageContext';
+
 export default function PageHeaderBanner({
   pageSlug,
   defaultTitle = "Angels School",
   defaultBadge = "Educational Excellence Since 2002",
   defaultSubtitle = "Shaping bright futures and rank-one results through dedicated science education",
 }) {
+  const { t, language } = useLanguage();
   const [bannerData, setBannerData] = useState({
     title: defaultTitle,
     badge: defaultBadge,
@@ -39,6 +42,11 @@ export default function PageHeaderBanner({
       .catch((err) => console.error('Failed to fetch banner data:', err));
   }, [pageSlug, defaultTitle, defaultBadge, defaultSubtitle]);
 
+  // Gujarati Title fallbacks
+  const displayTitle = language === 'gu' && t(pageSlug) !== pageSlug ? t(pageSlug) : bannerData.title;
+  const displayBadge = language === 'gu' ? t('heroBadge') : bannerData.badge;
+  const displaySubtitle = language === 'gu' ? t('motto') : bannerData.subtitle;
+
   return (
     <section className="relative py-24 md:py-32 lg:py-36 min-h-[380px] md:min-h-[460px] flex items-center justify-center bg-gradient-to-r from-[#005F80] via-[#0082AD] to-[#7AA13B] overflow-hidden text-white w-full">
       {/* Dynamic Background Image Overlay with Low-Opacity Blue & Green Gradient */}
@@ -62,20 +70,20 @@ export default function PageHeaderBanner({
           transition={{ duration: 0.4 }}
           className="max-w-4xl mx-auto space-y-4"
         >
-          {bannerData.badge && (
+          {displayBadge && (
             <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-cyan-100 text-xs sm:text-sm font-bold uppercase tracking-wider shadow-sm">
               <Sparkles className="w-4 h-4 text-[#7AA13B]" />
-              <span>{bannerData.badge}</span>
+              <span>{displayBadge}</span>
             </div>
           )}
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight drop-shadow-md leading-tight">
-            {bannerData.title}
+            {displayTitle}
           </h1>
 
-          {bannerData.subtitle && (
+          {displaySubtitle && (
             <p className="text-cyan-100 text-base sm:text-lg md:text-xl max-w-3xl mx-auto font-medium leading-relaxed drop-shadow-sm">
-              {bannerData.subtitle}
+              {displaySubtitle}
             </p>
           )}
         </motion.div>

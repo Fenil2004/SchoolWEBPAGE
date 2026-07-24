@@ -89,18 +89,20 @@ export default function GalleryManagement() {
         resetForm();
         fetchImages();
       } else {
-        const error = await response.json();
-        const errorMsg = error.message || error.error || 'Failed to add image';
-        console.error('API Error Response:', error);
+        let errorMsg = 'Failed to add image';
+        try {
+          const error = await response.json();
+          errorMsg = error.message || error.error || errorMsg;
+        } catch (e) {
+          const text = await response.text().catch(() => '');
+          errorMsg = text || `Server responded with status ${response.status}`;
+        }
+        console.error('API Error Response:', response.status, errorMsg);
         alert(`Error: ${errorMsg}`);
       }
     } catch (error) {
       console.error('Failed to add image:', error);
-      if (error.message && error.message.includes('JSON')) {
-        alert('Failed to add image: Image file is too large. Please use a smaller image (max 2MB) or compress it.');
-      } else {
-        alert(`Failed to add image: ${error.message || 'Unknown error'}`);
-      }
+      alert(`Failed to add image: ${error.message || 'Unknown error'}`);
     }
   };
 

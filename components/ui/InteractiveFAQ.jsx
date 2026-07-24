@@ -2,19 +2,25 @@ import React, { useState } from 'react';
 import { HelpCircle, ChevronDown, Search, Sparkles, BookOpen, School, GraduationCap, ShieldCheck, Bus } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GeneralAcademicWatermarks } from '@/components/ui/SectionWatermark';
+import { useLanguage } from '@/context/LanguageContext';
 
-/**
- * InteractiveFAQ Component
- * 
- * Searchable, categorized FAQ accordion covering Admissions, Bhulka Kindergarten,
- * Secondary Academics, Higher Secondary Science (NEET & JEE), Commerce, and Campus Facilities.
- */
-export default function InteractiveFAQ({ title = "Frequently Asked Questions", subtitle = "Find quick answers to common queries regarding admissions, curriculum, Bhulka kindergarten, and competitive exam guidance." }) {
+export default function InteractiveFAQ({ title, subtitle }) {
+  const { t, language } = useLanguage();
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('all');
   const [openIndex, setOpenIndex] = useState(null);
 
-  const categories = [
+  const displayTitle = title || t('faqTitle');
+  const displaySubtitle = subtitle || t('faqSubtitle');
+
+  const categories = language === 'gu' ? [
+    { id: 'all', label: 'તમામ પ્રશ્નો', icon: HelpCircle },
+    { id: 'bhulka', label: 'ભુલકાં કિંડરગાર્ટન (KG)', icon: School },
+    { id: 'academics', label: 'અભ્યાસક્રમ અને સેકન્ડરી', icon: BookOpen },
+    { id: 'science', label: 'સાયન્સ (NEET / JEE)', icon: GraduationCap },
+    { id: 'commerce', label: 'કોમર્સ પ્રવાહ', icon: ShieldCheck },
+    { id: 'facilities', label: 'કેમ્પસ અને વાહન સુવિધા', icon: Bus },
+  ] : [
     { id: 'all', label: 'All Questions', icon: HelpCircle },
     { id: 'bhulka', label: 'Bhulka Kindergarten', icon: School },
     { id: 'academics', label: 'Academics & Secondary', icon: BookOpen },
@@ -23,7 +29,38 @@ export default function InteractiveFAQ({ title = "Frequently Asked Questions", s
     { id: 'facilities', label: 'Campus & Transport', icon: Bus },
   ];
 
-  const faqs = [
+  const faqs = language === 'gu' ? [
+    {
+      id: 1,
+      category: 'bhulka',
+      question: 'ભુલકાં કિંડરગાર્ટનમાં કઈ ઉંમરના બાળકો માટે પ્રવેશ ઉપલબ્ધ છે?',
+      answer: 'ભુલકાં KG માં ૪ તબક્કે પ્રવેશ મળે છે: પ્લેગ્રુપ (૨.૫-૩ વર્ષ), નર્સરી (૩-૪ વર્ષ), LKG (૪-૫ વર્ષ) અને HKG (૫-૬ વર્ષ). અહીં રમત-ગમત અને પ્રારંભિક બાળપણ વિકાસ પર ભાર મૂકવામાં આવે છે.',
+    },
+    {
+      id: 2,
+      category: 'science',
+      question: 'ધોરણ ૧૧ અને ૧૨ સાયન્સમાં NEET અને JEE ની તૈયારી કેવી રીતે કરાવવામાં આવે છે?',
+      answer: 'એન્જલ્સ સ્કૂલમાં બોર્ડ પરીક્ષાના અભ્યાસક્રમ સાથે સંકલિત રીતે NEET, JEE Main/Advanced અને GUJCET ની તૈયારી કરાવવામાં આવે છે. દૈનિક OMR ટેસ્ટ શ્રેણી અને પર્સનલ ડાઉટ સોલ્વિંગ સુવિધા ઉપલબ્ધ છે.',
+    },
+    {
+      id: 3,
+      category: 'academics',
+      question: 'શું એન્જલ્સ સ્કૂલ સંપૂર્ણ માન્યતા પ્રાપ્ત શાળા છે?',
+      answer: 'હા, એન્જલ્સ સ્કૂલ ભુલકા કિંડરગાર્ટનથી લઈને ધોરણ ૧ થી ૧૨ સુધીનું સંપૂર્ણ શૈક્ષણિક બોર્ડ શિક્ષણ પૂરું પાડતી માન્યતા પ્રાપ્ત અગ્રણી શૈક્ષણિક સંસ્થા છે.',
+    },
+    {
+      id: 4,
+      category: 'commerce',
+      question: 'ઉચ્ચતર માધ્યમિક કોમર્સ પ્રવાહમાં કયા વિષયો ભણાવવામાં આવે છે?',
+      answer: 'કોમર્સ પ્રવાહમાં નામાના મૂળતત્વો (Accountancy), વાણિજ્ય વ્યવસ્થા (B.A.), અર્થશાસ્ત્ર (Economics), આંકડાશાસ્ત્ર (Statistics) અને અંગ્રેજી/કમ્પ્યુટર વિષયો તેમજ CA Foundation અને CPT નો પાયો તૈયાર કરાવવામાં આવે છે.',
+    },
+    {
+      id: 5,
+      category: 'facilities',
+      question: 'શું કેમ્પસમાં સીસીટીવી સુરક્ષા અને વાહન સુવિધા ઉપલબ્ધ છે?',
+      answer: 'હા, તમામ કેમ્પસ શાખાઓમાં ૨૪x૭ CCTV સર્વેલન્સ અને GPS ટ્રેકિંગ તથા મહિલા એટેન્ડન્ટ સાથેની સલામત બસ સુવિધા ઉપલબ્ધ છે.',
+    },
+  ] : [
     {
       id: 1,
       category: 'bhulka',
@@ -53,12 +90,6 @@ export default function InteractiveFAQ({ title = "Frequently Asked Questions", s
       category: 'facilities',
       question: 'Are transportation and CCTV security available across both campus branches?',
       answer: 'Yes! Both of our campus branches feature GPS-tracked school buses with trained attendants and 24/7 CCTV surveillance across all classrooms, corridors, and outdoor playgrounds.',
-    },
-    {
-      id: 6,
-      category: 'bhulka',
-      question: 'What medium of instruction options are available at Angels School & Bhulka?',
-      answer: 'Angels School offers both English Medium and Gujarati Medium pathways, ensuring conceptual clarity in the mother tongue while building strong English communication fluency.',
     },
   ];
 

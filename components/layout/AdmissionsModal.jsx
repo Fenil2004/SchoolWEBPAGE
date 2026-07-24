@@ -131,9 +131,7 @@ export default function AdmissionsModal({ isOpen, onClose }) {
                       onChange={(e) => setFormData({ ...formData, branch: e.target.value })}
                       className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-[#0082AD]"
                     >
-                      <option value="Bhavnagar Head Office">Bhavnagar Campus</option>
-                      <option value="Ahmedabad Branch">Ahmedabad Campus</option>
-                      <option value="Deesa Branch">Deesa HQ Campus</option>
+                      <option value="Deesa Head Office">Deesa HQ Campus</option>
                     </select>
                   </div>
                 </div>

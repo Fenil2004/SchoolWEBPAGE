@@ -58,15 +58,15 @@ async function main() {
   // Create sample branches
   const branches = [
     {
-      name: 'Angels School Bhavnagar (HQ)',
-      slug: 'bhavnagar',
-      address: '123 Main Street, Bhavnagar, Gujarat 364001',
-      city: 'Bhavnagar',
-      phone: '+91 98765 43210',
-      email: 'bhavnagar@angelsschool.co.in',
+      name: 'Angels School Deesa (HQ)',
+      slug: 'deesa',
+      address: 'Near Gayatri Mandir, Deesa, Gujarat 385535',
+      city: 'Deesa',
+      phone: '+91 84012 78780',
+      email: 'deesa@angelsschool.co.in',
       image: 'https://images.unsplash.com/photo-1562774053-701939374585?w=600&auto=format&fit=crop&q=80',
       isHeadquarter: true,
-      facilities: ['Library', 'Computer Lab', 'Smart Classes', 'Study Material'],
+      facilities: ['Library', 'Science & Computer Labs', 'Smart Classes', 'Study Material'],
     },
     {
       name: 'Angels School Ahmedabad',
