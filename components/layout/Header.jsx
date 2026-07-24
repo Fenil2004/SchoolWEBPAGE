@@ -140,7 +140,7 @@ export default function Header() {
       <nav className="bg-white border-b border-slate-100 shadow-sm sticky top-0 z-50 backdrop-blur-md bg-white/95">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex justify-between items-center h-20">
-            
+
             {/* Brand Logo & Tagline */}
             <Link href="/" className="flex items-center gap-3 group">
               <div className="relative">
@@ -173,27 +173,24 @@ export default function Header() {
                   >
                     <Link
                       href={item.href}
-                      className={`px-3.5 py-2 font-semibold text-xs xl:text-sm flex items-center gap-1 transition-all rounded-lg ${
-                        openDropdown === item.name
+                      className={`px-3.5 py-2 font-semibold text-xs xl:text-sm flex items-center gap-1 transition-all rounded-lg ${openDropdown === item.name
                           ? 'text-[#0082AD] bg-[#E6F4F8]'
                           : 'text-slate-700 hover:text-[#0082AD] hover:bg-[#E6F4F8]'
-                      }`}
+                        }`}
                     >
                       <span>{item.name}</span>
                       <ChevronDown
-                        className={`w-3.5 h-3.5 text-[#0082AD] transition-transform duration-200 ${
-                          openDropdown === item.name ? 'rotate-180' : ''
-                        }`}
+                        className={`w-3.5 h-3.5 text-[#0082AD] transition-transform duration-200 ${openDropdown === item.name ? 'rotate-180' : ''
+                          }`}
                       />
                     </Link>
 
                     {/* Smooth Hover Dropdown Menu */}
                     <div
-                      className={`absolute left-0 top-full pt-1.5 w-56 z-50 transition-all duration-200 ease-out origin-top-left ${
-                        openDropdown === item.name
+                      className={`absolute left-0 top-full pt-1.5 w-56 z-50 transition-all duration-200 ease-out origin-top-left ${openDropdown === item.name
                           ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto'
                           : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'
-                      }`}
+                        }`}
                     >
                       <div className="bg-white/95 backdrop-blur-md rounded-xl shadow-xl border border-slate-100 p-2 space-y-0.5">
                         {item.dropdownItems.map((subItem) => (
@@ -231,19 +228,6 @@ export default function Header() {
               >
                 {t('startAdmissions')}
               </Button>
-
-              <Link href="/admin-login">
-                <Button variant="outline" size="sm" className="border-[#0082AD] text-[#0082AD] hover:bg-[#E6F4F8] text-xs">
-                  <User className="w-3.5 h-3.5 mr-1" />
-                  Admin
-                </Button>
-              </Link>
-              <Link href="/student-login">
-                <Button variant="outline" size="sm" className="border-[#0082AD] text-[#0082AD] hover:bg-[#E6F4F8] text-xs">
-                  <User className="w-3.5 h-3.5 mr-1" />
-                  Student
-                </Button>
-              </Link>
             </div>
 
             {/* Mobile Menu Toggle Button */}
@@ -279,9 +263,8 @@ export default function Header() {
                           aria-label={`Toggle ${item.name} sub-menu`}
                         >
                           <ChevronDown
-                            className={`w-4 h-4 transition-transform duration-200 ${
-                              mobileExpanded[item.name] ? 'rotate-180' : ''
-                            }`}
+                            className={`w-4 h-4 transition-transform duration-200 ${mobileExpanded[item.name] ? 'rotate-180' : ''
+                              }`}
                           />
                         </button>
                       </div>
@@ -315,7 +298,7 @@ export default function Header() {
               ))}
             </div>
 
-            <div className="pt-3 space-y-2 border-t border-slate-100">
+            <div className="pt-3 border-t border-slate-100">
               <Button
                 onClick={() => {
                   setMobileMenuOpen(false);
@@ -325,19 +308,6 @@ export default function Header() {
               >
                 {t('startAdmissions')}
               </Button>
-
-              <div className="grid grid-cols-2 gap-2">
-                <Link href="/admin-login" onClick={() => setMobileMenuOpen(false)}>
-                  <Button variant="outline" className="w-full border-[#0082AD] text-[#0082AD] text-xs">
-                    Admin Login
-                  </Button>
-                </Link>
-                <Link href="/student-login" onClick={() => setMobileMenuOpen(false)}>
-                  <Button variant="outline" className="w-full border-[#0082AD] text-[#0082AD] text-xs">
-                    Student Login
-                  </Button>
-                </Link>
-              </div>
             </div>
           </div>
         )}

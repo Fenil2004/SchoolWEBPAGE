@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Phone, Mail, MapPin, Facebook, Twitter, Instagram, Youtube, ChevronUp, ArrowRight, Award, Sparkles } from 'lucide-react';
+import { Phone, Mail, MapPin, Facebook, Twitter, Instagram, Youtube, ChevronUp, ArrowRight, Award, Sparkles, Shield, User } from 'lucide-react';
 import FooterCTAStrip from '@/components/layout/FooterCTAStrip';
 import { useLanguage } from '@/context/LanguageContext';
 
@@ -51,7 +51,7 @@ export default function Footer() {
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-4 pt-16 pb-12 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-          
+
           {/* Brand Info */}
           <div>
             <div className="flex items-center gap-3 mb-5">
@@ -68,7 +68,7 @@ export default function Footer() {
                 <p className="text-[11px] text-cyan-200 font-medium">Career Institute | Since 2002</p>
               </div>
             </div>
-            
+
             <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-6">
               Angels School Career Institute is a premier science education institution in Gujarat, dedicated to shaping brilliant futures through 11th-12th Science, JEE, NEET, and competitive excellence.
             </p>
@@ -180,6 +180,10 @@ export default function Footer() {
             © {new Date().getFullYear()} Angels School Career Institute. All Rights Reserved.
           </p>
           <div className="flex items-center gap-6">
+            <Link href="/admin-login" className="hover:text-white transition-colors flex items-center gap-1 text-cyan-200 hover:text-white font-semibold">
+              <Shield className="w-3.5 h-3.5 text-[#7AA13B]" />
+              Admin
+            </Link>
             <Link href="/contact" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link href="/contact" className="hover:text-white transition-colors">Terms of Service</Link>
             <button
