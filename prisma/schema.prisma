@@ -276,3 +276,16 @@ model EventAchievement {
   @@map("event_achievements")
 }
 
+// Notice Ticker Announcements
+model Notice {
+  id           String   @id @default(cuid())
+  text         String   @db.Text
+  link         String?  @default("/admissions")
+  isActive     Boolean  @default(true)
+  displayOrder Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("notices")
+}
+

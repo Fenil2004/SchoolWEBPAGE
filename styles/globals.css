@@ -133,3 +133,13 @@ div {
 img {
   max-width: 100%;
 }
+
+/* Seamless Continuous Marquee Ticker Animation */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}

@@ -27,7 +27,8 @@ import TeamManagement from '@/components/admin/TeamManagement';
 import BannerManagement from '@/components/admin/BannerManagement';
 import BlogManagement from '@/components/admin/BlogManagement';
 import EventManagement from '@/components/admin/EventManagement';
-import { Trophy } from 'lucide-react';
+import NoticeManagement from '@/components/admin/NoticeManagement';
+import { Trophy, Bell } from 'lucide-react';
 
 
 export default function AdminDashboard() {
@@ -187,6 +188,11 @@ export default function AdminDashboard() {
               <Video className="w-4 h-4" />
               Hero Banners
             </TabsTrigger>
+            <TabsTrigger value="notices" className="gap-2 px-4 py-2 rounded-xl text-xs font-bold data-[state=active]:bg-[#0082AD] data-[state=active]:text-white">
+              <Bell className="w-4 h-4 text-amber-300 animate-pulse" />
+              Notice Ticker
+            </TabsTrigger>
+
             <TabsTrigger value="banners" className="gap-2 px-4 py-2 rounded-xl text-xs font-bold data-[state=active]:bg-[#0082AD] data-[state=active]:text-white">
               <ImageIcon className="w-4 h-4" />
               Page Headers
@@ -317,6 +323,11 @@ export default function AdminDashboard() {
           <TabsContent value="hero">
             <HeroManagement />
           </TabsContent>
+
+          <TabsContent value="notices">
+            <NoticeManagement />
+          </TabsContent>
+
 
           <TabsContent value="banners">
             <BannerManagement />
