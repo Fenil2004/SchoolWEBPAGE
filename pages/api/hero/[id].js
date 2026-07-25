@@ -7,11 +7,12 @@ async function handler(req, res) {
 
   if (req.method === 'PUT') {
     try {
-      const { title, subtitle, ctaText, ctaLink, videoUrl, imageUrl, displayOrder, isActive } = req.body;
+      const { title, subtitle, description, ctaText, ctaLink, videoUrl, imageUrl, displayOrder, isActive } = req.body;
 
       const updateData = {};
       if (title !== undefined) updateData.title = title;
       if (subtitle !== undefined) updateData.subtitle = subtitle || '';
+      if (description !== undefined) updateData.description = description || '';
       if (ctaText !== undefined) updateData.ctaText = ctaText || 'Enroll Now';
       if (ctaLink !== undefined) updateData.ctaLink = ctaLink || '/admissions';
       if (videoUrl !== undefined) updateData.videoUrl = videoUrl || null;

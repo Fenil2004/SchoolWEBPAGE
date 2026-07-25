@@ -21,21 +21,41 @@ async function main() {
     process.exit(1);
   }
 
-  // Create default admin user
-  const adminPassword = await bcrypt.hash(adminPasswordPlain, 10);
+  // Primary admin emails required by user
+  const primaryAdminEmails = [
+    { email: 'fenil1723@gmail.com', name: 'Fenil Patel' },
+    { email: 'glpatel81@angelsschooldeesa.org', name: 'GL Patel' },
+    { email: 'fenil@angelsschooldeesa.org', name: 'Fenil' }
+  ];
 
-  const admin = await prisma.admin.upsert({
-    where: { email: adminEmail },
-    update: {},
-    create: {
-      email: adminEmail,
-      password: adminPassword,
-      name: 'Admin',
-      role: 'admin',
-    },
-  });
+  if (adminEmail && !primaryAdminEmails.some(a => a.email === adminEmail)) {
+    primaryAdminEmails.push({ email: adminEmail, name: 'Admin' });
+  }
 
-  console.log('✅ Created admin user:', admin.email);
+  for (const adminItem of primaryAdminEmails) {
+    const adminPassword = await bcrypt.hash(adminPasswordPlain || 'Admin@123', 10);
+    await prisma.admin.upsert({
+      where: { email: adminItem.email },
+      update: {},
+      create: {
+        email: adminItem.email,
+        password: adminPassword,
+        name: adminItem.name,
+        role: 'admin',
+      },
+    });
+
+    await prisma.whitelistedEmail.upsert({
+      where: { email: adminItem.email },
+      update: {},
+      create: {
+        email: adminItem.email,
+        addedBy: 'system',
+        note: 'Primary Admin',
+      },
+    });
+    console.log('✅ Created primary admin & whitelisted:', adminItem.email);
+  }
 
   // Create sample student (optional)
   const studentPassword = await bcrypt.hash('Student@123', 10);

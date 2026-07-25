@@ -29,7 +29,8 @@ import BlogManagement from '@/components/admin/BlogManagement';
 import EventManagement from '@/components/admin/EventManagement';
 import NoticeManagement from '@/components/admin/NoticeManagement';
 import AchieversManagement from '@/components/admin/AchieversManagement';
-import { Trophy, Bell, Award, GraduationCap } from 'lucide-react';
+import WhitelistManagement from '@/components/admin/WhitelistManagement';
+import { Trophy, Bell, Award, GraduationCap, ShieldCheck } from 'lucide-react';
 
 
 export default function AdminDashboard() {
@@ -231,6 +232,10 @@ export default function AdminDashboard() {
               <Users className="w-4 h-4" />
               Leadership Team
             </TabsTrigger>
+            <TabsTrigger value="whitelist" className="gap-2 px-4 py-2 rounded-xl text-xs font-bold data-[state=active]:bg-[#0082AD] data-[state=active]:text-white">
+              <ShieldCheck className="w-4 h-4 text-[#7AA13B]" />
+              Email Whitelist
+            </TabsTrigger>
             <TabsTrigger value="settings" className="gap-2 px-4 py-2 rounded-xl text-xs font-bold data-[state=active]:bg-[#0082AD] data-[state=active]:text-white">
               <Settings className="w-4 h-4" />
               System Settings
@@ -369,6 +374,10 @@ export default function AdminDashboard() {
 
           <TabsContent value="team">
             <TeamManagement />
+          </TabsContent>
+
+          <TabsContent value="whitelist">
+            <WhitelistManagement />
           </TabsContent>
 
           <TabsContent value="settings">

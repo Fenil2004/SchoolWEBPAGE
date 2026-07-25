@@ -16,6 +16,7 @@ export default function HeroManagement() {
   const [formData, setFormData] = useState({
     title: '',
     subtitle: '',
+    description: '',
     ctaText: '',
     ctaLink: '',
     videoUrl: '',
@@ -81,6 +82,7 @@ export default function HeroManagement() {
       const heroData = {
         title: formData.title,
         subtitle: formData.subtitle || '',
+        description: formData.description || '',
         ctaText: formData.ctaText || 'Enroll Now',
         ctaLink: formData.ctaLink || '/admissions',
         videoUrl: formData.videoUrl || null,
@@ -124,10 +126,11 @@ export default function HeroManagement() {
 
   const handleEdit = (hero) => {
     setFormData({
-      title: hero.title,
-      subtitle: hero.subtitle,
-      ctaText: hero.ctaText,
-      ctaLink: hero.ctaLink,
+      title: hero.title || '',
+      subtitle: hero.subtitle || '',
+      description: hero.description || '',
+      ctaText: hero.ctaText || '',
+      ctaLink: hero.ctaLink || '',
       videoUrl: hero.videoUrl || '',
       imageUrl: hero.imageUrl || '',
       displayOrder: hero.displayOrder,
@@ -171,6 +174,7 @@ export default function HeroManagement() {
     setFormData({
       title: '',
       subtitle: '',
+      description: '',
       ctaText: '',
       ctaLink: '',
       videoUrl: '',
@@ -227,6 +231,18 @@ export default function HeroManagement() {
                   value={formData.subtitle}
                   onChange={(e) => setFormData({ ...formData, subtitle: e.target.value })}
                   placeholder="Enter subtitle"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="description">Description</Label>
+                <Textarea
+                  id="description"
+                  rows={3}
+                  value={formData.description}
+                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  placeholder="Enter detailed description for the hero section..."
+                  className="rounded-xl border-slate-200"
                 />
               </div>
               
@@ -369,7 +385,8 @@ export default function HeroManagement() {
                           <span className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Inactive</span>
                         )}
                       </div>
-                      {hero.subtitle && <p className="text-gray-600 mb-1">{hero.subtitle}</p>}
+                      {hero.subtitle && <p className="text-gray-600 mb-1 font-medium">{hero.subtitle}</p>}
+                      {hero.description && <p className="text-xs text-slate-700 bg-slate-50 p-2.5 rounded-xl border border-slate-100 my-2">{hero.description}</p>}
                       {hero.ctaText && (
                         <p className="text-sm text-blue-600">
                           Button: {hero.ctaText} → {hero.ctaLink || '#'}

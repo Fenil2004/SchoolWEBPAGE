@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { useRouter } from 'next/router';
+import GoogleLoginButton from '@/components/ui/GoogleLoginButton';
 
 export default function AdminLogin() {
   const [email, setEmail] = useState('');
@@ -143,7 +144,16 @@ export default function AdminLogin() {
                 {isLoading ? 'Authenticating...' : 'Sign In to Admin Portal'}
               </Button>
 
-              <div className="text-center pt-2 border-t border-slate-100">
+              <div className="relative my-4 flex items-center justify-center">
+                <div className="border-t border-slate-200 w-full" />
+                <span className="bg-white px-3 text-[11px] font-bold text-slate-400 uppercase tracking-wider absolute">
+                  Or Sign In With
+                </span>
+              </div>
+
+              <GoogleLoginButton />
+
+              <div className="text-center pt-2 border-t border-slate-100 mt-4">
                 <a href="/student-login" className="text-xs font-bold text-[#0082AD] hover:underline">
                   Student Portal Access →
                 </a>

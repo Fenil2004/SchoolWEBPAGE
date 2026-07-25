@@ -18,7 +18,7 @@ async function handler(req, res) {
 
   if (req.method === 'POST') {
     try {
-      const { title, subtitle, ctaText, ctaLink, videoUrl, imageUrl, displayOrder, isActive } = req.body;
+      const { title, subtitle, description, ctaText, ctaLink, videoUrl, imageUrl, displayOrder, isActive } = req.body;
 
       if (!title) {
         return res.status(400).json({
@@ -30,6 +30,7 @@ async function handler(req, res) {
       const createData = {
         title,
         subtitle: subtitle || '',
+        description: description || '',
         ctaText: ctaText || 'Enroll Now',
         ctaLink: ctaLink || '/admissions',
         imageUrl: imageUrl || null,

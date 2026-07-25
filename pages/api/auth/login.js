@@ -3,6 +3,7 @@ import { serialize } from 'cookie';
 // import prisma from your lib file that uses the global pattern
 import { prisma } from "@/lib/prisma"; // <- ensure this path exists
 import { generateToken } from "@/lib/auth";
+import { isEmailWhitelisted } from "@/lib/whitelist";
 
 console.log("DEBUG: /api/auth/login route loaded", new Date().toISOString());
 console.log("DEBUG: NODE_ENV =", process.env.NODE_ENV);
@@ -42,6 +43,13 @@ export default async function handler(req, res) {
     let user;
     try {
       if (userType === "admin") {
+        const whitelisted = await isEmailWhitelisted(email);
+        if (!whitelisted) {
+          return res.status(403).json({
+            success: false,
+            message: `Access Denied: Email (${email}) is not whitelisted for Admin access.`,
+          });
+        }
         user = await prisma.admin.findUnique({ where: { email } });
       } else {
         user = await prisma.student.findUnique({ where: { email } });

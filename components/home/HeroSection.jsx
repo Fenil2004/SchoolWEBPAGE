@@ -158,7 +158,7 @@ export default function HeroSection() {
               </h1>
 
               <p className="text-slate-200 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed mb-8">
-                {t('heroSubtitle')}
+                {currentHero.description || t('heroSubtitle')}
               </p>
 
               {/* Action Buttons */}
